@@ -11,7 +11,6 @@ const Login = () => {
   const navigate = useNavigate();
   let password = useRef();
 
-
   const handleLogin = async () => {
     try {
       password = password.current.value;
