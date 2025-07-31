@@ -3,15 +3,15 @@ import axios from "axios";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
-  const password = useRef();
+  let password = useRef("");
 
   const handleLogin = async () => {
     try {
-        const pass = password.current.value;
-      const res = await axios.get("http://localhost:7777/login", {
+      password = password.current.value;
+      const res = await axios.post("http://localhost:7777/login", {
         emailId,
-        password:pass
-      });
+        password
+      }, {withCredentials: true});
       console.log(res);
     } catch (err) {
       console.log(err);
