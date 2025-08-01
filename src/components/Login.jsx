@@ -6,14 +6,14 @@ import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("");
+  const [emailId, setEmailId] = useState("shashi@gmail.com");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let password = useRef();
 
   const handleLogin = async () => {
     try {
-      password = password.current.value;
+      password = "Shashi@123";
       const res = await axios.post(BASE_URL + "/login", {
         emailId,
         password
