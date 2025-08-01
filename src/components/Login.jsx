@@ -4,24 +4,38 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
+import { isStrongPassword, isEmail } from "validator";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("shashi@gmail.com");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let password = useRef();
 
   const handleLogin = async () => {
     try {
-      password = "Shashi@123";
-      const res = await axios.post(BASE_URL + "/login", {
-        emailId,
-        password
-      }, {withCredentials: true});
+      password = password?.current?.value;
+      if (!isEmail(emailId)) {
+        setError("EmailId is not valid!!");
+        return;
+      }
+      if (!isStrongPassword(password)) {
+        setError("Password is not valid!!");
+        return;
+      }
+      const res = await axios.post(
+        BASE_URL + "/login",
+        {
+          emailId,
+          password,
+        },
+        { withCredentials: true }
+      );
       dispatch(addUser(res.data));
-      navigate('/');
+      navigate("/");
     } catch (err) {
-      console.log(err);
+      setError(err.response?.data);
     }
   };
   return (
@@ -44,7 +58,7 @@ const Login = () => {
         placeholder="Password"
         ref={password}
       />
-
+      <p className="text-red-500">{error}</p>
       <button className="btn btn-neutral mt-4" onClick={handleLogin}>
         Login
       </button>
