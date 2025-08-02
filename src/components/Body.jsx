@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import Header from './Header';
 import { Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -29,6 +29,7 @@ const Body = () => {
   useEffect(() => {
     fetchUser();
   }, [])
+  
   return (
     <div>
         <Header />
