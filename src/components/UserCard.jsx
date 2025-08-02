@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import React from "react";
 
-const Profile = () => {
-  const user = useSelector(store => store.user);
+const UserCard = ({user}) => {
+
   if(!user)
     return;
   const { firstName, lastName, gender, photoUrl, age, skills, about } = user;
@@ -30,4 +30,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserCard;
