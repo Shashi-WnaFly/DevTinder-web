@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { isStrongPassword, isEmail } from "validator";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("shashi@gmail.com");
+  const [emailId, setEmailId] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();

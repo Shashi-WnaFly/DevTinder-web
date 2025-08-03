@@ -7,7 +7,6 @@ const UserCard = ({user}) => {
   const { firstName, lastName, gender, photoUrl, age, skills, about } = user;
 
   return (
-    <div>
       <div className="card bg-base-300 w-96 shadow-sm mx-auto">
         <figure className="px-10 pt-10">
           <img
@@ -18,6 +17,7 @@ const UserCard = ({user}) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{firstName + " " + lastName }</h2>
+          <p>{gender + " " + age}</p>
           <p>{about}</p>
           <p>{skills}</p>
           <div className="card-actions justify-between ">
@@ -26,7 +26,6 @@ const UserCard = ({user}) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

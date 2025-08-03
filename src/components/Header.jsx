@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import { removeFeed } from "../utils/feedSlice";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
@@ -14,6 +15,7 @@ const Header = () => {
     try {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
+      dispatch(removeFeed());
       navigate("/login");
     } catch (error) {
       console.log("" + error);
@@ -25,11 +27,11 @@ const Header = () => {
       <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1">
           <Link to={"/"} className="btn btn-ghost text-xl">
-            daisyUI
+            DevTinder
           </Link>
         </div>
         {user && (
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <div>Welcome, {user.firstName}</div>
             <div className="dropdown dropdown-end">
               <div
