@@ -30,8 +30,8 @@ const Profile = () => {
   return (
     user && (
       <div className="flex flex-col justify-center items-center">
-        <div className="flex justify-center items-stretch h-fit gap-10">
-          <div className="card bg-base-100 w-96 shadow-sm overflow-y-scroll h-[34rem]">
+        <div className="flex justify-center items-stretch h-[33rem] gap-10">
+          <div className="card bg-base-100 w-96 shadow-sm overflow-y-scroll ">
             <fieldset className="fieldset">
               <legend className="fieldset-legend">
                 What is your firstName?
@@ -112,7 +112,7 @@ const Profile = () => {
               <p className="label">Optional</p>
             </fieldset>
           </div>
-          <div className="h-full">
+          <div className="inline-flex self-stretch">
             <UserCard
               user={{
                 firstName,
@@ -127,7 +127,7 @@ const Profile = () => {
           </div>
         </div>
         <button
-          className="btn btn-primary mt-4 px-8 rounded-xl"
+          className="btn btn-primary mt-6 px-8 rounded-xl w-24"
           onClick={handleSave}
         >
           Save

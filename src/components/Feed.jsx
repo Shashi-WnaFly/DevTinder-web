@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
@@ -16,8 +16,7 @@ const Feed = () => {
       const feeds = await axios.get(BASE_URL + "/user/feed", {
         withCredentials: true,
       });
-      console.log(feeds);
-      dispatch(addFeed(feeds.data));
+      dispatch(addFeed(feeds?.data));
     } catch (err) {
       console.log("" + err);
     }
@@ -30,7 +29,7 @@ const Feed = () => {
     feed && (
       <div className="flex flex-col gap-2">
         {feed.map((row) => (
-          <UserCard user={row} />
+          <UserCard key={row._id} user={row} />
         ))}
       </div>
     )
