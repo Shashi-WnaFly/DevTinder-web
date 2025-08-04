@@ -1,11 +1,13 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import UserCard from "./UserCard";
 import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import { addUser } from "../utils/userSlice";
 
 const Profile = () => {
   const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
   const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
   const [age, setAge] = useState(user?.age);
@@ -13,15 +15,20 @@ const Profile = () => {
   const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
   const [skills, setSkills] = useState(user?.skills);
   const [gender, setGender] = useState(user?.gender);
+  const [showToast, setShowTaost] = useState(false);
 
   const handleSave = async () => {
     try {
       const data = await axios.post(
         BASE_URL + "/profile/edit",
         { firstName, lastName, age, about, photoUrl, skills, gender },
-        {withCredentials: true}
+        { withCredentials: true }
       );
-      console.log(data);
+      setShowTaost(true);
+      dispatch(addUser(data.data));
+      setTimeout(() => {
+        setShowTaost(false);
+      }, 3000);
     } catch (error) {
       console.log("" + error);
     }
@@ -58,13 +65,17 @@ const Profile = () => {
             </fieldset>
             <fieldset className="fieldset">
               <legend className="fieldset-legend">What is your gender?</legend>
-              <input
-                type="text"
-                className="input"
-                placeholder="Type here"
-                onChange={(e) => setGender(e.target.value)}
+              <select
+                defaultValue="Server location"
+                className="select select-neutral"
                 value={gender}
-              />
+                onChange={(e) => setGender(e.target.value)}
+              >
+                <option disabled={true}>Pick Gender</option>
+                <option>male</option>
+                <option>female</option>
+                <option>other</option>
+              </select>
               <p className="label">required</p>
             </fieldset>
             <fieldset className="fieldset">
@@ -76,7 +87,7 @@ const Profile = () => {
                 onChange={(e) => setAge(e.target.value)}
                 value={age}
               />
-              <p className="label">Optional</p>
+              <p className="label">required</p>
             </fieldset>
             <fieldset className="fieldset">
               <legend className="fieldset-legend">What is your skills?</legend>
@@ -90,15 +101,14 @@ const Profile = () => {
               <p className="label">Optional</p>
             </fieldset>
             <fieldset className="fieldset">
-              <legend className="fieldset-legend">Write about yourself?</legend>
-              <input
-                type="text"
-                className="input"
-                placeholder="Type here"
-                onChange={(e) => setAbout(e.target.value)}
+              <legend className="fieldset-legend">Your bio</legend>
+              <textarea
+                className="textarea h-24"
+                placeholder="Bio"
                 value={about}
-              />
-              <p className="label">Optional</p>
+                onChange={(e) => setAbout(e.target.value)}
+              ></textarea>
+              <div className="label">Optional</div>
             </fieldset>
             <fieldset className="fieldset">
               <legend className="fieldset-legend">What is your photoUrl</legend>
@@ -132,6 +142,13 @@ const Profile = () => {
         >
           Save
         </button>
+        {showToast && (
+          <div className="toast toast-center toast-top">
+            <div className="alert alert-success">
+              <span>Profile saved successfully.</span>
+            </div>
+          </div>
+        )}
       </div>
     )
   );
