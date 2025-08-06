@@ -1,5 +1,4 @@
 import axios from "axios";
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
@@ -31,7 +30,7 @@ const Header = () => {
           </Link>
         </div>
         {user && (
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center mr-4">
             <div>Welcome, {user.firstName}</div>
             <div className="dropdown dropdown-end">
               <div
@@ -58,7 +57,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <a>Settings</a>
+                  <Link to={"/requests"}>Requests</Link>
                 </li>
                 <li>
                   <button onClick={handleLogout}>Logout</button>

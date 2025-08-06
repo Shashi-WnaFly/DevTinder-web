@@ -29,7 +29,7 @@ const Feed = () => {
     feed && (
       <div className="flex flex-col gap-2">
         {feed.map((row) => (
-          <UserCard key={row._id} user={row} />
+          <UserCard  key={row._id} user={row} />
         ))}
       </div>
     )
