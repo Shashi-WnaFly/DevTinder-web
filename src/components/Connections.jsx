@@ -25,10 +25,14 @@ const Connections = () => {
 
   return (
     connects && (
-      <div>
+      <div className="w-1/2 mx-auto bg-base-300 rounded-md flex flex-col gap-4">
         {connects.map((row) => (
-          <div key={row._id}>
-            <img src={row.photoUrl} alt="photo" />
+          <div key={row._id} className="flex gap-4 p-2">
+            <div><img className="w-20 rounded-full" src={row.photoUrl} alt="photo" /></div>
+            <div>
+              <div>{row.firstName + " " + row.lastName}</div>
+              <div>{row.about}</div>
+            </div>
           </div>
         ))}
       </div>

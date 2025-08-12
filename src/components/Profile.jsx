@@ -11,10 +11,10 @@ const Profile = () => {
   const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
   const [age, setAge] = useState(user?.age);
-  const [about, setAbout] = useState(user?.about);
-  const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
-  const [skills, setSkills] = useState(user?.skills);
-  const [gender, setGender] = useState(user?.gender);
+  const [about, setAbout] = useState(user?.about || "");
+  const [photoUrl, setPhotoUrl] = useState(user?.photoUrl || "");
+  const [skills, setSkills] = useState(user?.skills || "");
+  const [gender, setGender] = useState(user?.gender || "");
   const [showToast, setShowTaost] = useState(false);
 
   const handleSave = async () => {
