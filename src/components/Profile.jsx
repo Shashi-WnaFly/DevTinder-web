@@ -8,14 +8,14 @@ import { addUser } from "../utils/userSlice";
 const Profile = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName);
-  const [age, setAge] = useState(user?.age);
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
+  const [age, setAge] = useState(user?.age || "");
   const [about, setAbout] = useState(user?.about || "");
   const [photoUrl, setPhotoUrl] = useState(user?.photoUrl || "");
-  const [skills, setSkills] = useState(user?.skills || "");
+  const [skills, setSkills] = useState(user?.skills || []);
   const [gender, setGender] = useState(user?.gender || "");
-  const [showToast, setShowTaost] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const handleSave = async () => {
     try {
@@ -24,10 +24,10 @@ const Profile = () => {
         { firstName, lastName, age, about, photoUrl, skills, gender },
         { withCredentials: true }
       );
-      setShowTaost(true);
+      setShowToast(true);
       dispatch(addUser(data.data));
       setTimeout(() => {
-        setShowTaost(false);
+        setShowToast(false);
       }, 3000);
     } catch (error) {
       console.log("" + error);
