@@ -7,7 +7,7 @@ const UserView = ({ user }) => {
       </div>
       <div>
         <p>{firstName + " " + lastName}</p>
-        <p>{gender || "" + " " + age || ""} </p>
+        <p>{(gender || "") + " " + (age || "")} </p>
         <p>{about || ""}</p>
       </div>
     </div>

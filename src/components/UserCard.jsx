@@ -27,9 +27,9 @@ const UserCard = ({ user }) => {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
-        <p>{gender + " " + age}</p>
-        <p>{about}</p>
-        <p>{skills}</p>
+        <p>{(gender || "") + " " + (age || "")}</p>
+        <p>{about || ""}</p>
+        <p>{skills || ""}</p>
         <div className="card-actions justify-between ">
           <button
             className="btn btn-primary rounded-lg"
