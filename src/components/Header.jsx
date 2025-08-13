@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
 import { removeFeed } from "../utils/feedSlice";
-import { removeRequests } from "../utils/requestSlice";
+import { removeRequestAll } from "../utils/requestSlice";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
@@ -16,7 +16,7 @@ const Header = () => {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
       dispatch(removeFeed());
-      dispatch(removeRequests());
+      dispatch(removeRequestAll());
       navigate("/login");
     } catch (error) {
       console.log("" + error);
