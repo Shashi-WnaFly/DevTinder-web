@@ -8,10 +8,18 @@ import { isStrongPassword, isEmail } from "validator";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let password = useRef();
+
+  const handleForm = () => {
+    setIsLogin(!isLogin);
+    setError("");
+  };
 
   const handleLogin = async () => {
     try {
@@ -24,24 +32,55 @@ const Login = () => {
         setError("Password is not valid!!");
         return;
       }
-      const res = await axios.post(
-        BASE_URL + "/login",
-        {
-          emailId,
-          password,
-        },
-        { withCredentials: true }
-      );
-      dispatch(addUser(res.data.data));
-      navigate("/");
+      if (isLogin) {
+        const res = await axios.post(
+          BASE_URL + "/login",
+          {
+            emailId,
+            password,
+          },
+          { withCredentials: true }
+        );
+        dispatch(addUser(res.data.data));
+        navigate("/");
+      } else {
+        const res = await axios.post(
+          BASE_URL + "/signup",
+          { firstName, lastName, emailId, password },
+          { withCredentials: true }
+        );
+        dispatch(addUser(res.data.data));
+        navigate("/profile");
+      }
     } catch (err) {
       setError(err.response?.data);
     }
   };
   return (
     <fieldset className="fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4 m-auto">
-      <legend className="fieldset-legend">Login</legend>
-
+      <legend className="fieldset-legend">
+        {isLogin ? "Login" : "SignUp"}
+      </legend>
+      {!isLogin && (
+        <div>
+          <label className="label py-2">FirstName</label>
+          <input
+            type="text"
+            className="input"
+            placeholder="FirstName"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <label className="label py-2">LastName</label>
+          <input
+            type="text"
+            className="input"
+            placeholder="LastName"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+      )}
       <label className="label">Email</label>
       <input
         type="email"
@@ -50,7 +89,6 @@ const Login = () => {
         value={emailId}
         onChange={(e) => setEmailId(e.target.value)}
       />
-
       <label className="label">Password</label>
       <input
         type="password"
@@ -59,8 +97,14 @@ const Login = () => {
         ref={password}
       />
       <p className="text-red-500">{error}</p>
+      <button
+        className="underline text-gray-400 text-left cursor-pointer w-fit"
+        onClick={handleForm}
+      >
+        {isLogin ? " SignUp" : " Login"}
+      </button>
       <button className="btn btn-neutral mt-4" onClick={handleLogin}>
-        Login
+        {isLogin ? "Login" : "SignUp"}
       </button>
     </fieldset>
   );

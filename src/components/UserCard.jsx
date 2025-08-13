@@ -2,7 +2,6 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
 const UserCard = ({ user }) => {
-
   if (!user) return;
   const { _id, firstName, lastName, gender, photoUrl, age, skills, about } =
     user;
@@ -34,7 +33,7 @@ const UserCard = ({ user }) => {
           <button
             className="btn btn-primary rounded-lg"
             onClick={() => {
-              handleRequest("ignore")
+              handleRequest("ignore");
             }}
           >
             Ignore
