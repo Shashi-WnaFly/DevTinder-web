@@ -25,12 +25,12 @@ const Feed = () => {
     fetchFeed();
   }, []);
 
+  
+
   return (
     feed && (
-      <div className="flex flex-col gap-2">
-        {feed.map((row) => (
-          <UserCard  key={row._id} user={row} />
-        ))}
+      <div className="">
+        <UserCard user={feed[0]} />
       </div>
     )
   );
