@@ -3,7 +3,7 @@ const UserView = ({ user }) => {
   return (
     <div className="flex items-center gap-2">
       <div className="w-24 rounded-full outline-6 outline-black">
-        <img className="rounded-full" src={photoUrl} alt="profilePhoto" />
+        <img className="rounded-full object-cover h-25" src={photoUrl} alt="profilePhoto" />
       </div>
       <div>
         <p>{firstName + " " + lastName}</p>
