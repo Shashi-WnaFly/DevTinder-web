@@ -22,11 +22,15 @@ const UserCard = ({ user }) => {
   return (
     <div className="card bg-base-300 w-96 shadow-sm mx-auto">
       <figure className="px-10 pt-10">
-        <img src={photoUrl} alt="photo" className="rounded-xl" />
+        <img
+          src={photoUrl}
+          alt="photo"
+          className="rounded-xl h-72 object-cover"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
-        <p>{(gender || "") + " " + (age || "")}</p>
+        <p>{gender && age && gender + " " + age}</p>
         <p>{about || ""}</p>
         <p>{skills || ""}</p>
         <div className="card-actions justify-between ">

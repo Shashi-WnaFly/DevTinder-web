@@ -6,26 +6,26 @@ import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 
 const Profile = () => {
-  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
-  const [firstName, setFirstName] = useState(user?.firstName || "");
-  const [lastName, setLastName] = useState(user?.lastName || "");
+  const user = useSelector((store) => store.user);
+  const [firstName, setFirstName] = useState(user?.firstName);
+  const [lastName, setLastName] = useState(user?.lastName);
   const [age, setAge] = useState(user?.age || "");
   const [about, setAbout] = useState(user?.about || "");
-  const [photoUrl, setPhotoUrl] = useState(user?.photoUrl || "");
-  const [skills, setSkills] = useState(user?.skills || []);
+  const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
+  const [skills, setSkills] = useState(user?.skills);
   const [gender, setGender] = useState(user?.gender || "");
   const [showToast, setShowToast] = useState(false);
 
   const handleSave = async () => {
     try {
-      const data = await axios.post(
+      const res = await axios.post(
         BASE_URL + "/profile/edit",
         { firstName, lastName, age, about, photoUrl, skills, gender },
         { withCredentials: true }
       );
       setShowToast(true);
-      dispatch(addUser(data.data));
+      dispatch(addUser(res?.data.data));
       setTimeout(() => {
         setShowToast(false);
       }, 3000);
