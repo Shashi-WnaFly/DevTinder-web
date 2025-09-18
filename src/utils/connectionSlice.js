@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const connectionSlice = new createSlice({
+const connectionSlice = createSlice({
     name: "connections",
     initialState: null,
     reducers: {
