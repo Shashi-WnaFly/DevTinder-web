@@ -1,4 +1,13 @@
+import { useDispatch } from "react-redux";
+import { openPopUp } from "../utils/popUpSlice";
+
 const PremiumCard = ({ year, sub, price }) => {
+  const dispatch = useDispatch();
+
+  const handlePopUp = () => {
+    dispatch(openPopUp());
+  }
+
   return (
     <div className="flex flex-col justify-between h-full">
       <div className=" flex flex-col gap-6">
@@ -6,16 +15,16 @@ const PremiumCard = ({ year, sub, price }) => {
           <h1 className="text-2xl font-semibold ">
             {year == 6 ? "6 Months" : "12 Months"}
           </h1>
-          {year == 12 && <div className="p-2 font-semibold bg-orange-200 rounded-sm">🎉Most popular</div>}
+          {year == 12 && <div className="p-2 font-semibold bg-purple-200 rounded-sm">🎉Most popular</div>}
         </div>
-        <p className="text-gray-500">{sub}</p>
+        <p className="text-gray-500 text-sm">{sub}</p>
       </div>
       <div className="flex flex-col gap-6">
         <div className="flex justify-between">
-          <div className="text-4xl font-semibold">₹{price}</div>
-          <div className="text-gray-500 self-end">Price are marked in INR</div>
+          <div className="text-4xl font-semibold ">₹{price}</div>
+          <div className="text-gray-500 self-end text-sm">Price are marked in INR</div>
         </div>
-        <button className="text-white bg-black py-2 text-md rounded-md cursor-pointer hover:bg-gray-800">Subscribe</button>
+        <button className="text-white bg-black py-2 text-md rounded-md cursor-pointer hover:bg-gray-800" onClick={handlePopUp}>Subscribe</button>
       </div>
     </div>
   );
