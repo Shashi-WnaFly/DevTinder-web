@@ -2,9 +2,10 @@ import { useDispatch } from "react-redux";
 import { closePopUp } from "../utils/popUpSlice";
 import checkout from "../assets/checkout.svg";
 import cross from "../assets/cross.svg";
-import {ReactComponent as Tick} from "../assets/Tick.svg";
 import UserGuide from "./UserGuide";
 import { useState } from "react";
+import Tick from "../assets/MyIcons";
+
 const Agreement = () => {
   const dispatch = useDispatch();
   const [agree, setAgree] = useState(false);
@@ -52,7 +53,7 @@ const Agreement = () => {
               ></span>
             ) : (
               <div onClick={(e) => setAgree(false)}>
-                <Tick className="w-6 h-6 text-red-500"/>
+                <Tick className="w-6 h-6 bg-blue-500 text-white stroke-2"/>
               </div>
             )}
             <div>
