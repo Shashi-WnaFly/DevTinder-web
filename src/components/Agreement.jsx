@@ -9,14 +9,14 @@ import Tick from "../assets/MyIcons";
 const Agreement = () => {
   const dispatch = useDispatch();
   const [agree, setAgree] = useState(false);
-
+  console.log(agree);
   const handlePopUp = () => {
     dispatch(closePopUp());
   };
 
   return (
     <div className=" w-screen h-screen fixed z-10 left-0 top-0 bg-black/40 flex justify-center items-center">
-      <div className="bg-base-200 w-6/12 h-10/12 flex flex-col justify-center items-center">
+      <div className="bg-base-200 w-6/12 h-10/12 flex flex-col">
         <div className="w-full flex justify-between px-6 py-4">
           <div className="flex gap-3 items-center p-2">
             <img
@@ -44,17 +44,17 @@ const Agreement = () => {
             <UserGuide />
           </div>
         </div>
-        <div className="flex justify-between mx-4 items-center ">
-          <div className="flex items-center gap-4">
+        <div className="flex justify-between my-auto mx-8">
+          <div className="flex items-center gap-2">
             {!agree ? (
               <span
                 onClick={(e) => setAgree(true)}
-                className="w-6 h-6 border-1 border-white"
+                className="w-4 h-4 border-1 border-white"
               ></span>
             ) : (
-              <div onClick={(e) => setAgree(false)}>
-                <Tick className="w-6 h-6 bg-blue-500 text-white stroke-2"/>
-              </div>
+              <span onClick={(e) => setAgree(false)}>
+                <Tick className="w-4 h-4 bg-blue-500 text-black stroke-3" />
+              </span>
             )}
             <div>
               {" "}
@@ -64,7 +64,13 @@ const Agreement = () => {
           </div>
           <div>
             <button
-              className={`py-2 px-4 rounded-sm text-black {${agree} ? 'bg-gray-100' : 'bg-gray-400'}`}
+              className={
+                agree
+                  ? "py-2 px-4 rounded-sm text-black bg-gray-100 cursor-pointer"
+                  : "py-2 px-4 rounded-sm text-black bg-gray-400 hover:cursor-not-allowed"
+              }
+              disabled={!agree}
+              onClick={handlePopUp}
             >
               Continue
             </button>
