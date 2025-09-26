@@ -49,25 +49,25 @@ const Agreement = () => {
             {!agree ? (
               <span
                 onClick={(e) => setAgree(true)}
-                className="w-4 h-4 border-1 border-white"
+                className="w-4 h-4 border-1 border-gray-400 hover:border-gray-200 cursor-pointer"
               ></span>
             ) : (
               <span onClick={(e) => setAgree(false)}>
-                <Tick className="w-4 h-4 bg-blue-500 text-black stroke-3" />
+                <Tick className="w-4 h-4 bg-purple-500 text-white stroke-3" />
               </span>
             )}
             <div>
               {" "}
               I agree to this agreement and{" "}
-              <span className="text-blue-500">Terms of Service</span>
+              <span className="text-purple-500 font-semibold cursor-pointer hover:border-b-2 transition-border transition-all">Terms of Service</span>
             </div>
           </div>
           <div>
             <button
               className={
                 agree
-                  ? "py-2 px-4 rounded-sm text-black bg-gray-100 cursor-pointer"
-                  : "py-2 px-4 rounded-sm text-black bg-gray-400 hover:cursor-not-allowed"
+                  ? "py-1.5 text-sm px-3 rounded-sm text-purple-800 font-semibold bg-gray-100 cursor-pointer"
+                  : "py-1.5 text-sm px-3 rounded-sm text-purple-800 font-semibold bg-gray-400 hover:cursor-not-allowed"
               }
               disabled={!agree}
               onClick={handlePopUp}
