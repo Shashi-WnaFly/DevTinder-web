@@ -99,7 +99,7 @@ const UserGuide = () => {
           <div className="flex">
             <span className="before:content-['•'] before:text-purple-400 text-xl pr-5"></span>
             <p>
-              Otherwise violates the LeetCode Terms of Use. Please note that
+              Otherwise violates the Devtinder Terms of Use. Please note that
               specific courses may have additional rules and requirements.
             </p>
           </div>

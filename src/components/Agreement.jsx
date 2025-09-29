@@ -4,12 +4,11 @@ import checkout from "../assets/checkout.svg";
 import cross from "../assets/cross.svg";
 import UserGuide from "./UserGuide";
 import { useState } from "react";
-import Tick from "../assets/MyIcons";
+import Tick from "../assets/Tick";
 
 const Agreement = () => {
   const dispatch = useDispatch();
   const [agree, setAgree] = useState(false);
-  console.log(agree);
   const handlePopUp = () => {
     dispatch(closePopUp());
   };
@@ -48,18 +47,20 @@ const Agreement = () => {
           <div className="flex items-center gap-2">
             {!agree ? (
               <span
-                onClick={(e) => setAgree(true)}
+                onClick={() => setAgree(true)}
                 className="w-4 h-4 border-1 border-gray-400 hover:border-gray-200 cursor-pointer"
               ></span>
             ) : (
-              <span onClick={(e) => setAgree(false)}>
+              <span onClick={() => setAgree(false)}>
                 <Tick className="w-4 h-4 bg-purple-500 text-white stroke-3" />
               </span>
             )}
             <div>
               {" "}
               I agree to this agreement and{" "}
-              <span className="text-purple-500 font-semibold cursor-pointer hover:border-b-2 transition-border transition-all">Terms of Service</span>
+              <span className="text-purple-500 font-semibold cursor-pointer hover:border-b-2 transition-border transition-all">
+                Terms of Service
+              </span>
             </div>
           </div>
           <div>

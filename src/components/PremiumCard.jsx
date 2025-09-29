@@ -15,7 +15,7 @@ const PremiumCard = ({ year, sub, price }) => {
           <h1 className="text-2xl font-semibold ">
             {year == 6 ? "6 Months" : "12 Months"}
           </h1>
-          {year == 12 && <div className="p-2 font-semibold bg-purple-200 rounded-sm">🎉Most popular</div>}
+          {year == 12 && <div className="py-1 px-2 font-semibold bg-purple-200 rounded-sm">🎉Most popular</div>}
         </div>
         <p className="text-gray-500 text-sm">{sub}</p>
       </div>
