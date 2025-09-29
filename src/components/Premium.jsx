@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import Agreement from "./Agreement";
 import PremiumCard from "./PremiumCard";
+import Footer from "./Footer";
 
 const Premium = () => {
   const popUp = useSelector((store) => store.popUp);
@@ -13,7 +14,7 @@ const Premium = () => {
             Premium
           </h1>
           <p className="text-gray-300 font-bold">
-            Get started with a LeetCode Subscription that works for you.
+            Get started with a Devtinder Subscription that works for you.
           </p>
         </div>
       </div>
@@ -45,6 +46,7 @@ const Premium = () => {
         </div>
       </div>
       {popUp && <Agreement />}
+      <Footer/>
     </div>
   );
 };
