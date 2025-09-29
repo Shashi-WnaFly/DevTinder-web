@@ -9,6 +9,7 @@ import Profile from "./components/Profile";
 import Requests from "./components/Requests";
 import Connections from "./components/Connections";
 import Premium from "./components/Premium";
+import Privacy from "./components/Privacy";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="/requests" element={<Requests />} />
               <Route path="/connections" element={<Connections />}/>
               <Route path="/Premium" element={<Premium />} />
+              <Route path="/privacy" element={<Privacy />} />
             </Route>
           </Routes>
         </BrowserRouter>
