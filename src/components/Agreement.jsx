@@ -5,13 +5,19 @@ import cross from "../assets/cross.svg";
 import UserGuide from "./UserGuide";
 import { useState } from "react";
 import Tick from "../assets/Tick";
+import { useNavigate } from "react-router-dom";
 
 const Agreement = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [agree, setAgree] = useState(false);
   const handlePopUp = () => {
     dispatch(closePopUp());
   };
+
+  const handleTerms = () => {
+    navigate("/terms");
+  }
 
   return (
     <div className=" w-screen h-screen fixed z-10 left-0 top-0 bg-black/40 flex justify-center items-center">
@@ -58,7 +64,7 @@ const Agreement = () => {
             <div>
               {" "}
               I agree to this agreement and{" "}
-              <span className="text-purple-500 font-semibold cursor-pointer hover:border-b-2 transition-border transition-all">
+              <span onClick={handleTerms} className="text-purple-500 font-semibold cursor-pointer hover:border-b-2 transition-border transition-all">
                 Terms of Service
               </span>
             </div>
