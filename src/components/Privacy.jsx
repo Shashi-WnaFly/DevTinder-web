@@ -1,9 +1,8 @@
-import React from "react";
 import Footer from "./Footer";
 
 const Privacy = () => {
   return (
-    <div className="bg-zinc-50 text-gray-600">
+    <div className="bg-[#ffffff] text-gray-600">
       <div className="max-w-[70rem] mx-auto px-4 text-[17px]">
         <h1 className="text-center text-3xl py-10">
           <span className="text-gray-700 font-light">Devtinder</span>{" "}
@@ -301,7 +300,9 @@ const Privacy = () => {
           </p>
         </div>
         <div>
-          <h1 className="mt-8 mb-4 text-2xl font-semibold text-black">CHANGES AND UPDATES TO THIS PRIVACY POLICY</h1>
+          <h1 className="mt-8 mb-4 text-2xl font-semibold text-black">
+            CHANGES AND UPDATES TO THIS PRIVACY POLICY
+          </h1>
           <p>
             This Privacy Policy may be revised periodically, and this will be
             reflected by a ''last modified'' date above. Please revisit this
@@ -315,7 +316,9 @@ const Privacy = () => {
           </p>
         </div>
         <div>
-          <h1 className="mt-8 mb-4 text-2xl font-semibold text-black">CONTACT INFORMATION</h1>
+          <h1 className="mt-8 mb-4 text-2xl font-semibold text-black">
+            CONTACT INFORMATION
+          </h1>
           <p>
             Please contact us with any questions or comments about this Privacy
             Policy, Our Privacy Policy Toward Children, your personal
@@ -325,7 +328,7 @@ const Privacy = () => {
         </div>
         <p className="text-right mt-8">Last modified: 29/09/2025</p>
       </div>
-      <Footer />
+      <Footer className={"max-w-[70rem] text-gray-500 bg-[#ffffff] border-t-1 border-gray-300 px-4 mx-auto"}/>
     </div>
   );
 };
