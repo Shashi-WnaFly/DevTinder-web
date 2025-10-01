@@ -46,7 +46,7 @@ const Premium = () => {
         </div>
       </div>
       {popUp && <Agreement />}
-      <Footer />
+      <Footer className={"px-8 border-t-1 border-gray-500"}/>
     </div>
   );
 };

@@ -12,6 +12,10 @@ const Footer = ({className}) => {
     navigate("/terms");
   };
 
+  const handleRefund = () => {
+    navigate("/refund");
+  }
+
   return (
     <div className={className}>
       <div className="flex justify-between py-4 text-xs">
@@ -25,7 +29,8 @@ const Footer = ({className}) => {
             Shipping and Delivery
           </button>
           {" | "}
-          <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all">
+          <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
+            onClick={handleRefund}>
             Cancellation and Refund
           </button>
           {" | "}

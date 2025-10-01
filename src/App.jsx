@@ -11,6 +11,7 @@ import Connections from "./components/Connections";
 import Premium from "./components/Premium";
 import Privacy from "./components/Privacy";
 import Terms from "./components/Terms";
+import Refund from "./components/Refund";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/Premium" element={<Premium />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
+              <Route path="/refund" element={<Refund />} />
             </Route>
           </Routes>
         </BrowserRouter>
