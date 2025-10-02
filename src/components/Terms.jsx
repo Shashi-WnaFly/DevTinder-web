@@ -50,8 +50,8 @@ const Terms = () => {
             that interferes with the Service’s operation (including placing an
             undue load on its infrastructure) is not allowed. You must not use
             the Service in violation of any law or regulation, nor directly
-            compete with Devtinder. Activities such as “crawling,” “scraping,” or
-            “spidering” any part of the Service, and attempting to decompile,
+            compete with Devtinder. Activities such as “crawling,” “scraping,”
+            or “spidering” any part of the Service, and attempting to decompile,
             reverse engineer, or discover the source code or underlying ideas of
             the Service, are strictly forbidden.
           </p>
@@ -314,8 +314,15 @@ const Terms = () => {
           </p>
           <p>If you need to contact us, email us at support@tinderdev.club</p>
         </div>
+        <p className="pt-4 self-end">
+          Last modified: 29/09/2025
+        </p>
       </div>
-      <Footer className={" text-gray-500 bg-[#ffffff] border-t-1 border-gray-300 px-8 mx-auto"}/>
+      <Footer
+        className={
+          " text-gray-500 bg-[#ffffff] border-t-1 border-gray-300 px-8 mx-auto"
+        }
+      />
     </div>
   );
 };
