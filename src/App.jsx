@@ -12,6 +12,8 @@ import Premium from "./components/Premium";
 import Privacy from "./components/Privacy";
 import Terms from "./components/Terms";
 import Refund from "./components/Refund";
+import Shipping from "./components/Shipping";
+import ContactUs from "./components/ContactUs";
 
 function App() {
   return (
@@ -28,7 +30,9 @@ function App() {
               <Route path="/Premium" element={<Premium />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
-              <Route path="/refund" element={<Refund />} />
+              <Route path="/refund_policy" element={<Refund />} />
+              <Route path="/shipping&delivery_policy" element={<Shipping />} />
+              <Route path="/contactus" element={<ContactUs />} />
             </Route>
           </Routes>
         </BrowserRouter>
