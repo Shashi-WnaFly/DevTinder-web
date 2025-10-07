@@ -1,5 +1,7 @@
+import axios from "axios";
 import React, { useState } from "react";
 import validator from "validator";
+import { BASE_URL } from "../utils/constants";
 
 const ContactUsForm = () => {
   const [form, setForm] = useState({
@@ -29,7 +31,7 @@ const ContactUsForm = () => {
     return e;
   };
 
-    async function handleSubmit (e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const validation = validate();
     setErrors(validation);
@@ -38,10 +40,20 @@ const ContactUsForm = () => {
     setStatus({ loading: true, success: null, error: null });
 
     try {
-      await new Promise((r) => setTimeout(r, 900));
+      const res = await axios.post(
+        BASE_URL + "/user/send/email",
+        {
+          name: form.name,
+          fromAddress: form.email,
+          subject: form.subject,
+          message: form.message
+        },
+        { withCredentials: true }
+      );
+      console.log(res);
       setStatus({
         loading: false,
-        success: "Message sent — we will get back to you soon!",
+        success: res?.data?.message,
         error: null,
       });
       setForm({ name: "", email: "", subject: "", phone: "", message: "" });
@@ -53,10 +65,10 @@ const ContactUsForm = () => {
         error: "Something went wrong. Please try again later.",
       });
     }
-  };
+  }
 
-  async function handleChange (e) {
-    setForm((s) => ({...s, [e.target.name]: e.target.value}));
+  async function handleChange(e) {
+    setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
   }
 
   return (
