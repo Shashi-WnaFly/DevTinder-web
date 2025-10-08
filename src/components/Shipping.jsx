@@ -53,7 +53,7 @@ const Shipping = () => {
           <p>
             • If you face any delay in activation, please contact our support
             team at{" "}
-            <Link to={"mailTo:support@tinderdev.club"}>
+            <Link className="text-violet-600 underline" to={"/contactus"}>
               support@tinderder.club
             </Link>
             .
@@ -86,8 +86,8 @@ const Shipping = () => {
           <p>
             For any questions regarding service activation or access, please
             reach out to us at{" "}
-            <Link to={"mailTo:support@tinderdev.club"}>
-              support@tinderdev.club
+            <Link className="text-violet-600 underline" to={"/contactus"}>
+              support@tinderder.club
             </Link>
             .
           </p>

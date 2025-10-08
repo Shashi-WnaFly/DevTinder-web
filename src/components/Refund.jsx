@@ -70,7 +70,7 @@ const Refund = () => {
         <p className="max-w-[70rem] text-left ">
           For any other billing questions, please contact{" "}
           <Link
-            to={"mailto:billing@tinderdev.club"}
+            to={"/contactus"}
             className="text-blue-500 hover:underline"
           >
             billing@tinderdev.club
