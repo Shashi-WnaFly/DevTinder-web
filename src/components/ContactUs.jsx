@@ -1,12 +1,11 @@
-import React, { useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import ContactUsForm from "./ContactUsForm";
+import Footer from "./Footer";
 
-// Default export React component for a Contact Us page
 const ContactUs = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center text-black bg-gradient-to-b from-white to-gray-50 p-6">
+    <div className="min-h-screen flex flex-col items-center text-black bg-gradient-to-b from-white to-gray-50 p-6 pb-0">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -16,7 +15,7 @@ const ContactUs = () => {
         {/* Left: Contact form */}
         <ContactUsForm />
 
-        {/* Right: Contact details + map */}
+        {/* Right: Contact details and map */}
         <aside className="bg-gradient-to-b from-white to-gray-50 rounded-2xl p-6 md:p-8 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="text-lg font-semibold mb-3">Get in touch</h3>
@@ -52,10 +51,9 @@ const ContactUs = () => {
           <div className="mt-6">
             <h4 className="text-sm font-medium mb-2">Our location</h4>
             <div className="rounded-xl overflow-hidden border border-gray-100 shadow-sm">
-              {/* Replace src with your own map embed if you have one. */}
               <iframe
                 title="office-map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.123456789012!2d72.8776555!3d19.0759837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c63c0a0a0a0%3A0x1234567890abcdef!2sMumbai%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sin!4v1600000000000"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.123456789012!2d72.8776555!3d19.0759837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c63c0a0a0a0%3A0x1234567890abcdef!2sPatna%2C%20Bihar%2C%20India!5e0!3m2!1sen!2sin!4v1600000000000"
                 className="w-full h-40 border-0"
                 loading="lazy"
               />
@@ -71,6 +69,7 @@ const ContactUs = () => {
           </div>
         </aside>
       </motion.div>
+      <Footer className={"w-full text-gray-500 bg-[#ffffff] border-t-1 border-gray-400 mt-4"}/>
     </div>
   );
 }
