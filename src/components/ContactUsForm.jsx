@@ -20,14 +20,20 @@ const ContactUsForm = () => {
 
   const validate = () => {
     const e = {};
-    if (!form.name.trim()) e.name = "Please enter your name.";
-    if (!validator.isEmail(form.email.trim()))
+    const { name, email, subject, message } = form;
+
+    if (!name.trim()) e.name = "Please enter your name.";
+
+    if (!email.trim()) e.email = "Please enter your email";
+
+    if (!validator.isEmail(email.trim()))
       e.email = "Please enter a valid email.";
-    if (!form.email.trim()) e.email = "Please enter your email";
-    if (!form.subject.trim()) e.subject = "Please add your subject.";
+
+    if (!subject.trim()) e.subject = "Please add your subject.";
     // if(!form.phone.trim())
     //     e.phone = "Please enter your phone.";
-    if (!form.message.trim()) e.message = "Please type your message.";
+    if (!message.trim()) e.message = "Please type your message.";
+
     return e;
   };
 
@@ -43,26 +49,35 @@ const ContactUsForm = () => {
       const res = await axios.post(
         BASE_URL + "/user/send/email",
         {
-          name: form.name,
-          fromAddress: form.email,
-          subject: form.subject,
-          message: form.message
+          name: form.name.trim(),
+          fromAddress: form.email.trim(),
+          subject: form.subject.trim(),
+          message: form.message.trim(),
         },
         { withCredentials: true }
       );
-      console.log(res);
-      setStatus({
-        loading: false,
-        success: res?.data?.message,
-        error: null,
-      });
-      setForm({ name: "", email: "", subject: "", phone: "", message: "" });
+
+      if (res.status != 201) {
+        setForm({ name: "", email: "", subject: "", phone: "", message: "" });
+
+        setStatus({
+          loading: false,
+          success: res?.data?.message,
+          error: null,
+        });
+      } else {
+        setStatus({
+          loading: false,
+          success: null,
+          error: res?.data?.message,
+        });
+      }
       setErrors({});
     } catch (err) {
       setStatus({
         loading: false,
         success: null,
-        error: "Something went wrong. Please try again later.",
+        error: "Something went wrong, please try again later.",
       });
     }
   }
