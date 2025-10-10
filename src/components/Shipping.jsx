@@ -12,7 +12,7 @@ const Shipping = () => {
           </h1>
           <hr className="py-4 text-gray-300" />
           <p>
-            Thank you for choosing Tinderdev.club Please read our Shipping and
+            Thank you for choosing tinderdev.club Please read our Shipping and
             Delivery Policy carefully to understand how our digital services are
             provided.
           </p>

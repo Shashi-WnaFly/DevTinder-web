@@ -6,16 +6,16 @@ const Terms = () => {
       <div className="bg-[#ffffff] text-gray-700 text-[17px] px-4 flex flex-col items-center">
         <div className="max-w-[70rem] flex flex-col gap-4">
           <h1 className="py-8 text-3xl text-center">
-            <span className="font-light">Devtinder</span>{" "}
+            <span className="font-light">TinderDev</span>{" "}
             <span className="text-black font-semibold">Terms of Service</span>
           </h1>
           <hr className="text-gray-300 my-4" />
           <p>
-            These terms of service are entered into between you and Devtinder,
+            These terms of service are entered into between you and Tinderdev,
             LLC (“us” “we” or “our”) for the use of our application in relation
-            to our training tools. By accessing our websites (the "Services"),
+            to our connecting tools. By accessing our websites (the "Services"),
             you acknowledge that you have read, understood, and agree to the
-            most recent version of these Terms of Service ("Terms").
+            most recent version of these Terms of Service ("Terms and Conditions").
           </p>
           <p>
             We reserve the right to revise these Terms at any time. If we do, we
@@ -50,7 +50,7 @@ const Terms = () => {
             that interferes with the Service’s operation (including placing an
             undue load on its infrastructure) is not allowed. You must not use
             the Service in violation of any law or regulation, nor directly
-            compete with Devtinder. Activities such as “crawling,” “scraping,”
+            compete with Tinderdev. Activities such as “crawling,” “scraping,”
             or “spidering” any part of the Service, and attempting to decompile,
             reverse engineer, or discover the source code or underlying ideas of
             the Service, are strictly forbidden.
@@ -68,7 +68,7 @@ const Terms = () => {
             licensed by us. You agree that all Content is our sole and exclusive
             property, which includes all software, images, questions, solutions,
             or any material associated with the Service platform. All Our
-            Content is copyrighted under United States copyright laws and/or
+            Content is copyrighted under India copyright laws and/or
             similar laws of other jurisdictions, protecting it from unauthorized
             use.
           </p>
@@ -227,7 +227,7 @@ const Terms = () => {
             shall have the power to decide any motions brought by any party to
             the arbitration, including motions for summary judgment and/or
             adjudication and motions to dismiss and demurrers applying the
-            standards set forth under the California Code of Civil Procedure.
+            standards set forth under the India Code of Civil Procedure.
             You agree that the arbitrator shall issue a written decision on the
             merits. You also agree that the arbitrator shall have the final
             power to award any remedies available under applicable law, and that
@@ -236,14 +236,14 @@ const Terms = () => {
             the decree or award rendered by the arbitrator may be entered as a
             final and binding judgment in any court having jurisdiction thereof.
             You agree that the arbitrator shall administer and conduct any
-            arbitration in accordance with California LAW, including the
-            California Code of Civil Procedure and the California evidence code,
+            arbitration in accordance with Indian LAW, including the
+            India Code of Civil Procedure and the India evidence code,
             and that the arbitrator shall apply substantive and procedural
-            California law to any dispute or claim, without reference to rules
+            India law to any dispute or claim, without reference to rules
             of conflict of law. To the extent that the JAMS Rules conflict with
-            California law, California law shall take precedence. You further
+            Indian law, Indian law shall take precedence. You further
             agree that any arbitration under this agreement shall be conducted
-            in the City and County of Denver, California.
+            in the City and Supreme Court of India, New Delhi, India.
           </p>
           <p>
             YOU AGREE THAT ANY LEGAL CLAIM AGAINST US MUST BE FILED WITHIN SIX
@@ -271,11 +271,10 @@ const Terms = () => {
           <p>
             <i className="text-gray-700 font-light ">Governing Law;</i> Consent
             to Personal Jurisdiction. This Agreement shall be governed by the
-            laws of the State of California, without regard to the conflicts of
+            laws of the India, without regard to the conflicts of
             law provisions of any jurisdiction. To the extent that any lawsuit
             is permitted under this Agreement, you hereby expressly consent to
-            the personal and exclusive jurisdiction and venue of the state and
-            federal courts located in Alameda County, California.
+            the personal and exclusive jurisdiction and venue of the Supreme Court of India located in New Delhi, India.
           </p>
           <p>
             <i className="text-gray-700 font-light ">Force Majure</i> We shall

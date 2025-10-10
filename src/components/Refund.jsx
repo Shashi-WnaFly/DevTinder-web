@@ -6,7 +6,7 @@ const Refund = () => {
     <div className="bg-[#ffffff] px-4">
       <div className="max-w-[70rem] flex flex-col mx-auto gap-4 bg-[#ffffff] text-gray-700 text-[17px] ">
         <h1 className="py-8 text-3xl text-center text-black font-semibold">
-          Devtinder Cancellation, Refund, and Termination Policy
+          Tinderdev Cancellation, Refund, and Termination Policy
         </h1>
         <p className="max-w-[70rem]">
           You can cancel your current Premium subscription in your Manage
@@ -22,17 +22,17 @@ const Refund = () => {
           receive a refund.
         </p>
         <p className="max-w-[70rem]">
-          Devtinder may deny you access to all or any part of the Services or
+          Tinderdev may deny you access to all or any part of the Services or
           terminate your account with or without prior notice if you engage in
-          any conduct or activities that Devtinder determines, in its sole
-          discretion, violates Devtinder's Terms of Service or the rights of
-          Devtinder or is otherwise inappropriate. Without limitation, Devtinder
-          may deny you access to the Services or terminate your Devtinder
+          any conduct or activities that Tinderdev determines, in its sole
+          discretion, violates Tinderdev's Terms of Service or the rights of
+          Tinderdev or is otherwise inappropriate. Without limitation, Tinderdev
+          may deny you access to the Services or terminate your Tinderdev
           account, without providing any refund.
         </p>
         <p className="max-w-[70rem]">
           All Fees paid or accrued in connection with any Services are
-          non-refundable, and Devtinder will not prorate any Fees paid for a
+          non-refundable, and Tinderdev will not prorate any Fees paid for a
           subscription that is terminated before the end of its term.
         </p>
 

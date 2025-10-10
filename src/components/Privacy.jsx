@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Footer from "./Footer";
 
 const Privacy = () => {
@@ -5,12 +6,12 @@ const Privacy = () => {
     <div className="bg-[#ffffff] text-gray-600">
       <div className="max-w-[70rem] mx-auto px-4 text-[17px]">
         <h1 className="text-center text-3xl py-10">
-          <span className="text-gray-700 font-light">Devtinder</span>{" "}
+          <span className="text-gray-700 font-light">TinderDev</span>{" "}
           <span className="font-semibold">Privacy Policy</span>
         </h1>
         <hr className="text-gray-300 my-8" />
         <p>
-          Devtinder, LLC ("we”, “us”, or “our") provides this Privacy Policy to
+          TinderDev, LLC ("we”, “us”, or “our") provides this Privacy Policy to
           inform you of our policies and procedures regarding the collection,
           use and disclosure of personal information we may receive from users
           of our website (“Site”) and any other services offered by us in
@@ -197,19 +198,19 @@ const Privacy = () => {
             ACCOUNT DELETION
           </h1>
           <p>
-            You can request to delete your Devtinder Account anytime. Before you
+            You can request to delete your TinderDev Account anytime. Before you
             proceed with the account deletion process, please read and fully
             understand the terms related to account deletion. If you do not
             agree with the terms, please stop the deletion process immediately.
           </p>
           <h3 className="my-4 text-lg font-semibold text-black">
-            About deleting your Devtinder account:
+            About deleting your TinderDev account:
           </h3>
           <p>
-            1. Once you request to delete your Devtinder account, you will enter
+            1. Once you request to delete your TinderDev account, you will enter
             a 15-day cool-off period during which we will preserve your data but
             it will not be visible to other users. You can retrieve your account
-            anytime by logging back into Devtinder within the cool-off period.
+            anytime by logging back into TinderDev within the cool-off period.
           </p>
           <p>
             2. If an account is permanently deleted after the cool-off period,
@@ -224,7 +225,7 @@ const Privacy = () => {
             will lose access to all subscriptions and or/content you purchased
             with that account. You will not be able to recover or request to
             retrieve any account-related content or information, even if you
-            register and use Devtinder again with the same user name or email
+            register and use TinderDev again with the same user name or email
             address.
           </p>
           <p>
@@ -234,7 +235,7 @@ const Privacy = () => {
           </p>
           <p>
             5. Once you agree to delete, the relevant terms of service and other
-            rights with Devtinder will terminate accordingly, except for those
+            rights with TinderDev will terminate accordingly, except for those
             that have been agreed to continue in effective or as otherwise
             prescribed by laws and regulations. You will also no longer enjoy
             the user rights outlined in the "Privacy Policy," except as
@@ -242,24 +243,24 @@ const Privacy = () => {
             authorities.
           </p>
           <h3 className="my-4 text-lg font-semibold text-black">
-            Before Requesting Deletion of Your Devtinder Account:
+            Before Requesting Deletion of Your TinderDev Account:
           </h3>
           <p>Ensure that the account meets the following conditions:</p>
           <p>
             • It is registered through our official channels, complies with the
-            "Devtinder Terms of Service," and is registered by you;
+            "TinderDev Terms of Service," and is registered by you;
           </p>
           <p>• There has been no abnormal activity in the last 3 months;</p>
           <h4>• There are no unused virtual assets, including:</h4>
           <div className="pl-8 flex flex-col gap-4">
-            <p> ◦ No incomplete orders in the Devtinder Store;</p>
-            <p> ◦ No active Devtinder Premium subscriptions;</p>
+            <p> ◦ No incomplete orders in the TinderDev Store;</p>
+            <p> ◦ No active TinderDev Premium subscriptions;</p>
             <p> ◦ No unused credits;</p>
             <p> ◦ No purchased explore cards.</p>
           </div>
           <p>• If there is an active subscription, please cancel it.</p>
           <h3 className="my-4 text-lg font-semibold text-black">
-            Process for Deleting a Devtinder Account:
+            Process for Deleting a TinderDev Account:
           </h3>
           <p>
             1. Initiate your account deletion request at
@@ -323,7 +324,7 @@ const Privacy = () => {
             Please contact us with any questions or comments about this Privacy
             Policy, Our Privacy Policy Toward Children, your personal
             information, and our third-party disclosure practices, at
-            support@devtinder.com
+            <Link to={"/contactus"}>support@tinderdev.club</Link>
           </p>
         </div>
         <p className="text-right mt-8">Last modified: 29/09/2025</p>

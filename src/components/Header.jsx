@@ -26,9 +26,10 @@ const Header = () => {
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
-        <div className="flex-1">
-          <Link to={"/"} className="btn btn-ghost text-xl">
-            DevTinder
+        <div className="flex-1 flex">
+          <img className="w-6" src={"../../public/logo.svg"} />
+          <Link to={"/"} className="p-1 font-semibold text-xl">
+            Tinderdev
           </Link>
         </div>
         {user && (
@@ -41,10 +42,7 @@ const Header = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img
-                    alt="userPhoto"
-                    src={user.photoUrl}
-                  />
+                  <img alt="userPhoto" src={user.photoUrl} />
                 </div>
               </div>
 
