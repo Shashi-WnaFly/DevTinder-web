@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { isStrongPassword, isEmail } from "validator";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("");
+  const [emailId, setEmailId] = useState("demo@gmail.com");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let password = useRef();
+  const [password, setPassword] = useState("Demo@123");
 
   const handleForm = () => {
     setIsLogin(!isLogin);
@@ -23,7 +23,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      password = password?.current?.value;
+      console.log(password);
       if (!isEmail(emailId)) {
         setError("EmailId is not valid!!");
         return;
@@ -94,7 +94,8 @@ const Login = () => {
         type="password"
         className="input"
         placeholder="Password"
-        ref={password}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <p className="text-red-500">{error}</p>
       <button
