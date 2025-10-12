@@ -27,7 +27,7 @@ const Header = () => {
     <>
       <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1 flex px-8">
-          <img className="w-6" src={"../../public/logo.svg"} />
+          <img className="w-6" src={"/logo.svg"} />
           <Link to={"/"} className="p-1 font-semibold text-xl">
             Tinderdev
           </Link>

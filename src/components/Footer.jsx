@@ -28,7 +28,7 @@ const Footer = ({ className }) => {
     <div className={className}>
       <div className="flex justify-between py-4 text-xs">
         <div className="flex gap-2 h-6 items-center">
-          <p className="mr-4">Copyright © 2025 Devtinder</p>
+          <p className="mr-4">Copyright © 2025 Tinderdev</p>
           <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
           onClick={handleContactUs}>
             Contact Us
