@@ -106,7 +106,7 @@ const Premium = () => {
                     }
                   />
                 </span>
-                Ask Coupler
+                Blue Tick
               </div>
               <div className="pl-8">
                 The blue tick feature verifies you profiles to ensure

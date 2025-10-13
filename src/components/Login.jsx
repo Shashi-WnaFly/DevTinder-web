@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
@@ -23,7 +23,6 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      console.log(password);
       if (!isEmail(emailId)) {
         setError("EmailId is not valid!!");
         return;
