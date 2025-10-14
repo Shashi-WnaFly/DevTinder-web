@@ -32,9 +32,9 @@ const Footer = ({ className }) => {
   };
 
   return (
-    <div className={className}>
-      <div className="flex justify-between py-4 text-xs flex-wrap min-h-fit">
-        <div className="flex gap-4 h-6 items-center justify-center flex-wrap">
+    <div className={className + "min-h-fit"}>
+      <div className="flex justify-center lg:justify-between items-center py-4 text-xs flex-wrap whitespace-pre-wrap gap-4">
+        <div className="flex gap-4 h-6 items-center justify-center flex-wrap min-h-fit">
           <p className="mr-4">Copyright © 2025 Tinderdev</p>
           <button
             className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
@@ -73,7 +73,7 @@ const Footer = ({ className }) => {
         </div>
         <div className="flex items-center gap-2">
           <Flag className={"w-5 h-5"} />
-          <p className=" text-sm">India</p>
+          <p className=" text-sm ">India</p>
         </div>
       </div>
     </div>

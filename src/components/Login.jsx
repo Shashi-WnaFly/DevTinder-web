@@ -57,7 +57,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex flex-col h-screen w-screen absolute z-10 top-0 left-0">
+    <div className="flex flex-col min-h-screen md:w-screen min-w-fit absolute z-10 top-0 left-0">
       <fieldset className="fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4 m-auto">
         <legend className="fieldset-legend">
           {isLogin ? "Login" : "SignUp"}

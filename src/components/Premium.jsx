@@ -18,26 +18,26 @@ const Premium = () => {
 
   return (
     <div>
-      <div className="h-74 flex items-center justify-center">
+      <div className="h-74 flex items-center justify-center ">
         <div className="h-1/3 flex flex-col justify-between">
           <h1 className="font-eater font-bold text-6xl text-center bg-gradient-to-r from-purple-600 to to-pink-600 text-transparent bg-clip-text">
             Premium
           </h1>
-          <p className="text-gray-300 font-bold">
+          <p className="text-gray-300 font-bold text-center">
             Get started with a Tinderdev Subscription that works for you.
           </p>
         </div>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <div className="flex gap-8 justify-center  my-12 items-center max-w-[74rem] px-8">
-          <div className="bg-amber-50 text-black p-8 h-78 w-1/2 rounded-2xl">
+        <div className="flex gap-8 justify-center  my-12 items-center max-w-[74rem] px-8 flex-wrap md:flex-nowrap">
+          <div className="bg-amber-50 text-black p-8 h-78 w-full md:w-1/2 rounded-2xl">
             <PremiumCard
               year="6"
               sub="Our monthly plan grants access to all premium features, the best plan for short-term subscribers."
               price="499"
             />
           </div>
-          <div className="bg-gradient-to-br from-purple-200 to-pink-400 text-black p-8 w-1/2 h-96 rounded-2xl">
+          <div className="bg-gradient-to-br from-purple-200 to-pink-400 text-black p-8 w-full md:w-1/2 h-96 rounded-2xl">
             <PremiumCard
               year="12"
               sub="Our most popular plan is valued at ₹799 and is now only ₹66.58/month.
@@ -47,9 +47,9 @@ const Premium = () => {
           </div>
         </div>
         {/* <div> */}
-        <div className="max-w-[74rem] p-8 flex flex-col gap-8 ">
-          <div className="flex justify-evenly gap-8">
-            <div className="flex flex-col gap-4 w-1/2">
+        <div className="md:max-w-[74rem] p-8 flex flex-col gap-8">
+          <div className="flex justify-evenly gap-8 flex-wrap md:flex-nowrap">
+            <div className="flex flex-col gap-4 w-full md:w-1/2">
               <div className="flex gap-2 font-semibold">
                 <span className="w-6">
                   <Ai />
@@ -67,7 +67,7 @@ const Premium = () => {
                 finding meaningful matches.
               </div>
             </div>
-            <div className="flex flex-col gap-4 w-1/2">
+            <div className="flex flex-col gap-4 w-full md:w-1/2">
               <div className="flex gap-2 font-semibold">
                 <span className="w-6">
                   <Cloud />
@@ -82,8 +82,8 @@ const Premium = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-evenly gap-8">
-            <div className="flex flex-col gap-4 w-1/2">
+          <div className="flex justify-evenly gap-8 flex-wrap md:flex-nowrap">
+            <div className="flex flex-col gap-4 w-full md:w-1/2">
               <div className="flex gap-2 font-semibold">
                 <span className="w-6">
                   <Chat />
@@ -97,7 +97,7 @@ const Premium = () => {
                 expressive.
               </div>
             </div>
-            <div className="flex flex-col gap-4 w-1/2">
+            <div className="flex flex-col gap-4 w-full md:w-1/2">
               <div className="flex gap-2 font-semibold">
                 <span className="w-6">
                   <Tick
@@ -116,8 +116,8 @@ const Premium = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-evenly gap-8">
-            <div className="flex flex-col gap-4 w-1/2">
+          <div className="flex justify-evenly gap-8 flex-wrap md:flex-nowrap">
+            <div className="flex flex-col gap-4 w-full md:w-1/2">
               <div className="flex gap-2 font-semibold">
                 <span className="w-6">
                   <IOO />
@@ -130,7 +130,7 @@ const Premium = () => {
                 meaningful connections.
               </div>
             </div>
-            <div className="flex flex-col gap-4 w-1/2">
+            <div className="flex flex-col gap-4 w-full md:w-1/2">
               <div className="flex gap-2 font-semibold">
                 <span className="w-6 bg-white rounded-full">
                   <People />
@@ -144,8 +144,8 @@ const Premium = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-evenly gap-8">
-            <div className="flex flex-col gap-4 w-1/2">
+          <div className="flex justify-evenly gap-8 flex-wrap md:flex-nowrap">
+            <div className="flex flex-col gap-4 w-full md:w-1/2">
               <div className="flex gap-2 font-semibold">
                 <span className="w-6">
                   <Flash />
@@ -159,7 +159,7 @@ const Premium = () => {
                 potential matches faster and more efficiently.
               </div>
             </div>
-            <div className="flex flex-col gap-4 w-1/2">
+            <div className="flex flex-col gap-4 w-full md:w-1/2">
               <div className="flex gap-2 font-semibold">
                 <span className="w-6">
                   <Ad />

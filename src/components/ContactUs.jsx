@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 const ContactUs = () => {
   return (
-    <div className="min-h- flex flex-col items-center text-black bg-gradient-to-b from-white to-gray-50 p-6 pb-0">
+    <div className="max-h-fit flex flex-col items-center text-black bg-gradient-to-b from-white to-gray-50 p-6 pb-0">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
