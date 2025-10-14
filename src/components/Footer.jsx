@@ -1,36 +1,45 @@
 import { useNavigate } from "react-router-dom";
 import Flag from "../assets/Flag";
+import { useSelector } from "react-redux";
 
 const Footer = ({ className }) => {
   const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
 
   const handlePrivacy = () => {
-    navigate("/privacy");
+    if (!user) navigate("/rules/privacy");
+    else navigate("/privacy");
   };
 
   const handleTerms = () => {
-    navigate("/terms");
+    if (!user) navigate("/rules/terms");
+    else navigate("/terms");
   };
 
   const handleRefund = () => {
-    navigate("/refund_policy");
+    if (!user) navigate("/rules/refund_policy");
+    else navigate("/refund_policy");
   };
 
   const handleShipping = () => {
-    navigate("/shipping&delivery_policy");
+    if (!user) navigate("/rules/shipping");
+    else navigate("/shipping");
   };
 
   const handleContactUs = () => {
-    navigate("/contactus");
-  }
+    if (!user) navigate("/rules/contactus");
+    else navigate("/contactus");
+  };
 
   return (
     <div className={className}>
-      <div className="flex justify-between py-4 text-xs">
-        <div className="flex gap-2 h-6 items-center">
+      <div className="flex justify-between py-4 text-xs flex-wrap min-h-fit">
+        <div className="flex gap-4 h-6 items-center justify-center flex-wrap">
           <p className="mr-4">Copyright © 2025 Tinderdev</p>
-          <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
-          onClick={handleContactUs}>
+          <button
+            className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
+            onClick={handleContactUs}
+          >
             Contact Us
           </button>
           {" | "}
