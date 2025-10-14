@@ -32,7 +32,7 @@ const Feed = () => {
     );
 
   return (
-    <div>
+    <div className="w-96 mx-auto">
       <UserCard key={feed[0]._id} user={feed[0]} />
     </div>
   );

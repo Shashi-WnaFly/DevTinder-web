@@ -32,7 +32,7 @@ const Footer = ({ className }) => {
   };
 
   return (
-    <div className={className + "min-h-fit"}>
+    <div className={className}>
       <div className="flex justify-center lg:justify-between items-center py-4 text-xs flex-wrap whitespace-pre-wrap gap-4">
         <div className="flex gap-4 h-6 items-center justify-center flex-wrap min-h-fit">
           <p className="mr-4">Copyright © 2025 Tinderdev</p>

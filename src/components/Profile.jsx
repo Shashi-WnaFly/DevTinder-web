@@ -36,16 +36,16 @@ const Profile = () => {
 
   return (
     user && (
-      <div className="flex flex-col justify-center items-center">
-        <div className="flex justify-center items-stretch h-[33rem] gap-10">
-          <div className="card bg-base-100 w-96 shadow-sm overflow-y-scroll ">
-            <fieldset className="fieldset">
+      <div className="flex flex-col justify-center max-w-[54rem] mx-auto items-center min-h-fit">
+        <div className="min-h-fit flex justify-center items-stretch gap-10 w-full flex-wrap md:flex-nowrap px-8">
+          <div className="card bg-base-100 h-[33rem] w-full md:w:1/2 shadow-sm overflow-y-scroll p-4">
+            <fieldset className="fieldset w-full">
               <legend className="fieldset-legend">
                 What is your firstName?
               </legend>
               <input
                 type="text"
-                className="input"
+                className="input w-full"
                 placeholder="Type here"
                 onChange={(e) => setFirstName(e.target.value)}
                 value={firstName}
@@ -57,7 +57,7 @@ const Profile = () => {
               </legend>
               <input
                 type="text"
-                className="input"
+                className="input w-full"
                 placeholder="Type here"
                 onChange={(e) => setLastName(e.target.value)}
                 value={lastName}
@@ -67,7 +67,7 @@ const Profile = () => {
               <legend className="fieldset-legend">What is your gender?</legend>
               <select
                 defaultValue="Server location"
-                className="select select-neutral"
+                className="select select-neutral  w-full"
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
               >
@@ -82,7 +82,7 @@ const Profile = () => {
               <legend className="fieldset-legend">What is your age?</legend>
               <input
                 type="text"
-                className="input"
+                className="input w-full"
                 placeholder="Type here"
                 onChange={(e) => setAge(e.target.value)}
                 value={age}
@@ -93,7 +93,7 @@ const Profile = () => {
               <legend className="fieldset-legend">What is your skills?</legend>
               <input
                 type="text"
-                className="input"
+                className="input w-full"
                 placeholder="Type here"
                 onChange={(e) => setSkills(e.target.value)}
                 value={skills}
@@ -103,7 +103,7 @@ const Profile = () => {
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Your bio</legend>
               <textarea
-                className="textarea h-24"
+                className="textarea h-24  w-full"
                 placeholder="Bio"
                 value={about}
                 onChange={(e) => setAbout(e.target.value)}
@@ -114,7 +114,7 @@ const Profile = () => {
               <legend className="fieldset-legend">What is your photoUrl</legend>
               <input
                 type="text"
-                className="input"
+                className="input w-full"
                 placeholder="Type here"
                 onChange={(e) => setPhotoUrl(e.target.value)}
                 value={photoUrl}
@@ -122,7 +122,7 @@ const Profile = () => {
               <p className="label">Optional</p>
             </fieldset>
           </div>
-          <div className="inline-flex self-stretch">
+          <div className="w-full md:w-1/2 p-4">
             <UserCard
               user={{
                 firstName,
