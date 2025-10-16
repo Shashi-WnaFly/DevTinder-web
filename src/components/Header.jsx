@@ -27,14 +27,14 @@ const Header = () => {
     <>
       <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1 flex px-8">
+          <Link to={"/"} className="p-1 font-semibold text-xl flex gap-2">
           <img className="w-6" src={"/logo.svg"} />
-          <Link to={"/"} className="p-1 font-semibold text-xl">
-            Tinderdev
+            <p className={"md:block hidden"}>Tinderdev</p>
           </Link>
         </div>
         {user && (
           <div className="flex gap-2 items-center mr-4">
-            <div>Welcome, {user.firstName}</div>
+            <div className={"md:block hidden"}>Welcome, {user.firstName}</div>
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
