@@ -23,7 +23,7 @@ const Premium = () => {
           <h1 className="font-eater font-bold text-6xl text-center bg-gradient-to-r from-purple-600 to to-pink-600 text-transparent bg-clip-text">
             Premium
           </h1>
-          <p className="text-gray-300 font-bold text-center">
+          <p className="text-gray-300 font-bold text-center px-2">
             Get started with a Tinderdev Subscription that works for you.
           </p>
         </div>

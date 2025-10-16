@@ -1,8 +1,10 @@
 import React from "react";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Shipping = () => {
+  const user = useSelector((store => store.user));
   return (
     <div className="bg-[#ffffff] px-4">
       <div className="max-w-[70rem] text-gray-700 text-[17px] mx-auto ">
@@ -53,7 +55,7 @@ const Shipping = () => {
           <p>
             • If you face any delay in activation, please contact our support
             team at{" "}
-            <Link className="text-violet-600 underline" to={"/contactus"}>
+            <Link className="text-violet-600 underline" to={user ? "/contactus" : "/rules/contactus"}>
               support@tinderder.club
             </Link>
             .
@@ -86,7 +88,7 @@ const Shipping = () => {
           <p>
             For any questions regarding service activation or access, please
             reach out to us at{" "}
-            <Link className="text-violet-600 underline" to={"/contactus"}>
+            <Link className="text-violet-600 underline" to={user ? "/contactus" : "/rules/contactus"}>
               support@tinderder.club
             </Link>
             .
