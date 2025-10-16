@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 
 const Refund = () => {
+  const user = useSelector((store) => store.user);
   return (
     <div className="bg-[#ffffff] px-4">
       <div className="max-w-[70rem] flex flex-col mx-auto gap-4 bg-[#ffffff] text-gray-700 text-[17px] ">
@@ -70,7 +72,7 @@ const Refund = () => {
         <p className="max-w-[70rem] text-left ">
           For any other billing questions, please contact{" "}
           <Link
-            to={"/contactus"}
+            to={user ? "/contactus" : "/rules/contactus"}
             className="text-blue-500 hover:underline"
           >
             billing@tinderdev.club
