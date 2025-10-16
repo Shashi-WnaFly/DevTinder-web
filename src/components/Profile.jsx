@@ -122,7 +122,7 @@ const Profile = () => {
               <p className="label">Optional</p>
             </fieldset>
           </div>
-          <div className="w-full md:w-1/2 p-4">
+          <div className="w-full md:w:1/2 h-[33rem] p-4">
             <UserCard
               user={{
                 firstName,
