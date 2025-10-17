@@ -1,74 +1,63 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Flag from "../assets/Flag";
-import { useSelector } from "react-redux";
 
 const Footer = ({ className }) => {
-  const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
-
-  const handlePrivacy = () => {
-    if (!user) navigate("/rules/privacy");
-    else navigate("/privacy");
-  };
-
-  const handleTerms = () => {
-    if (!user) navigate("/rules/terms");
-    else navigate("/terms");
-  };
-
-  const handleRefund = () => {
-    if (!user) navigate("/rules/refund_policy");
-    else navigate("/refund_policy");
-  };
-
-  const handleShipping = () => {
-    if (!user) navigate("/rules/shipping");
-    else navigate("/shipping");
-  };
-
-  const handleContactUs = () => {
-    if (!user) navigate("/rules/contactus");
-    else navigate("/contactus");
-  };
-
   return (
     <div className={className}>
       <div className="flex justify-center lg:justify-between items-center py-4 text-xs flex-wrap whitespace-pre-wrap gap-4">
-        <div className="flex gap-4 h-6 items-center justify-center flex-wrap min-h-fit">
+        <div className="flex gap-2 h-7 items-center justify-center flex-wrap min-h-fit">
           <p className="mr-4">Copyright © 2025 Tinderdev</p>
-          <button
-            className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
-            onClick={handleContactUs}
-          >
-            Contact Us
+          <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all">
+            <Link
+              to={
+                "https://merchant.razorpay.com/policy/RSz2BIKljTNJG9/contact_us"
+              }
+              target="_blank"
+            >
+              Contact Us
+            </Link>
           </button>
+
           {" | "}
-          <button
-            className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
-            onClick={handleShipping}
-          >
-            Shipping and Delivery
+          <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all">
+            <Link
+              to={
+                "https://merchant.razorpay.com/policy/RSz2BIKljTNJG9/shipping"
+              }
+              target="_blank"
+            >
+              Shipping and Delivery
+            </Link>
           </button>
+
           {" | "}
-          <button
-            className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
-            onClick={handleRefund}
-          >
-            Cancellation and Refund
+          <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all">
+            <Link
+              to={"https://merchant.razorpay.com/policy/RSz2BIKljTNJG9/refund"}
+              target="_blank"
+            >
+              Cancellation and Refund
+            </Link>
           </button>
+
           {" | "}
-          <button
-            className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
-            onClick={handleTerms}
-          >
-            Terms and Conditions
+          <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all">
+            <Link
+              to={"https://merchant.razorpay.com/policy/RSz2BIKljTNJG9/terms"}
+              target="_blank"
+            >
+              Terms and Conditions
+            </Link>
           </button>
+
           {" | "}
-          <button
-            className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all"
-            onClick={handlePrivacy}
-          >
-            Privacy and Policy
+          <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all">
+            <Link
+              to={"https://merchant.razorpay.com/policy/RSz2BIKljTNJG9/privacy"}
+              target="_blank"
+            >
+              Privacy and Policy
+            </Link>
           </button>
         </div>
         <div className="flex items-center gap-2">
