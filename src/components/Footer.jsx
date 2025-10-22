@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import Flag from "../assets/Flag";
+import { useSelector } from "react-redux";
 
 const Footer = ({ className }) => {
+  const user = useSelector((store) => store.user);
   return (
     <div className={className}>
       <div className="flex justify-center lg:justify-between items-center py-4 text-xs flex-wrap whitespace-pre-wrap gap-4">
@@ -10,9 +12,9 @@ const Footer = ({ className }) => {
           <button className="cursor-pointer hover:border-b-2 hover:text-purple-500 hover:pb-2 transition-all">
             <Link
               to={
-                "https://merchant.razorpay.com/policy/RSz2BIKljTNJG9/contact_us"
+                user ? "/contact_us" : "https://merchant.razorpay.com/policy/RSz2BIKljTNJG9/contact_us"
               }
-              target="_blank"
+              target= {!user && "_blank"}
             >
               Contact Us
             </Link>
