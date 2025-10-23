@@ -14,7 +14,7 @@ const Footer = ({ className }) => {
               to={
                 user ? "/contact_us" : "https://merchant.razorpay.com/policy/RSz2BIKljTNJG9/contact_us"
               }
-              target= {!user && "_blank"}
+              target= {!user ? "_blank" : ""}
             >
               Contact Us
             </Link>
