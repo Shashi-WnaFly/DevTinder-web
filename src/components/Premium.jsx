@@ -20,7 +20,7 @@ const Premium = () => {
     <div>
       <div className="h-74 flex items-center justify-center ">
         <div className="h-1/3 flex flex-col justify-between">
-          <h1 className="font-eater font-bold text-6xl text-center bg-gradient-to-r from-purple-600 to to-pink-600 text-transparent bg-clip-text">
+          <h1 className="font-eater font-bold text-6xl text-center bg-linear-[90deg,#ff0000,#ffff00,#ff00f3,#0033ff,#ff00c4,#ff0000] [background-size:400%] text-transparent bg-clip-text animate-myGredient">
             Premium
           </h1>
           <p className="text-gray-300 font-bold text-center px-2">

@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Eater&display=swap');
 @import "tailwindcss";
 @theme {
-  --font-eater: "Eater", sans-serif; 
+  --font-eater: "Eater", sans-serif;
+  --animate-myGredient: myGredient 10s linear infinite;
+  @keyframes myGredient {
+    0% {
+      background-position: 0%;
+    }
+    100% {
+      background-position: 400%;
+    }
+  }
 }
 @plugin "daisyui";
