@@ -5,6 +5,7 @@ import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
 import { removeFeed } from "../utils/feedSlice";
 import { removeRequestAll } from "../utils/requestSlice";
+import { Verified } from "lucide-react";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
@@ -28,21 +29,33 @@ const Header = () => {
       <div className="navbar bg-base-100 shadow-sm">
         <div className="flex-1 flex px-8">
           <Link to={"/"} className="p-1 font-semibold text-xl flex gap-2">
-          <img className="w-6" src={"/logo.svg"} />
+            <img className="w-6" src={"/logo.svg"} />
             <p className={"md:block hidden"}>Tinderdev</p>
           </Link>
         </div>
         {user && (
           <div className="flex gap-2 items-center mr-4">
-            <div className={"md:block hidden"}>Welcome, {user.firstName}</div>
+            <div className={"hidden md:flex md:gap-2"}>
+              {user.firstName}{" "}
+              {user.isPremium && <Verified className={" fill-blue-600"} />}
+            </div>
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
-                <div className="w-10 rounded-full">
-                  <img alt="userPhoto" src={user.photoUrl} />
+                <div className="w-10 relative">
+                  <img
+                    alt="userPhoto"
+                    src={user.photoUrl}
+                    className="absolute z-0 top-0 left-0 rounded-full"
+                  />
+                  {user.isPremium && (
+                    <span className="md:hidden absolute z-10 top-5 left-5">
+                      <Verified className={"fill-blue-600 w-4"} />
+                    </span>
+                  )}
                 </div>
               </div>
 

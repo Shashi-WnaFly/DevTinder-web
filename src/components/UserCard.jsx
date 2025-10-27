@@ -2,13 +2,24 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeCard } from "../utils/feedSlice";
+import Verified from "../assets/Verified";
 
 const UserCard = ({ user }) => {
   const dispatch = useDispatch();
   if (!user) return;
-  const { _id, firstName, lastName, gender, photoUrl, age, skills, about } =
-    user;
-
+  const {
+    _id,
+    firstName,
+    lastName,
+    gender,
+    photoUrl,
+    isPremium,
+    age,
+    skills,
+    about,
+  } = user;
+  console.log(isPremium);
+  console.log(firstName);
   const handleRequest = async (status) => {
     try {
       await axios.post(
@@ -25,14 +36,15 @@ const UserCard = ({ user }) => {
   return (
     <div className="card bg-base-300 md:h-full w-full shadow-sm mx-auto">
       <figure className="px-10 pt-10 w-full">
-        <img
-          src={photoUrl}
-          alt="photo"
-          className="rounded-xl object-cover "
-        />
+        <img src={photoUrl} alt="photo" className="rounded-xl object-cover " />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{firstName + " " + lastName}</h2>
+        <h2 className="card-title">{firstName + " " + lastName + " "}</h2>
+        {isPremium && (
+          <span>
+            <Verified className={"fill-blue-600"} />
+          </span>
+        )}
         <p>{gender && age && gender + " " + age}</p>
         <p>{about || ""}</p>
         <p>{skills || ""}</p>
