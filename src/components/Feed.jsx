@@ -32,8 +32,12 @@ const Feed = () => {
     );
 
   return (
-    <div className="w-96 mx-auto">
-      <UserCard key={feed[0]._id} user={feed[0]} />
+    <div className="absolute w-screen top-0 -z-10 h-screen">
+      <div className=" w-96 h-screen flex items-center mx-auto">
+        <div className="h-9/12">
+          <UserCard key={feed[0]._id} user={feed[0]} />
+        </div>
+      </div>
     </div>
   );
 };

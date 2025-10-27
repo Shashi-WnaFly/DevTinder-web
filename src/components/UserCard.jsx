@@ -18,8 +18,6 @@ const UserCard = ({ user }) => {
     skills,
     about,
   } = user;
-  console.log(isPremium);
-  console.log(firstName);
   const handleRequest = async (status) => {
     try {
       await axios.post(
@@ -34,7 +32,7 @@ const UserCard = ({ user }) => {
   };
 
   return (
-    <div className="card bg-base-300 md:h-full w-full shadow-sm mx-auto">
+    <div className="card bg-base-300 h-full w-full shadow-sm mx-auto">
       <figure className="px-10 pt-10 w-full">
         <img src={photoUrl} alt="photo" className="rounded-xl object-cover " />
       </figure>
