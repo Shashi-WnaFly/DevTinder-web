@@ -136,12 +136,15 @@ const Profile = () => {
             />
           </div>
         </div>
-        <button
-          className="btn btn-primary mt-6 px-8 rounded-xl w-24"
-          onClick={handleSave}
-        >
-          Save
-        </button>
+        <div className="relative mt-6 px-8 h-12 w-32 [background-size:400%] rounded-md bg-linear-[90deg,#14ffe9,#ffeb3b,#ff00f3,#ff00c4,#14ffe9] animate-myGradient">
+          <button
+            className="text-white absolute z-10 top-1/2 left-1/2 [transform:translate(-50%,-50%)] w-[98%] bg-black h-[90%] text-md rounded-md cursor-pointer"
+            onClick={handleSave}
+          >
+            Save
+          </button>
+          <span className=" blur-xs absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] h-full w-full [background:inherit]"></span>
+        </div>
         {showToast && (
           <div className="toast toast-center toast-top">
             <div className="alert alert-success">

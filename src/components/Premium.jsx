@@ -17,8 +17,8 @@ const Premium = () => {
   return (
     <div>
       <div className="h-74 flex items-center justify-center ">
-        <div className="h-1/3 flex flex-col justify-between">
-          <h1 className="font-eater font-bold text-6xl text-center bg-linear-[90deg,#ff0000,#ffff00,#ff00f3,#0033ff,#ff00c4,#ff0000] [background-size:400%] text-transparent bg-clip-text animate-myGredient">
+        <div className="h-1/3 flex flex-col gap-4 justify-between">
+          <h1 className="font-eater font-bold text-6xl text-center bg-linear-[90deg,#14ffe9,#ffeb3b,#ff00f3,#ff00c4,#14ffe9] [background-size:400%] text-transparent bg-clip-text animate-myGradient">
             Premium
           </h1>
           <p className="text-gray-300 font-bold text-center px-2">
@@ -53,9 +53,14 @@ const Premium = () => {
                   <Ai />
                 </span>
                 Ask Coupler
-                <span className="font-semibold bg-yellow-900 px-2 rounded-md text-orange-400">
-                  New
-                </span>
+                <div className="relative h-8 w-14 [background-size:400%] rounded-md bg-linear-[90deg,#14ffe9,#ffeb3b,#ff00f3,#ff00c4,#14ffe9] animate-myGradient">
+                  <button
+                    className="text-white absolute font-semibold z-10 top-1/2 left-1/2 [transform:translate(-50%,-50%)] w-[98%] bg-black h-[90%] text-md rounded-md cursor-pointer"
+                  >
+                    New
+                  </button>
+                  <span className=" blur-xs absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] h-full w-full [background:inherit]"></span>
+                </div>
               </div>
               <div className="pl-8">
                 An AI-powered conversation coach that helps you improve their
@@ -123,9 +128,9 @@ const Premium = () => {
                 100 Request
               </div>
               <div className="pl-8">
-                Before you were restricted to send 10 but now you can send 100 friend
-                requests per day, expanding chances to meet new people and form
-                meaningful connections.
+                Before you were restricted to send 10 but now you can send 100
+                friend requests per day, expanding chances to meet new people
+                and form meaningful connections.
               </div>
             </div>
             <div className="flex flex-col gap-4 w-full md:w-1/2">

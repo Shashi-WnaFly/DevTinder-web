@@ -32,12 +32,15 @@ const PremiumCard = ({ year, sub, price }) => {
             Price are marked in INR
           </div>
         </div>
-        <button
-          className="text-white bg-black py-2 text-md rounded-md cursor-pointer hover:bg-gray-800"
-          onClick={handlePopUp}
-        >
-          Subscribe
-        </button>
+        <div className="relative h-12 w-full [background-size:400%] p-1 rounded-md hover:bg-linear-[90deg,#14ffe9,#ffeb3b,#ff00f3,#ff00c4,#14ffe9] hover:animate-myGradient">
+          <button
+            className="text-white absolute z-10 top-1/2 left-1/2 [transform:translate(-50%,-50%)] w-[98%] bg-black py-2 text-md rounded-md cursor-pointer"
+            onClick={handlePopUp}
+          >
+            Subscribe
+          </button>
+          <span className=" blur-xs absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] h-full w-full [background:inherit]"></span>
+        </div>
       </div>
     </div>
   );
