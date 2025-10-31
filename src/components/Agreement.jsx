@@ -31,12 +31,12 @@ const Agreement = () => {
       const {key, amount, currency, orderId, notes } = order.data;
 
       const options = {
-        key, // Enter the Key ID generated from the Dashboard
-        amount, // Amount is in currency subunits.
+        key,
+        amount,
         currency,
-        name: "Tinderdev", //your business name
+        name: "Tinderdev",
         description: "Test Transaction",
-        image: "https://example.com/your_logo",
+        image: "/logo.svg",
         order_id: orderId,
         notes,
         theme: {

@@ -2,13 +2,22 @@
 @import "tailwindcss";
 @theme {
   --font-eater: "Eater", sans-serif;
-  --animate-myGredient: myGredient 10s linear infinite;
-  @keyframes myGredient {
+  --animate-myGradient: myGradient 10s linear infinite;
+  --animate-myHue: myHue 1.5s linear infinite;
+  @keyframes myGradient {
     0% {
       background-position: 0%;
     }
     100% {
       background-position: 400%;
+    }
+  }
+  @keyframes myHue {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    100% {
+      filter: hue-rotate(360deg);
     }
   }
 }
