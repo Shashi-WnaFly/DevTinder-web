@@ -47,7 +47,7 @@ const UserCard = ({ user }) => {
         <p>{about || ""}</p>
         <p>{skills || ""}</p>
         <div className="card-actions justify-between ">
-          <div className="relative h-12 w-32 rounded-md bg-linear-[270deg,#14ffe9,#ffeb3b,#ff00f3] animate-myHue">
+          <div className="relative h-12 w-32 rounded-md bg-linear-[270deg,#14ffe9,#ffeb3b,#14ffe9] animate-myHue">
             <button
               className="text-white font-semibold absolute z-10 top-1/2 left-1/2 [transform:translate(-50%,-50%)] w-[98%] bg-black h-[90%] text-md rounded-md cursor-pointer"
               onClick={() => {
@@ -58,7 +58,7 @@ const UserCard = ({ user }) => {
             </button>
             <span className=" blur-xs absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] h-full w-full [background:inherit]"></span>
           </div>
-          <div className="relative h-12 w-32 rounded-md bg-linear-[90deg,#14ffe9,#ffeb3b,#ff00f3] animate-myHue">
+          <div className="relative h-12 w-32 rounded-md bg-linear-[90deg,#1EBAF7_0%,#EB07C5_35%,#00D4FF_100%] animate-myHue">
             <button
               className="text-white absolute font-semibold z-10 top-1/2 left-1/2 [transform:translate(-50%,-50%)] w-[98%] bg-black h-[90%] text-md rounded-md cursor-pointer"
               onClick={() => {
