@@ -3,7 +3,6 @@ import Send from "../assets/Send";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
-import { toString } from "validator";
 
 const Chat = () => {
   const [message, setMessage] = useState([]);
@@ -14,7 +13,6 @@ const Chat = () => {
 
   const handleSend = () => {
     const socket = createSocketConnection();
-    // setMessage((message) => [...message, { userId: loggedUserId, text: newMsg }]);
     socket.emit("sendMessage", { loggedUserId, targetUserId, text: newMsg });
     setNewMsg("");
   };
@@ -25,9 +23,7 @@ const Chat = () => {
 
     socket.on("messageReceived", ({ sender, text }) => {
       setMessage((message) => [...message, { userId: sender, text }]);
-      // console.log(userId);
     });
-
     return () => {
       socket.disconnect();
     };
@@ -38,9 +34,8 @@ const Chat = () => {
       <div className="w-full lg:w-6/12 mt-20 mx-auto h-9/12 overflow-y-hidden">
         <h2 className="p-4 text-xl font-semibold">Chat</h2>
         <div className="overflow-y-scroll scroll-smooth h-full flex flex-col px-4">
-          {message?.map(({userId, text}, index) => {
-            console.log(userId);
-            return (userId.toString() === loggedUserId.toString()) ? (
+          {message?.map(({ userId, text }, index) => {
+            return userId.toString() === loggedUserId.toString() ? (
               <div
                 key={index}
                 className="place-self-end bg-green-700 px-2 py-1 rounded-md max-w-10/12"
@@ -48,7 +43,10 @@ const Chat = () => {
                 {text}
               </div>
             ) : (
-              <div key={index} className=" place-self-start bg-base-300 px-2 py-1 rounded-md max-w-10/12">
+              <div
+                key={index}
+                className=" place-self-start bg-base-300 px-2 py-1 rounded-md max-w-10/12"
+              >
                 {text}
               </div>
             );
