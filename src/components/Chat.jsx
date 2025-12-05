@@ -3,6 +3,8 @@ import Send from "../assets/Send";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 const Chat = () => {
   const [message, setMessage] = useState([]);
@@ -17,12 +19,23 @@ const Chat = () => {
     setNewMsg("");
   };
 
+  const getChats = async () => {
+    const chats = await axios.get(`${BASE_URL}/chat/${targetUserId}`, {
+      withCredentials: true,
+    });
+    if (chats.length == 0) return;
+    setMessage((message) => [...message, ...chats.data.data]);
+  };
+
+  useEffect(() => {
+    getChats();
+  }, []);
+
   useEffect(() => {
     const socket = createSocketConnection();
     socket.emit("joinChat", { loggedUserId, targetUserId });
-
-    socket.on("messageReceived", ({ sender, text }) => {
-      setMessage((message) => [...message, { userId: sender, text }]);
+    socket.on("messageReceived", ({ senderId, text }) => {
+      setMessage((message) => [...message, { senderId, text }]);
     });
     return () => {
       socket.disconnect();
@@ -31,11 +44,11 @@ const Chat = () => {
 
   return (
     <div className="w-full absolute -z-30 h-screen top-0 left-0">
-      <div className="w-full lg:w-6/12 mt-20 mx-auto h-9/12 overflow-y-hidden">
+      <div className="relative w-full lg:w-6/12 mt-20 mx-auto h-9/12 overflow-y-hidden">
         <h2 className="p-4 text-xl font-semibold">Chat</h2>
-        <div className="overflow-y-scroll scroll-smooth h-full flex flex-col px-4">
-          {message?.map(({ userId, text }, index) => {
-            return userId.toString() === loggedUserId.toString() ? (
+        <div className="overflow-y-scroll scroll-smooth h-full flex flex-col gap-2 px-4">
+          {message?.map(({ senderId, text }, index) => {
+            return senderId.toString() === loggedUserId.toString() ? (
               <div
                 key={index}
                 className="place-self-end bg-green-700 px-2 py-1 rounded-md max-w-10/12"
