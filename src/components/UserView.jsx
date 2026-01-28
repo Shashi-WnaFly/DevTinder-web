@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import Send from "../assets/Send";
-const UserView = ({ user }) => {
+const UserView = ({user}) => {
+
   const { _id, firstName, lastName, age, about, gender, photoUrl } = user;
   return (
     <div className="flex items-center gap-4 relative w-full">

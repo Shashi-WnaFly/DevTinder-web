@@ -30,7 +30,7 @@ const Requests = () => {
         <h1 className="text-center bg-base-100 text-xl py-2">Requests</h1>
         <div className="overflow-y-scroll scroll-smooth">
           {reqs.map((row) => {
-            return <Request req={row} />;
+            return <Request key={row._id} req={row} />;
           })}
         </div>
       </div>

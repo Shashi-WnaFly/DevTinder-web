@@ -22,7 +22,7 @@ const Profile = () => {
       const res = await axios.post(
         BASE_URL + "/profile/edit",
         { firstName, lastName, age, about, photoUrl, skills, gender },
-        { withCredentials: true }
+        { withCredentials: true },
       );
       setShowToast(true);
       dispatch(addUser(res?.data.data));
@@ -123,17 +123,7 @@ const Profile = () => {
             </fieldset>
           </div>
           <div className="w-full md:w:1/2 h-[33rem] p-4">
-            <UserCard
-              user={{
-                firstName,
-                lastName,
-                about,
-                skills,
-                gender,
-                photoUrl,
-                age,
-              }}
-            />
+            <UserCard user={user} />
           </div>
         </div>
         <div className="relative mt-6 px-8 h-12 w-32 [background-size:400%] rounded-md bg-linear-[90deg,#14ffe9,#ffeb3b,#ff00f3,#ff00c4,#14ffe9] animate-myGradient">

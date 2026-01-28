@@ -25,12 +25,19 @@ const Chat = () => {
       withCredentials: true,
     });
 
+    if (!chats.data) {
+      console.error("something went wrong!!!");
+      return;
+    }
+
     setMessage((message) => [...message, ...chats.data.data]);
   };
 
   useEffect(() => {
-    if (message.length == 0) getChats();
+    getChats();
   }, []);
+
+  // todo: implement the pagination
 
   useEffect(() => {
     msgEndRef.current?.scrollIntoView();
