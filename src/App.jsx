@@ -11,6 +11,7 @@ import Connections from "./components/Connections";
 import Premium from "./components/Premium";
 import ContactUs from "./components/ContactUs";
 import Chat from "./components/Chat";
+import Verify from "./components/Verify";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="/" element={<Feed />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/verify" element={<Verify />} />
               <Route path="/requests" element={<Requests />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/premium" element={<Premium />} />
