@@ -53,7 +53,7 @@ const Login = () => {
         navigate("/profile");
       }
     } catch (err) {
-      setError(err.response?.data);
+      setError(err.response?.data?.message || "An error occurred");
     }
   };
   return (
