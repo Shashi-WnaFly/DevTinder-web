@@ -64,7 +64,7 @@ const VerifyCard = () => {
               ref={(e) => (inputRefs.current[index] = e)}
               onInput={(e) => handleInput(e, index)}
               onKeyDown={(e) => handleKeyDown(e, index)}
-              className="md:w-14 md:h-14 w-12 h-12 bg-[#333A5C] rounded-md text-center text-xl md:text-2xl required"
+              className="md:w-12 md:h-12 w-10 h-10 bg-[#333A5C] rounded-md text-center text-xl md:text-2xl required"
             />
           ))}
         </div>

@@ -6,6 +6,7 @@ import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { isStrongPassword, isEmail } from "validator";
 import Footer from "./Footer";
+import VerifyCard from "./VerifyCard";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("demo@gmail.com");
@@ -13,15 +14,20 @@ const Login = () => {
   const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+  const [password, setPassword] = useState("Demo@123");
+  const [forgotPass, setForgotPass] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [password, setPassword] = useState("Demo@123");
 
   const handleForm = () => {
     setIsLogin(!isLogin);
     setError("");
   };
 
+  const handleForgotPass = () => {
+    setForgotPass(!forgotPass);
+    setError("");
+  };
   const handleLogin = async () => {
     try {
       if (!isEmail(emailId)) {
@@ -39,7 +45,7 @@ const Login = () => {
             emailId,
             password,
           },
-          { withCredentials: true }
+          { withCredentials: true },
         );
         dispatch(addUser(res.data.data));
         navigate("/");
@@ -47,7 +53,7 @@ const Login = () => {
         const res = await axios.post(
           BASE_URL + "/signup",
           { firstName, lastName, emailId, password },
-          { withCredentials: true }
+          { withCredentials: true },
         );
         dispatch(addUser(res.data.data));
         navigate("/profile");
@@ -57,59 +63,73 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex flex-col min-h-screen md:w-screen min-w-fit absolute z-10 top-0 left-0">
-      <fieldset className="fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4 m-auto">
-        <legend className="fieldset-legend">
-          {isLogin ? "Login" : "SignUp"}
-        </legend>
-        {!isLogin && (
-          <div>
-            <label className="label py-2">FirstName</label>
+    <div className="flex flex-col min-h-screen md:w-screen min-w-fit w-full h-screen items-center justify-center absolute z-10 top-0 left-0">
+      {forgotPass ? (
+        <VerifyCard />
+      ) : (
+        <>
+          <fieldset className="fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4 m-auto">
+            <legend className="fieldset-legend">
+              {isLogin ? "Login" : "SignUp"}
+            </legend>
+            {!isLogin && (
+              <div>
+                <label className="label py-2">FirstName</label>
+                <input
+                  type="text"
+                  className="input"
+                  placeholder="FirstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <label className="label py-2">LastName</label>
+                <input
+                  type="text"
+                  className="input"
+                  placeholder="LastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
+            )}
+            <label className="label">Email</label>
             <input
-              type="text"
+              type="email"
               className="input"
-              placeholder="FirstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="Email"
+              value={emailId}
+              onChange={(e) => setEmailId(e.target.value)}
             />
-            <label className="label py-2">LastName</label>
+            <label className="label">Password</label>
             <input
-              type="text"
+              type="password"
               className="input"
-              placeholder="LastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-          </div>
-        )}
-        <label className="label">Email</label>
-        <input
-          type="email"
-          className="input"
-          placeholder="Email"
-          value={emailId}
-          onChange={(e) => setEmailId(e.target.value)}
-        />
-        <label className="label">Password</label>
-        <input
-          type="password"
-          className="input"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <p className="text-red-500">{error}</p>
-        <button
-          className="underline text-gray-400 text-left cursor-pointer w-fit"
-          onClick={handleForm}
-        >
-          {isLogin ? " SignUp" : " Login"}
-        </button>
-        <button className="btn btn-neutral mt-4" onClick={handleLogin}>
-          {isLogin ? "Login" : "SignUp"}
-        </button>
-      </fieldset>
-      <Footer className={"px-8 border-t-1 border-gray-500"}/>
+            <p className="text-red-500">{error}</p>
+            <div className="flex justify-between">
+              <button
+                className="underline text-gray-400 text-left cursor-pointer w-fit"
+                onClick={handleForm}
+              >
+                {isLogin ? " SignUp" : " Login"}
+              </button>
+              <button
+                className="underline text-gray-400 text-left cursor-pointer w-fit"
+                onClick={handleForgotPass}
+              >
+                Forgot Password?
+              </button>
+            </div>
+            <button className="btn btn-neutral mt-4" onClick={handleLogin}>
+              {isLogin ? "Login" : "SignUp"}
+            </button>
+          </fieldset>
+        </>
+      )}
+      <Footer className={"absolute bottom-0 left-0 w-full px-8 border-t-1 border-gray-500 "} />
     </div>
   );
 };
