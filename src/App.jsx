@@ -12,6 +12,7 @@ import Premium from "./components/Premium";
 import ContactUs from "./components/ContactUs";
 import Chat from "./components/Chat";
 import Verify from "./components/Verify";
+import ForgotPass from "./components/ForgotPass";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" element={<Body />}>
               <Route path="/" element={<Feed />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/forgot_password" element={<ForgotPass />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/verify" element={<Verify />} />
               <Route path="/requests" element={<Requests />} />
