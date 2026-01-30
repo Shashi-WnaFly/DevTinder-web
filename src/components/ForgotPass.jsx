@@ -4,16 +4,18 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addEmailId } from "../utils/passwordResetEmailSlice";
+import { Eye, EyeOffIcon } from "lucide-react";
 
 const ForgotPass = () => {
   const emailId = useSelector((store) => store.passwordResetEmail);
   const emailRef = useRef(null);
   const confirmPassRef = useRef(null);
   const newPassRef = useRef(null);
+  const inputRefs = useRef([]);
   const [isOTPSent, setIsOTPSent] = useState(false);
   const [isMailVerified, setIsMailVerified] = useState(false);
+  const [passShow, setPassShow] = useState("password");
   const dispatch = useDispatch();
-  const inputRefs = useRef([]);
 
   const handleInput = (e, index) => {
     if (e.target.value.length > 0 && index < 5) {
@@ -38,9 +40,10 @@ const ForgotPass = () => {
 
   const handlePasswordReset = async () => {
     try {
-      const newPassRef = newPassRef.current.value;
-      const confirmPassRef = confirmPassRef.current.value;
-      if (newPassRef !== confirmPassRef) {
+      const newPass = newPassRef.current.value;
+      const confirmPass = confirmPassRef.current.value;
+      console.log(newPass, confirmPass);
+      if (newPass !== confirmPass) {
         alert("Passwords do not match!");
         return;
       }
@@ -147,16 +150,32 @@ const ForgotPass = () => {
       {isMailVerified && isOTPSent && (
         <div className="md:w-md w-xs flex flex-col items-center justify-center border border-gray-400 rounded-lg p-6 m-4 shadow-md">
           <h2 className="text-2xl m-4 font-semibold">Enter New Password</h2>
-          <input
-            type="password"
-            placeholder="New Password"
-            className={`p-4 w-full font-semibold m-4 rounded-full + { newPassRef !== confirmPassRef ? "border-gray-300" : "border-red-500"`}
-            ref={newPassRef}
-          />
+          <div
+            className={`flex items-center w-full font-semibold rounded-full border ${newPassRef?.current?.value !== confirmPassRef?.current?.value ? "border-red-400 border-2" : "border-gray-300"}`}
+          >
+            <input
+              type={passShow}
+              placeholder="New Password"
+              className={`p-4 w-full font-semibold rounded-full outline-none`}
+              ref={newPassRef}
+            />
+            <div
+              onClick={() =>
+                setPassShow(passShow === "password" ? "text" : "password")
+              }
+              className="w-8 h-8 flex items-center justify-center mr-4 cursor-pointer"
+            >
+              {passShow === "password" ? (
+                <EyeOffIcon className="w-5 h-5 text-gray-300" />
+              ) : (
+                <Eye className="w-5 h-5 text-gray-200" />
+              )}
+            </div>
+          </div>
           <input
             type="password"
             placeholder="Confirm Password"
-            className="p-4 w-full font-semibold m-4 rounded-full border border-gray-300"
+            className={`p-4 w-full font-semibold m-4 rounded-full border outline-none ${newPassRef?.current?.value !== confirmPassRef?.current?.value ? "border-red-400 border-2" : "border-gray-300"}`}
             ref={confirmPassRef}
           />
           <button
