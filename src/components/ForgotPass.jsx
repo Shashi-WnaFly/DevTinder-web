@@ -69,7 +69,7 @@ const ForgotPass = () => {
       dispatch(removeEmailId());
       navigate("/login");
     } catch (err) {
-      console.log(err.data.message || err.message);
+      console.log(err?.message || "Error resetting password");
     }
   };
 
@@ -90,7 +90,7 @@ const ForgotPass = () => {
         navigate("/login");
       }
     } catch (err) {
-      console.log(err.data.message || err.message);
+      console.log(err?.message || "Error sending OTP");
     }
   };
 
@@ -102,7 +102,7 @@ const ForgotPass = () => {
         alert("Please enter a valid 6-digit OTP.");
         return;
       }
-      const res = await axios.get(BASE_URL + "/verify/otp", {
+      const res = await axios.post(BASE_URL + "/verify/otp", {
         otp,
         emailId,
       });
@@ -114,7 +114,7 @@ const ForgotPass = () => {
         return;
       }
     } catch (err) {
-      console.log(err.data.message || err.message);
+      console.log(err?.message || "Error verifying OTP");
     }
   };
 
