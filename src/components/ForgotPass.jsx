@@ -3,8 +3,10 @@ import mail_icon from "../assets/mail_icon.svg";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmailId } from "../utils/passwordResetEmailSlice";
+import { addEmailId, removeEmailId } from "../utils/passwordResetEmailSlice";
 import { Eye, EyeOffIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { isEmail, isStrongPassword } from "validator";
 
 const ForgotPass = () => {
   const emailId = useSelector((store) => store.passwordResetEmail);
@@ -16,6 +18,7 @@ const ForgotPass = () => {
   const [isMailVerified, setIsMailVerified] = useState(false);
   const [passShow, setPassShow] = useState("password");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInput = (e, index) => {
     if (e.target.value.length > 0 && index < 5) {
@@ -42,30 +45,52 @@ const ForgotPass = () => {
     try {
       const newPass = newPassRef.current.value;
       const confirmPass = confirmPassRef.current.value;
-      console.log(newPass, confirmPass);
+      if (
+        newPass.length < 8 ||
+        !isStrongPassword(newPass) ||
+        !isStrongPassword(confirmPass)
+      ) {
+        alert(
+          "Password must be at least 8 characters and include at least one uppercase letter, one lowercase letter, one number, and one symbol.",
+        );
+        return;
+      }
       if (newPass !== confirmPass) {
         alert("Passwords do not match!");
         return;
       }
-      alert("Password reset successfully!");
+      const res = await axios.post(BASE_URL + "/reset/password", {
+        emailId,
+        newPass,
+        confirmPass,
+      });
+      if (res.data.success) alert("Password reset successfully!");
+      else alert("Failed to reset password. Please try again.");
+      dispatch(removeEmailId());
+      navigate("/login");
     } catch (err) {
-      console.log(err);
+      console.log(err.data.message || err.message);
     }
   };
 
   const handleSendOTP = async () => {
     try {
       const emailId = emailRef.current.value;
-      // const res = await axios.post(BASE_URL + "/user/send/otp", { emailId });
-      setIsOTPSent(true);
-      dispatch(addEmailId(emailId));
-      alert("OTP sent to your email successfully!");
-      // if (true) {
-      // } else {
-      //   alert("Failed to send OTP. Please try again.");
-      // }
+      if (!isEmail(emailId)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+      const res = await axios.post(BASE_URL + "/send/otp", { emailId });
+      if (res.data.success) {
+        setIsOTPSent(true);
+        dispatch(addEmailId(emailId));
+        alert("OTP sent to your email successfully!");
+      } else {
+        alert("Failed to send OTP. Please try again.");
+        navigate("/login");
+      }
     } catch (err) {
-      console.log(err);
+      console.log(err.data.message || err.message);
     }
   };
 
@@ -73,16 +98,23 @@ const ForgotPass = () => {
     e.preventDefault();
     try {
       const otp = inputRefs.current.map((input) => input.value).join("");
-      console.log(otp);
-      alert("Email verified successfully!");
-      // const res = await axios.post(BASE_URL + "/user/verify/otp", {
-      //   otp,
-      //   emailId,
-      // });
-      setIsMailVerified(true);
-      // console.log(res.message);
+      if (otp.length < 6) {
+        alert("Please enter a valid 6-digit OTP.");
+        return;
+      }
+      const res = await axios.get(BASE_URL + "/verify/otp", {
+        otp,
+        emailId,
+      });
+      if (res.data.success) {
+        setIsMailVerified(true);
+        alert("Email verified successfully!");
+      } else {
+        alert("Invalid OTP. Please try again.");
+        return;
+      }
     } catch (err) {
-      console.log(err);
+      console.log(err.data.message || err.message);
     }
   };
 
@@ -148,8 +180,8 @@ const ForgotPass = () => {
         </div>
       )}
       {isMailVerified && isOTPSent && (
-        <div className="md:w-md w-xs flex flex-col items-center justify-center border border-gray-400 rounded-lg p-6 m-4 shadow-md">
-          <h2 className="text-2xl m-4 font-semibold">Enter New Password</h2>
+        <div className="md:w-md w-xs flex flex-col items-center justify-evenly gap-6 border border-gray-400 rounded-lg p-6 shadow-md">
+          <h2 className="text-2xl font-semibold">Enter New Password</h2>
           <div
             className={`flex items-center w-full font-semibold rounded-full border ${newPassRef?.current?.value !== confirmPassRef?.current?.value ? "border-red-400 border-2" : "border-gray-300"}`}
           >
@@ -163,12 +195,12 @@ const ForgotPass = () => {
               onClick={() =>
                 setPassShow(passShow === "password" ? "text" : "password")
               }
-              className="w-8 h-8 flex items-center justify-center mr-4 cursor-pointer"
+              className="w-10 h-10 mx-2 rounded-full flex items-center justify-center cursor-pointer"
             >
               {passShow === "password" ? (
-                <EyeOffIcon className="w-5 h-5 text-gray-300" />
+                <EyeOffIcon className=" text-gray-200" />
               ) : (
-                <Eye className="w-5 h-5 text-gray-200" />
+                <Eye className=" text-gray-200" />
               )}
             </div>
           </div>
@@ -180,7 +212,7 @@ const ForgotPass = () => {
           />
           <button
             onClick={handlePasswordReset}
-            className="w-full font-bold cursor-pointer m-4 rounded-full bg-gradient-to-r from-indigo-900 to-indigo-500 p-4"
+            className="w-full font-bold cursor-pointer rounded-full bg-gradient-to-r from-indigo-900 to-indigo-500 p-4"
           >
             Reset Password
           </button>
