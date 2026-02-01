@@ -6,7 +6,6 @@ import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { isStrongPassword, isEmail } from "validator";
 import Footer from "./Footer";
-import VerifyCard from "./VerifyCard";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("demo@gmail.com");
@@ -62,44 +61,44 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex flex-col min-h-screen md:w-screen min-w-fit w-full h-screen items-center justify-center absolute z-10 top-0 left-0">
+    <div className="min-h-screen opacity-90 bg-[url('https://user-images.githubusercontent.com/13468728/233847739-219cb494-c265-4554-820a-bd3424c59065.jpg')] md:w-screen min-w-fit w-full h-screen flex flex-col items-center justify-center absolute -z-10 top-0 left-0">
       <>
-        <fieldset className="fieldset bg-base-300 border-base-300 rounded-box w-xs border p-4 m-auto">
-          <legend className="fieldset-legend">
+        <div className="mt-14 md:w-md w-xs flex flex-col gap-2 rounded-xl justify-center border p-4 m-auto backdrop-blur-2xl">
+          <h2 className="text-center text-2xl font-bold">
             {isLogin ? "Login" : "SignUp"}
-          </legend>
+          </h2>
           {!isLogin && (
-            <div>
-              <label className="label py-2">FirstName</label>
+            <div className="flex flex-col gap-2">
+              <label className="font-semibold text-sm">FirstName</label>
               <input
                 type="text"
-                className="input"
+                className="w-full p-2 border-b-2 outline-none border-gray-200"
                 placeholder="FirstName"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
-              <label className="label py-2">LastName</label>
+              <label className="font-semibold text-sm">LastName</label>
               <input
                 type="text"
-                className="input"
+                className="w-full p-2 border-b-2 outline-none border-gray-200"
                 placeholder="LastName"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
           )}
-          <label className="label">Email</label>
+          <label className="font-semibold text-sm">Email</label>
           <input
             type="email"
-            className="input"
-            placeholder="Email"
+            className="w-full p-2 outline-none border-b-2 border-gray-200"
+            placeholder="Enter your email"
             value={emailId}
             onChange={(e) => setEmailId(e.target.value)}
           />
-          <label className="label">Password</label>
+          <label className="font-semibold text-sm">Password</label>
           <input
             type="password"
-            className="input"
+            className="w-full p-2 outline-none border-b-2 border-gray-200"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -107,22 +106,22 @@ const Login = () => {
           <p className="text-red-500">{error}</p>
           <div className="flex justify-between">
             <button
-              className="underline text-gray-400 text-left cursor-pointer w-fit"
+              className="hover:underline text-gray-200 cursor-pointer w-fit"
               onClick={handleForm}
             >
               {isLogin ? " SignUp" : " Login"}
             </button>
             <button
-              className="underline text-gray-400 text-left cursor-pointer w-fit"
+              className="hover:underline text-gray-200 cursor-pointer w-fit"
               onClick={handleForgotPass}
             >
               Forgot Password?
             </button>
           </div>
-          <button className="btn btn-neutral mt-4" onClick={handleLogin}>
-            {isLogin ? "Login" : "SignUp"}
+          <button className="p-2 cursor-pointer font-semibold bg-gradient-to-r from-purple-500 to-purple-900 text-white rounded-full hover:opacity-90" onClick={handleLogin}>
+            {isLogin ? "Log In" : "Sign Up"}
           </button>
-        </fieldset>
+        </div>
       </>
       <Footer
         className={

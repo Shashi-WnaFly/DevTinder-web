@@ -7,6 +7,7 @@ import { addEmailId, removeEmailId } from "../utils/passwordResetEmailSlice";
 import { Eye, EyeOffIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { isEmail, isStrongPassword } from "validator";
+import { a } from "motion/react-client";
 
 const ForgotPass = () => {
   const emailId = useSelector((store) => store.passwordResetEmail);
@@ -69,7 +70,7 @@ const ForgotPass = () => {
       dispatch(removeEmailId());
       navigate("/login");
     } catch (err) {
-      console.log(err?.message || "Error resetting password");
+      alert(err?.message || "Error resetting password");
     }
   };
 
@@ -90,7 +91,7 @@ const ForgotPass = () => {
         navigate("/login");
       }
     } catch (err) {
-      console.log(err?.message || "Error sending OTP");
+      alert(err?.message || "Error sending OTP");
     }
   };
 
@@ -114,7 +115,7 @@ const ForgotPass = () => {
         return;
       }
     } catch (err) {
-      console.log(err?.message || "Error verifying OTP");
+      alert(err?.message || "Error verifying OTP");
     }
   };
 
