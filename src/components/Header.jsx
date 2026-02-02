@@ -26,7 +26,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className={["navbar shadow-sm" + (user ? " bg-base-200" : " bg-transparent")].join(" ")}>
         <div className="flex-1 flex px-8">
           <Link to={"/"} className="p-1 font-semibold text-xl flex gap-2">
             <img className="w-6" src={"/logo.svg"} />

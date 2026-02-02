@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
-import { isStrongPassword, isEmail } from "validator";
+import { isStrongPassword, isEmail, isAlpha } from "validator";
 import Footer from "./Footer";
 
 const Login = () => {
@@ -26,6 +26,7 @@ const Login = () => {
     navigate("/forgot_password");
     setError("");
   };
+
   const handleLogin = async () => {
     try {
       if (!isEmail(emailId)) {
@@ -48,6 +49,27 @@ const Login = () => {
         dispatch(addUser(res.data.data));
         navigate("/");
       } else {
+        if (
+          !firstName ||
+          !lastName ||
+          firstName.trim() === "" ||
+          lastName.trim() === ""
+        ) {
+          setError("FirstName and LastName are required!!");
+          return;
+        }
+        if (
+          firstName.length < 3 ||
+          lastName.length < 3 ||
+          !isAlpha(firstName) ||
+          !isAlpha(lastName)
+        ) {
+          console.log(firstName, lastName);
+          setError(
+            "FirstName and LastName must be at least 3 characters and contain only alphabets!!",
+          );
+          return;
+        }
         const res = await axios.post(
           BASE_URL + "/signup",
           { firstName, lastName, emailId, password },
@@ -63,13 +85,13 @@ const Login = () => {
   return (
     <div className="min-h-screen opacity-90 bg-[url('https://user-images.githubusercontent.com/13468728/233847739-219cb494-c265-4554-820a-bd3424c59065.jpg')] md:w-screen min-w-fit w-full h-screen flex flex-col items-center justify-center absolute -z-10 top-0 left-0">
       <>
-        <div className="mt-14 md:w-md w-xs flex flex-col gap-2 rounded-xl justify-center border p-4 m-auto backdrop-blur-2xl">
+        <div className="mt-16  md:text-base text-sm md:w-sm w-xs flex flex-col gap-2 rounded-xl justify-center border p-4 m-auto backdrop-blur-2xl">
           <h2 className="text-center text-2xl font-bold">
             {isLogin ? "Login" : "SignUp"}
           </h2>
           {!isLogin && (
             <div className="flex flex-col gap-2">
-              <label className="font-semibold text-sm">FirstName</label>
+              <label className="font-semibold ">FirstName</label>
               <input
                 type="text"
                 className="w-full p-2 border-b-2 outline-none border-gray-200"
@@ -77,7 +99,7 @@ const Login = () => {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
-              <label className="font-semibold text-sm">LastName</label>
+              <label className="font-semibold ">LastName</label>
               <input
                 type="text"
                 className="w-full p-2 border-b-2 outline-none border-gray-200"
@@ -87,7 +109,7 @@ const Login = () => {
               />
             </div>
           )}
-          <label className="font-semibold text-sm">Email</label>
+          <label className="font-semibold ">Email</label>
           <input
             type="email"
             className="w-full p-2 outline-none border-b-2 border-gray-200"
@@ -95,7 +117,7 @@ const Login = () => {
             value={emailId}
             onChange={(e) => setEmailId(e.target.value)}
           />
-          <label className="font-semibold text-sm">Password</label>
+          <label className="font-semibold ">Password</label>
           <input
             type="password"
             className="w-full p-2 outline-none border-b-2 border-gray-200"
@@ -104,23 +126,38 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <p className="text-red-500">{error}</p>
-          <div className="flex justify-between">
-            <button
-              className="hover:underline text-gray-200 cursor-pointer w-fit"
-              onClick={handleForm}
-            >
-              {isLogin ? " SignUp" : " Login"}
-            </button>
-            <button
-              className="hover:underline text-gray-200 cursor-pointer w-fit"
-              onClick={handleForgotPass}
-            >
-              Forgot Password?
-            </button>
-          </div>
-          <button className="p-2 cursor-pointer font-semibold bg-gradient-to-r from-purple-500 to-purple-900 text-white rounded-full hover:opacity-90" onClick={handleLogin}>
+          <button
+            className="p-2 cursor-pointer font-semibold active:opacity-70 bg-gradient-to-r from-purple-500 to-purple-900 text-white rounded-full"
+            onClick={handleLogin}
+          >
             {isLogin ? "Log In" : "Sign Up"}
           </button>
+          <div className="flex flex-col gap-4 justify-center items-center my-4">
+            <div className=" text-gray-200 ">
+              <span>
+                {isLogin
+                  ? "Don't have an account? "
+                  : "Already have an account? "}
+              </span>
+              <button
+                onClick={handleForm}
+                className="text-white  active:text-gray-200 font-semibold hover:border-b-2 cursor-pointer"
+              >
+                {isLogin ? " Sign up" : " Log in"}
+              </button>
+            </div>
+            {isLogin && (
+              <div className=" text-gray-200">
+                Forgot{" "}
+                <button
+                  className="hover:border-b-2 text-white cursor-pointer active:text-gray-200 font-semibold"
+                  onClick={handleForgotPass}
+                >
+                  Password?
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </>
       <Footer
