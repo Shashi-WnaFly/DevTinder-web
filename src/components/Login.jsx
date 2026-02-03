@@ -160,11 +160,11 @@ const Login = () => {
           </div>
         </div>
       </>
-      <Footer
+      {/* <Footer
         className={
           "absolute bottom-0 left-0 w-full px-8 border-t-1 border-gray-500 "
         }
-      />
+      /> */}
     </div>
   );
 };
