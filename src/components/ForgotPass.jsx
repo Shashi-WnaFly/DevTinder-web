@@ -198,7 +198,7 @@ const ForgotPass = () => {
         </div>
       )}
       {isMailVerified && isOTPSent && (
-        <div className="md:w-sm w-xs flex backdrop-blur-2xl flex-col items-center justify-evenly gap-6 border border-gray-400 rounded-2xl p-6 shadow-md">
+        <div className="md:w-sm w-xs flex backdrop-blur-2xl flex-col items-center justify-evenly gap-6 border border-gray-400 corner-shape:[] p-6 shadow-md">
           <h2 className="text-2xl font-semibold">Enter New Password</h2>
           <div
             className={`flex items-center w-full font-semibold border-b ${newPassRef?.current?.value !== confirmPassRef?.current?.value ? "border-red-400 border-2" : "border-gray-300"}`}

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { createElement, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { isStrongPassword, isEmail, isAlpha } from "validator";
+import Notification from "./Notification";
 import Footer from "./Footer";
 
 const Login = () => {
@@ -14,8 +15,17 @@ const Login = () => {
   const [error, setError] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("Demo@123");
+  const [notificationList, setNotificationList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleNotification = (type, message) => {
+    const id = Date.now();
+    const newNotification = setTimeout(() => {
+      setNotificationList((prev) => prev.filter((n) => n.id !== id));
+    }, 3000);
+    setNotificationList((prev) => [...prev, { id, type, message, timeout: newNotification }]);
+  };
 
   const handleForm = () => {
     setIsLogin(!isLogin);
@@ -159,7 +169,19 @@ const Login = () => {
             )}
           </div>
         </div>
+        <button className="p-2 text-white bg-indigo-500" onClick={() => handleNotification("error", "This is a success notification!")}>toast</button>
       </>
+      <ul id="toast" className="absolute bottom-5 right-5 ">
+        { 
+          [...notificationList].map((notification) =>
+            createElement(Notification, {
+              key: notification.id,   
+              type: notification.type,
+              message: notification.message,
+            }),
+          )
+        }
+      </ul>
       {/* <Footer
         className={
           "absolute bottom-0 left-0 w-full px-8 border-t-1 border-gray-500 "
@@ -168,5 +190,7 @@ const Login = () => {
     </div>
   );
 };
+
+
 
 export default Login;
