@@ -6,6 +6,7 @@ import connectionSlice from "./connectionSlice";
 import popUpSlice from "./popUpSlice";
 import subscriptionSlice from "./subscriptionSlice";
 import passwordResetEmailSlice from "./passwordResetEmailSlice";
+import notificationListSlice from "./notification";
 
 const appStore = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const appStore = configureStore({
     popUp: popUpSlice,
     subscriptionType: subscriptionSlice,
     passwordResetEmail: passwordResetEmailSlice,
+    notificationList: notificationListSlice,
   },
 });
 
