@@ -1,5 +1,4 @@
-import React from "react";
-import { CheckCircle, CircleX, CircleAlert, Ban } from "lucide-react";
+import { CheckCircle, CircleAlert, Ban } from "lucide-react";
 
 const icons = {
   success: <CheckCircle size={24} />,
