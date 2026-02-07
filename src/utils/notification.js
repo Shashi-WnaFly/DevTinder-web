@@ -8,10 +8,13 @@ const notificationListSlice = createSlice({
       state.push(action.payload);
     },
     removeNotification: (state, action) => {
+      const t = state.find((n) => n.id === action.payload);
+      clearTimeout(t.timeout);
       return state.filter((n) => n.id !== action.payload);
-    }
+    },
   },
 });
 
-export const { addNotification, removeNotification } = notificationListSlice.actions;
+export const { addNotification, removeNotification } =
+  notificationListSlice.actions;
 export default notificationListSlice.reducer;
