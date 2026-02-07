@@ -1,50 +1,40 @@
-import { createElement, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { isStrongPassword, isEmail, isAlpha } from "validator";
-import Notification from "./Notification";
-import Footer from "./Footer";
+import { addNotification, removeNotification } from "../utils/notification";
+import NotificationBar from "./NotificationBar";
+import useToast from "../hooks/useToast";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("demo@gmail.com");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [error, setError] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("Demo@123");
-  const [notificationList, setNotificationList] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const handleNotification = (type, message) => {
-    const id = Date.now();
-    const newNotification = setTimeout(() => {
-      setNotificationList((prev) => prev.filter((n) => n.id !== id));
-    }, 3000);
-    setNotificationList((prev) => [...prev, { id, type, message, timeout: newNotification }]);
-  };
+  const { showToast } = useToast();
 
   const handleForm = () => {
     setIsLogin(!isLogin);
-    setError("");
   };
 
   const handleForgotPass = () => {
     navigate("/forgot_password");
-    setError("");
   };
 
   const handleLogin = async () => {
     try {
       if (!isEmail(emailId)) {
-        setError("EmailId is not valid!!");
+        showToast("warning", "EmailId is not valid!!");
         return;
       }
       if (!isStrongPassword(password)) {
-        setError("Password is not valid!!");
+        showToast("warning", "Password is not valid!!");
         return;
       }
       if (isLogin) {
@@ -57,6 +47,8 @@ const Login = () => {
           { withCredentials: true },
         );
         dispatch(addUser(res.data.data));
+        if(res.data.success)
+          showToast("success", "Login successfully...")
         navigate("/");
       } else {
         if (
@@ -65,7 +57,7 @@ const Login = () => {
           firstName.trim() === "" ||
           lastName.trim() === ""
         ) {
-          setError("FirstName and LastName are required!!");
+          showToast("warning", "FirstName and LastName are required!!");
           return;
         }
         if (
@@ -74,8 +66,8 @@ const Login = () => {
           !isAlpha(firstName) ||
           !isAlpha(lastName)
         ) {
-          console.log(firstName, lastName);
-          setError(
+          showToast(
+            "warning",
             "FirstName and LastName must be at least 3 characters and contain only alphabets!!",
           );
           return;
@@ -89,7 +81,7 @@ const Login = () => {
         navigate("/profile");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred");
+      showToast("error", err.response?.data?.message || "An error occurred");
     }
   };
   return (
@@ -135,7 +127,6 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <p className="text-red-500">{error}</p>
           <button
             className="p-2 cursor-pointer font-semibold active:opacity-70 bg-gradient-to-r from-purple-500 to-purple-900 text-white rounded-full"
             onClick={handleLogin}
@@ -169,19 +160,8 @@ const Login = () => {
             )}
           </div>
         </div>
-        <button className="p-2 text-white bg-indigo-500" onClick={() => handleNotification("error", "This is a success notification!")}>toast</button>
       </>
-      <ul id="toast" className="absolute bottom-5 right-5 ">
-        { 
-          [...notificationList].map((notification) =>
-            createElement(Notification, {
-              key: notification.id,   
-              type: notification.type,
-              message: notification.message,
-            }),
-          )
-        }
-      </ul>
+      <NotificationBar />
       {/* <Footer
         className={
           "absolute bottom-0 left-0 w-full px-8 border-t-1 border-gray-500 "
@@ -190,7 +170,5 @@ const Login = () => {
     </div>
   );
 };
-
-
 
 export default Login;

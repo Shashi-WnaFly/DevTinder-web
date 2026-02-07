@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import mail_icon from "../assets/mail_icon.svg";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
@@ -7,6 +7,8 @@ import { addEmailId, removeEmailId } from "../utils/passwordResetEmailSlice";
 import { Eye, EyeOffIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { isEmail, isNumeric, isStrongPassword } from "validator";
+import NotificationBar from "./NotificationBar";
+import useToast from "../hooks/useToast";
 
 const ForgotPass = () => {
   const emailId = useSelector((store) => store.passwordResetEmail);
@@ -14,11 +16,12 @@ const ForgotPass = () => {
   const confirmPassRef = useRef(null);
   const newPassRef = useRef(null);
   const inputRefs = useRef([]);
-  const [isOTPSent, setIsOTPSent] = useState(true);
-  const [isMailVerified, setIsMailVerified] = useState(true);
+  const [isOTPSent, setIsOTPSent] = useState(false);
+  const [isMailVerified, setIsMailVerified] = useState(false);
   const [passShow, setPassShow] = useState("password");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const handleInput = (e, index) => {
     const value = e.target.value;
@@ -57,13 +60,14 @@ const ForgotPass = () => {
         !isStrongPassword(newPass) ||
         !isStrongPassword(confirmPass)
       ) {
-        alert(
-          "Password must be at least 8 characters and include at least one uppercase letter, one lowercase letter, one number, and one symbol.",
+        showToast(
+          "warning",
+          "Password must be at least 8 characters long and include uppercase, lowercase, number, and symbol.",
         );
         return;
       }
       if (newPass !== confirmPass) {
-        alert("Passwords do not match!");
+        showToast("warning", "Please enter the same password in both fields.");
         return;
       }
       const res = await axios.post(BASE_URL + "/reset/password", {
@@ -71,12 +75,17 @@ const ForgotPass = () => {
         newPass,
         confirmPass,
       });
-      if (res.data.success) alert("Password reset successfully!");
-      else alert("Failed to reset password. Please try again.");
-      dispatch(removeEmailId());
-      navigate("/login");
+      if (res.data.success) {
+        showToast("success", "Password reset successfully!");
+        dispatch(removeEmailId());
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      } else {
+        showToast("error", "Failed to reset password. Please try again.");
+      }
     } catch (err) {
-      alert(err?.message || "Error resetting password");
+      showToast("error", err?.message || "Error resetting password");
     }
   };
 
@@ -84,44 +93,42 @@ const ForgotPass = () => {
     try {
       const emailId = emailRef.current.value;
       if (!isEmail(emailId)) {
-        alert("Please enter a valid email address.");
+        showToast("error", "Please enter a valid email address.");
         return;
       }
       const res = await axios.post(BASE_URL + "/send/otp", { emailId });
       if (res.data.success) {
         setIsOTPSent(true);
         dispatch(addEmailId(emailId));
-        alert("OTP sent to your email successfully!");
+        showToast("success", "OTP sent to your email successfully!");
       } else {
-        alert("Failed to send OTP. Please try again.");
-        navigate("/login");
+        showToast("error", "Failed to send OTP. Please try again.");
       }
     } catch (err) {
-      alert(err?.message || "Error sending OTP");
+      showToast("error", err?.message || "Error sending OTP");
     }
   };
 
   const handleVerifyEmail = async (e) => {
     e.preventDefault();
     try {
-      // const otp = inputRefs.current.map((input) => input.value).join("");
-      // if (otp.length < 6) {
-      //   alert("Please enter a valid 6-digit OTP.");
-      //   return;
-      // }
-      // const res = await axios.post(BASE_URL + "/verify/otp", {
-      //   otp,
-      //   emailId,
-      // });
-      // if (res.data.success) {
-      //   setIsMailVerified(true);
-      alert("Email verified successfully!");
-      // } else {
-      //   alert("Invalid OTP. Please try again.");
-      //   return;
-      // }
+      const otp = inputRefs.current.map((input) => input.value).join("");
+      if (otp.length < 6) {
+        showToast("invalid", "Please enter a valid 6-digit OTP.");
+        return;
+      }
+      const res = await axios.post(BASE_URL + "/verify/otp", {
+        otp,
+        emailId,
+      });
+      if (res.data.success) {
+        setIsMailVerified(true);
+        showToast("success", "Email verified successfully!");
+      } else {
+        showToast("error", "Invalid OTP. Please try again.");
+      }
     } catch (err) {
-      alert(err?.message || "Error verifying OTP");
+      showToast("error", err?.message || "Error verifying OTP");
     }
   };
 
@@ -191,7 +198,7 @@ const ForgotPass = () => {
             <button
               // onClick={handleResendOTP}
               className="text-fuchsia-500 w-fit mx-auto p-2 font-semibold cursor-pointer active:underline  active:text-fuchsia-400"
-            > 
+            >
               Resend OTP
             </button>
           </p>
@@ -236,6 +243,7 @@ const ForgotPass = () => {
           </button>
         </div>
       )}
+      <NotificationBar />
     </div>
   );
 };
