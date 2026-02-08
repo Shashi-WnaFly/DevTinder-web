@@ -47,8 +47,7 @@ const Login = () => {
           { withCredentials: true },
         );
         dispatch(addUser(res.data.data));
-        if(res.data.success)
-          showToast("success", "Login successfully...")
+        if (res.data.success) showToast("success", "Login successfully...");
         navigate("/");
       } else {
         if (

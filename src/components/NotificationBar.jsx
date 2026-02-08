@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { CheckCircle, CircleAlert, Ban, OctagonX } from "lucide-react";
 import { removeNotification } from "../utils/notification";
+import { memo } from "react";
 
 const icons = {
   success: <CheckCircle size={24} />,
@@ -14,9 +15,10 @@ const bgColors = {
   error: "bg-red-500",
 };
 
-const NotificationBar = () => {
+const NotificationBar = memo(() => {
   const toastList = useSelector((store) => store.notificationList);
   const dispatch = useDispatch();
+
   return (
     <ul className="absolute bottom-5 right-5 max-w-6/12">
       {[...toastList].map((notification) => (
@@ -36,6 +38,6 @@ const NotificationBar = () => {
       ))}
     </ul>
   );
-};
+});
 
 export default NotificationBar;
