@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { CheckCircle, CircleAlert, Ban, OctagonX } from "lucide-react";
-import useToast from "../hooks/useToast";
 import { removeNotification } from "../utils/notification";
 
 const icons = {
@@ -27,7 +26,10 @@ const NotificationBar = () => {
         >
           <div>{icons[notification.type]}</div>
           <p>{notification.message}</p>
-          <button onClick={() => dispatch(removeNotification(notification.id))}>
+          <button
+            className="cursor-pointer active:scale-75 transition-transform "
+            onClick={() => dispatch(removeNotification(notification.id))}
+          >
             <OctagonX />
           </button>
         </li>
