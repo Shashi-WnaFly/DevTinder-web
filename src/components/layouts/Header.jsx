@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../utils/constants";
-import { removeUser } from "../utils/userSlice";
-import { removeFeed } from "../utils/feedSlice";
-import { removeRequestAll } from "../utils/requestSlice";
+import { BASE_URL } from "../../utils/constants";
+import { removeUser } from "../../utils/userSlice";
+import { removeFeed } from "../../utils/feedSlice";
+import { removeRequestAll } from "../../utils/requestSlice";
 import { Verified } from "lucide-react";
 
 const Header = () => {

@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
-import Agreement from "./Agreement";
 import PremiumCard from "./PremiumCard";
-import Footer from "./Footer";
-import Ai from "../assets/Ai";
-import Flash from "../assets/Flash";
-import Cloud from "../assets/Cloud";
-import IOO from "../assets/IOO";
-import Tick from "../assets/Tick";
-import Chat from "../assets/Chat";
-import People from "../assets/People";
-import Ad from "../assets/Ad";
+import Agreement from "../common/Agreement";
+import Footer from "../layouts/Footer";
+import Ai from "../../assets/Ai";
+import Flash from "../../assets/Flash";
+import Cloud from "../../assets/Cloud";
+import IOO from "../../assets/IOO";
+import Tick from "../../assets/Tick";
+import Chat from "../../assets/Chat";
+import People from "../../assets/People";
+import Ad from "../../assets/Ad";
 
 const Premium = () => {
   const popUp = useSelector((store) => store.popUp);
@@ -44,7 +44,6 @@ const Premium = () => {
             />
           </div>
         </div>
-        {/* <div> */}
         <div className="md:max-w-[74rem] p-8 flex flex-col gap-8">
           <div className="flex justify-evenly gap-8 flex-wrap md:flex-nowrap">
             <div className="flex flex-col gap-4 w-full md:w-1/2">
@@ -156,7 +155,7 @@ const Premium = () => {
                 Lightning Judge
               </div>
               <div className="pl-8">
-                The “Lightning Judge” feature instantly analyzes profiles and
+                The "Lightning Judge" feature instantly analyzes profiles and
                 suggests quick match decisions based on compatibility and
                 preferences. It saves time by helping you find your best
                 potential matches faster and more efficiently.
@@ -170,7 +169,7 @@ const Premium = () => {
                 No Ads
               </div>
               <div className="pl-8">
-                The “No Ads” feature offers a seamless, uninterrupted experience
+                The "No Ads" feature offers a seamless, uninterrupted experience
                 by removing all advertisements from the app. Enjoy smooth
                 navigation, faster loading, and focused interactions without any
                 distractions.
@@ -178,7 +177,6 @@ const Premium = () => {
             </div>
           </div>
         </div>
-        {/* </div> */}
       </div>
       {popUp && <Agreement />}
       <Footer className={"px-8 border-t-1 border-gray-500"} />

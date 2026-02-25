@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { openPopUp } from "../utils/popUpSlice";
-import { addPlan } from "../utils/subscriptionSlice";
+import { openPopUp } from "../../utils/popUpSlice";
+import { addPlan } from "../../utils/subscriptionSlice";
 
 const PremiumCard = ({ year, sub, price }) => {
   const dispatch = useDispatch();

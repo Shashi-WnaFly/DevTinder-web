@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import Send from "../assets/Send";
+import Send from "../../assets/Send";
 import { useParams } from "react-router-dom";
-import { createSocketConnection } from "../utils/socket";
+import { createSocketConnection } from "../../utils/socket";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../../utils/constants";
 
 const Chat = () => {
   const [message, setMessage] = useState([]);
@@ -36,8 +36,6 @@ const Chat = () => {
   useEffect(() => {
     getChats();
   }, []);
-
-  // todo: implement the pagination
 
   useEffect(() => {
     msgEndRef.current?.scrollIntoView();

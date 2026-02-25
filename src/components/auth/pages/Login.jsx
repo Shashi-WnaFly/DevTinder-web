@@ -1,26 +1,24 @@
 import { useState } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
-import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { isStrongPassword, isEmail, isAlpha } from "validator";
-import { addNotification, removeNotification } from "../utils/notification";
-import NotificationBar from "./NotificationBar";
-import useToast from "../hooks/useToast";
+import { addUser } from "../../../utils/userSlice";
+import useToast from "../../../hooks/useToast";
+import NotificationBar from "../../common/NotificationBar";
+import { authService } from "../../../services/authService";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("demo@gmail.com");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLoginMode, setIsLoginMode] = useState(true);
   const [password, setPassword] = useState("Demo@123");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { showToast } = useToast();
 
   const handleForm = () => {
-    setIsLogin(!isLogin);
+    setIsLoginMode(!isLoginMode);
   };
 
   const handleForgotPass = () => {
@@ -37,17 +35,11 @@ const Login = () => {
         showToast("warning", "Password is not valid!!");
         return;
       }
-      if (isLogin) {
-        const res = await axios.post(
-          BASE_URL + "/login",
-          {
-            emailId,
-            password,
-          },
-          { withCredentials: true },
-        );
-        dispatch(addUser(res.data.data));
-        if (res.data.success) showToast("success", "Login successfully...");
+
+      if (isLoginMode) {
+        const res = await authService.login(emailId, password);
+        dispatch(addUser(res.data));
+        if (res.success) showToast("success", "Login successfully...");
         navigate("/");
       } else {
         if (
@@ -71,26 +63,24 @@ const Login = () => {
           );
           return;
         }
-        const res = await axios.post(
-          BASE_URL + "/signup",
-          { firstName, lastName, emailId, password },
-          { withCredentials: true },
-        );
-        dispatch(addUser(res.data.data));
+
+        const res = await authService.signup(firstName, lastName, emailId, password);
+        dispatch(addUser(res.data));
         navigate("/profile");
       }
     } catch (err) {
       showToast("error", err.response?.data?.message || "An error occurred");
     }
   };
+
   return (
     <div className="min-h-screen opacity-90 bg-[url('https://user-images.githubusercontent.com/13468728/233847739-219cb494-c265-4554-820a-bd3424c59065.jpg')] md:w-screen min-w-fit w-full h-screen flex flex-col items-center justify-center absolute -z-10 top-0 left-0">
       <>
         <div className="mt-16  md:text-base text-sm md:w-sm w-xs flex flex-col gap-2 rounded-xl justify-center border p-4 m-auto backdrop-blur-2xl">
           <h2 className="text-center text-2xl font-bold">
-            {isLogin ? "Login" : "SignUp"}
+            {isLoginMode ? "Login" : "SignUp"}
           </h2>
-          {!isLogin && (
+          {!isLoginMode && (
             <div className="flex flex-col gap-2">
               <label className="font-semibold ">FirstName</label>
               <input
@@ -130,12 +120,12 @@ const Login = () => {
             className="p-2 cursor-pointer font-semibold active:opacity-70 bg-gradient-to-r from-purple-500 to-purple-900 text-white rounded-full"
             onClick={handleLogin}
           >
-            {isLogin ? "Log In" : "Sign Up"}
+            {isLoginMode ? "Log In" : "Sign Up"}
           </button>
           <div className="flex flex-col gap-4 justify-center items-center my-4">
             <div className=" text-gray-200 ">
               <span>
-                {isLogin
+                {isLoginMode
                   ? "Don't have an account? "
                   : "Already have an account? "}
               </span>
@@ -143,10 +133,10 @@ const Login = () => {
                 onClick={handleForm}
                 className="text-white  active:text-gray-200 font-semibold hover:border-b-2 cursor-pointer"
               >
-                {isLogin ? " Sign up" : " Log in"}
+                {isLoginMode ? " Sign up" : " Log in"}
               </button>
             </div>
-            {isLogin && (
+            {isLoginMode && (
               <div className=" text-gray-200">
                 Forgot{" "}
                 <button
@@ -161,11 +151,6 @@ const Login = () => {
         </div>
       </>
       <NotificationBar />
-      {/* <Footer
-        className={
-          "absolute bottom-0 left-0 w-full px-8 border-t-1 border-gray-500 "
-        }
-      /> */}
     </div>
   );
 };

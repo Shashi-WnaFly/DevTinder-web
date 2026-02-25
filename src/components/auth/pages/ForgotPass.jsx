@@ -1,14 +1,13 @@
 import { useRef, useState } from "react";
-import mail_icon from "../assets/mail_icon.svg";
-import axios from "axios";
-import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmailId, removeEmailId } from "../utils/passwordResetEmailSlice";
-import { Eye, EyeOffIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { isEmail, isNumeric, isStrongPassword } from "validator";
-import NotificationBar from "./NotificationBar";
-import useToast from "../hooks/useToast";
+import { Eye, EyeOffIcon } from "lucide-react";
+import { addEmailId, removeEmailId } from "../../../utils/passwordResetEmailSlice";
+import useToast from "../../../hooks/useToast";
+import NotificationBar from "../../common/NotificationBar";
+import { authService } from "../../../services/authService";
+import mail_icon from "../../../assets/mail_icon.svg";
 
 const ForgotPass = () => {
   const emailId = useSelector((store) => store.passwordResetEmail);
@@ -70,12 +69,9 @@ const ForgotPass = () => {
         showToast("warning", "Please enter the same password in both fields.");
         return;
       }
-      const res = await axios.post(BASE_URL + "/reset/password", {
-        emailId,
-        newPass,
-        confirmPass,
-      });
-      if (res.data.success) {
+
+      const res = await authService.resetPassword(emailId, newPass, confirmPass);
+      if (res.success) {
         showToast("success", "Password reset successfully!");
         dispatch(removeEmailId());
         setTimeout(() => {
@@ -96,8 +92,9 @@ const ForgotPass = () => {
         showToast("error", "Please enter a valid email address.");
         return;
       }
-      const res = await axios.post(BASE_URL + "/send/otp", { emailId });
-      if (res.data.success) {
+
+      const res = await authService.sendOTP(emailId);
+      if (res.success) {
         setIsOTPSent(true);
         dispatch(addEmailId(emailId));
         showToast("success", "OTP sent to your email successfully!");
@@ -117,11 +114,9 @@ const ForgotPass = () => {
         showToast("invalid", "Please enter a valid 6-digit OTP.");
         return;
       }
-      const res = await axios.post(BASE_URL + "/verify/otp", {
-        otp,
-        emailId,
-      });
-      if (res.data.success) {
+
+      const res = await authService.verifyOTP(otp, emailId);
+      if (res.success) {
         setIsMailVerified(true);
         showToast("success", "Email verified successfully!");
       } else {
@@ -195,10 +190,7 @@ const ForgotPass = () => {
           </form>
           <p className="text-center mt-4 flex flex-col justify-center gap-4">
             Didn't receive the code?{" "}
-            <button
-              // onClick={handleResendOTP}
-              className="text-fuchsia-500 w-fit mx-auto p-2 font-semibold cursor-pointer active:underline  active:text-fuchsia-400"
-            >
+            <button className="text-fuchsia-500 w-fit mx-auto p-2 font-semibold cursor-pointer active:underline  active:text-fuchsia-400">
               Resend OTP
             </button>
           </p>

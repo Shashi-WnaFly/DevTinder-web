@@ -1,9 +1,8 @@
-import axios from "axios";
-import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addConnections } from "../utils/connectionSlice";
-import UserView from "./UserView";
+import { addConnections } from "../../../utils/connectionSlice";
+import { profileService } from "../../../services/profileService";
+import UserView from "../components/UserView";
 import { Link } from "react-router-dom";
 
 const Connections = () => {
@@ -12,10 +11,8 @@ const Connections = () => {
 
   const fetchConnections = async () => {
     try {
-      const connections = await axios.get(`${BASE_URL}/user/connections`, {
-        withCredentials: true,
-      });
-      dispatch(addConnections(connections.data.data));
+      const connections = await profileService.getUserConnections();
+      dispatch(addConnections(connections.data));
     } catch (error) {
       console.log("" + error);
     }

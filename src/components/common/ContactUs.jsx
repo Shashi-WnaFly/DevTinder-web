@@ -1,7 +1,7 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import ContactUsForm from "./ContactUsForm";
-import Footer from "./Footer";
+import Footer from "../layouts/Footer";
 
 const ContactUs = () => {
   return (
@@ -72,6 +72,6 @@ const ContactUs = () => {
       <Footer className={"min-h-fit w-full text-gray-500 bg-[#ffffff] border-t-1 border-gray-400 mt-4"}/>
     </div>
   );
-}
+};
 
 export default ContactUs;

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
+import Footer from "../layouts/Footer";
 
 const Privacy = () => {
   return (
@@ -11,10 +11,10 @@ const Privacy = () => {
         </h1>
         <hr className="text-gray-300 my-8" />
         <p>
-          TinderDev, LLC ("we”, “us”, or “our") provides this Privacy Policy to
+          TinderDev, LLC ("we", "us", or "our") provides this Privacy Policy to
           inform you of our policies and procedures regarding the collection,
           use and disclosure of personal information we may receive from users
-          of our website (“Site”) and any other services offered by us in
+          of our website ("Site") and any other services offered by us in
           connection with our site (any and all of the foregoing the
           "Services").
         </p>

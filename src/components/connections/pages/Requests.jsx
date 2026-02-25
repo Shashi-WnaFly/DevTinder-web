@@ -1,9 +1,8 @@
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { BASE_URL } from "../utils/constants";
-import { addRequests } from "../utils/requestSlice";
 import { useEffect } from "react";
-import Request from "./Request";
+import { addRequests } from "../../../utils/requestSlice";
+import { profileService } from "../../../services/profileService";
+import Request from "../components/Request";
 
 const Requests = () => {
   const dispatch = useDispatch();
@@ -11,10 +10,8 @@ const Requests = () => {
 
   const fetchRequests = async () => {
     try {
-      const requests = await axios.get(BASE_URL + "/user/requests/received", {
-        withCredentials: true,
-      });
-      dispatch(addRequests(requests.data.data));
+      const requests = await profileService.getReceivedRequests();
+      dispatch(addRequests(requests.data));
     } catch (error) {
       console.log("" + error);
     }

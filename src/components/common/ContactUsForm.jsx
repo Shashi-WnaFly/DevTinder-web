@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import validator from "validator";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../../utils/constants";
 
 const ContactUsForm = () => {
   const [form, setForm] = useState({
@@ -30,8 +30,6 @@ const ContactUsForm = () => {
       e.email = "Please enter a valid email.";
 
     if (!subject.trim()) e.subject = "Please add your subject.";
-    // if(!form.phone.trim())
-    //     e.phone = "Please enter your phone.";
     if (!message.trim()) e.message = "Please type your message.";
 
     return e;

@@ -1,9 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import UserCard from "./UserCard";
 import { useState } from "react";
-import axios from "axios";
-import { BASE_URL } from "../utils/constants";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../../../utils/userSlice";
+import { profileService } from "../../../services/profileService";
+import UserCard from "../components/UserCard";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -19,13 +18,17 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      const res = await axios.post(
-        BASE_URL + "/profile/edit",
-        { firstName, lastName, age, about, photoUrl, skills, gender },
-        { withCredentials: true },
-      );
+      const res = await profileService.updateProfile({
+        firstName,
+        lastName,
+        age,
+        about,
+        photoUrl,
+        skills,
+        gender,
+      });
       setShowToast(true);
-      dispatch(addUser(res?.data.data));
+      dispatch(addUser(res.data));
       setTimeout(() => {
         setShowToast(false);
       }, 3000);

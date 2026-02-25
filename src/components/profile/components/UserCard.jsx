@@ -1,12 +1,13 @@
-import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../../../utils/constants";
 import { useDispatch } from "react-redux";
-import { removeCard } from "../utils/feedSlice";
-import Verified from "../assets/Verified";
+import { removeCard } from "../../../utils/feedSlice";
+import Verified from "../../../assets/Verified";
+import { profileService } from "../../../services/profileService";
 
 const UserCard = ({ user }) => {
   const dispatch = useDispatch();
   if (!user) return;
+
   const {
     _id,
     firstName,
@@ -18,13 +19,10 @@ const UserCard = ({ user }) => {
     skills,
     about,
   } = user;
+
   const handleRequest = async (status) => {
     try {
-      await axios.post(
-        BASE_URL + "/request/send/" + status + "/" + _id,
-        {},
-        { withCredentials: true }
-      );
+      await profileService.sendConnectionRequest(status, _id);
       dispatch(removeCard(_id));
     } catch (error) {
       console.log("" + error);

@@ -1,19 +1,18 @@
-import axios from "axios";
-import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
-import { removeRequest } from "../utils/requestSlice";
+import { removeRequest } from "../../../utils/requestSlice";
 import UserView from "./UserView";
+import { profileService } from "../../../services/profileService";
 
 const Request = ({ req }) => {
   const dispatch = useDispatch();
+
   const handleReview = async (status, requestId) => {
     try {
-      const review = await axios.post(
-        `${BASE_URL}/request/review/${status}/${requestId}`,
-        {},
-        { withCredentials: true }
-      );
-      console.log(review);
+      if (status === "rejected") {
+        await profileService.rejectRequest(requestId);
+      } else {
+        await profileService.acceptRequest(requestId);
+      }
       dispatch(removeRequest(requestId));
     } catch (error) {
       console.log("" + error);

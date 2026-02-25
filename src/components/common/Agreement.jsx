@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { closePopUp } from "../utils/popUpSlice";
-import checkout from "../assets/checkout.svg";
-import cross from "../assets/cross.svg";
-import UserGuide from "./UserGuide";
+import { closePopUp } from "../../utils/popUpSlice";
+import checkout from "../../assets/checkout.svg";
+import cross from "../../assets/cross.svg";
+import UserGuide from "../premium/UserGuide";
 import { useState } from "react";
-import Tick from "../assets/Tick";
+import Tick from "../../assets/Tick";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../../utils/constants";
 
 const Agreement = () => {
   const [agree, setAgree] = useState(false);
@@ -16,7 +16,7 @@ const Agreement = () => {
 
   const handlePopUp = () => {
     dispatch(closePopUp());
-  }
+  };
 
   const handleRZYDialogBox = async () => {
     try {
@@ -28,7 +28,7 @@ const Agreement = () => {
         { withCredentials: true }
       );
 
-      const {key, amount, currency, orderId, notes } = order.data;
+      const { key, amount, currency, orderId, notes } = order.data;
 
       const options = {
         key,

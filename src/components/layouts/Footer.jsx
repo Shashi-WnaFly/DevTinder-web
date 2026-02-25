@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Flag from "../assets/Flag";
+import Flag from "../../assets/Flag";
 import { useSelector } from "react-redux";
 
 const Footer = ({ className }) => {
