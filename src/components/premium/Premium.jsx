@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
-import Agreement from "./Agreement";
+import Agreement from "../common/Agreement";
 import PremiumCard from "./PremiumCard";
-import Footer from "./Footer";
-import Ai from "../assets/Ai";
-import Flash from "../assets/Flash";
-import Cloud from "../assets/Cloud";
-import IOO from "../assets/IOO";
-import Tick from "../assets/Tick";
-import Chat from "../assets/Chat";
-import People from "../assets/People";
-import Ad from "../assets/Ad";
+import Footer from "../layout/Footer";
+import Ai from "../../assets/Ai";
+import Flash from "../../assets/Flash";
+import Cloud from "../../assets/Cloud";
+import IOO from "../../assets/IOO";
+import Tick from "../../assets/Tick";
+import Chat from "../../assets/Chat";
+import People from "../../assets/People";
+import Ad from "../../assets/Ad";
 
 const Premium = () => {
   const popUp = useSelector((store) => store.popUp);

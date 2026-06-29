@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import Send from "../assets/Send";
 import { useParams } from "react-router-dom";
-import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import Send from "../../assets/Send";
+import { createSocketConnection } from "../../utils/socket";
+import { BASE_URL } from "../../utils/constants";
 
 const Chat = () => {
   const [message, setMessage] = useState([]);

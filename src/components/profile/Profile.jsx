@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import UserCard from "./UserCard";
 import { useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
-import { addUser } from "../utils/userSlice";
+import { BASE_URL } from "../../utils/constants";
+import { addUser } from "../../utils/userSlice";
 
 const Profile = () => {
   const dispatch = useDispatch();

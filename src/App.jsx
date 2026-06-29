@@ -1,18 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import Body from "./components/Body";
-import Login from "./components/Login";
 import { Provider } from "react-redux";
+import "./App.css";
+import Body from "./components/layout/Body";
+import Login from "./components/Auth/Login";
 import appStore from "./utils/appStore";
-import Feed from "./components/Feed";
-import Profile from "./components/Profile";
-import Requests from "./components/Requests";
-import Connections from "./components/Connections";
-import Premium from "./components/Premium";
-import ContactUs from "./components/ContactUs";
-import Chat from "./components/Chat";
-import Verify from "./components/Verify";
-import ForgotPass from "./components/ForgotPass";
+import Feed from "./components/feed/Feed";
+import Profile from "./components/profile/Profile";
+import Requests from "./components/connection/Requests";
+import Connections from "./components/connection/Connections";
+import Premium from "./components/Premium/Premium";
+import ContactUs from "./components/common/ContactUs";
+import Chat from "./components/profile/Chat";
+import Verify from "./components/auth/Verify";
+import ForgotPass from "./components/auth/ForgotPass";
 
 function App() {
   return (

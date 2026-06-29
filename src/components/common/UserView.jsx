@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import Send from "../assets/Send";
+import Send from "../../assets/Send";
 const UserView = ({user}) => {
 
   const { _id, firstName, lastName, age, about, gender, photoUrl } = user;

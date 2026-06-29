@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import validator from "validator";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../../utils/constants";
 
 const ContactUsForm = () => {
   const [form, setForm] = useState({

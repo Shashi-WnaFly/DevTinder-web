@@ -1,8 +1,8 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../../utils/constants";
 import { useDispatch } from "react-redux";
-import { removeRequest } from "../utils/requestSlice";
-import UserView from "./UserView";
+import { removeRequest } from "../../utils/requestSlice";
+import UserView from "../common/UserView";
 
 const Request = ({ req }) => {
   const dispatch = useDispatch();

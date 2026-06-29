@@ -1,8 +1,8 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../../utils/constants";
 import { useDispatch } from "react-redux";
-import { removeCard } from "../utils/feedSlice";
-import Verified from "../assets/Verified";
+import { removeCard } from "../../utils/feedSlice";
+import Verified from "../../assets/Verified";
 
 const UserCard = ({ user }) => {
   const dispatch = useDispatch();

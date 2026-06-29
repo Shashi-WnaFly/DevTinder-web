@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Flag from "../assets/Flag";
 import { useSelector } from "react-redux";
+import Flag from "../../assets/Flag";
 
 const Footer = ({ className }) => {
   const user = useSelector((store) => store.user);

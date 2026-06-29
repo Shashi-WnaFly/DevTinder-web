@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { closePopUp } from "../utils/popUpSlice";
-import checkout from "../assets/checkout.svg";
-import cross from "../assets/cross.svg";
-import UserGuide from "./UserGuide";
-import { useState } from "react";
-import Tick from "../assets/Tick";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { closePopUp } from "../../utils/popUpSlice";
+import checkout from "../../assets/checkout.svg";
+import cross from "../../assets/cross.svg";
+import UserGuide from "../premium/UserGuide";
+import Tick from "../../assets/Tick";
+import { BASE_URL } from "../../utils/constants";
 
 const Agreement = () => {
   const [agree, setAgree] = useState(false);

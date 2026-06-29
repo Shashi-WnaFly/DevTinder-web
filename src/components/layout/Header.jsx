@@ -1,11 +1,11 @@
 import axios from "axios";
+import { Verified } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../utils/constants";
-import { removeUser } from "../utils/userSlice";
-import { removeFeed } from "../utils/feedSlice";
-import { removeRequestAll } from "../utils/requestSlice";
-import { Verified } from "lucide-react";
+import { BASE_URL } from "../../utils/constants";
+import { removeUser } from "../../utils/userSlice";
+import { removeFeed } from "../../utils/feedSlice";
+import { removeRequestAll } from "../../utils/requestSlice";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
@@ -26,7 +26,11 @@ const Header = () => {
 
   return (
     <>
-      <div className={["navbar shadow-sm" + (user ? " bg-base-200" : " bg-transparent")].join(" ")}>
+      <div
+        className={[
+          "navbar shadow-sm" + (user ? " bg-base-200" : " bg-transparent"),
+        ].join(" ")}
+      >
         <div className="flex-1 flex px-8">
           <Link to={"/"} className="p-1 font-semibold text-xl flex gap-2">
             <img className="w-6" src={"/logo.svg"} />
@@ -64,8 +68,9 @@ const Header = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <Link to={"/verify"} className="justify-between items-center">Verify Account
-                  <span className="after:content-['•'] after:text-2xl text-green-500 animate-pulse"></span>
+                  <Link to={"/verify"} className="justify-between items-center">
+                    Verify Account
+                    <span className="after:content-['•'] after:text-2xl text-green-500 animate-pulse"></span>
                   </Link>
                 </li>
                 <li>

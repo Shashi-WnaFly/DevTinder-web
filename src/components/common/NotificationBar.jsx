@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { CheckCircle, CircleAlert, Ban, OctagonX } from "lucide-react";
-import { removeNotification } from "../utils/notification";
+import { removeNotification } from "../../utils/notification";
 import { memo } from "react";
 
 const icons = {

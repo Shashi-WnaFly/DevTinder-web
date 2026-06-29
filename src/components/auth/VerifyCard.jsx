@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useRef } from "react";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../../utils/constants";
 
 const VerifyCard = () => {
   const inputRefs = useRef([]);
