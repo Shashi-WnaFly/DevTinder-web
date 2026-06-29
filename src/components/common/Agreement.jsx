@@ -1,12 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 import { closePopUp } from "../../utils/popUpSlice";
 import checkout from "../../assets/checkout.svg";
 import cross from "../../assets/cross.svg";
 import UserGuide from "../premium/UserGuide";
 import { useState } from "react";
 import Tick from "../../assets/Tick";
+=======
+>>>>>>> structure
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
+<<<<<<< HEAD
+=======
+import { closePopUp } from "../../utils/popUpSlice";
+import checkout from "../../assets/checkout.svg";
+import cross from "../../assets/cross.svg";
+import UserGuide from "../premium/UserGuide";
+import Tick from "../../assets/Tick";
+>>>>>>> structure
 import { BASE_URL } from "../../utils/constants";
 
 const Agreement = () => {

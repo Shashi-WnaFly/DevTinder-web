@@ -1,7 +1,11 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import ContactUsForm from "./ContactUsForm";
+<<<<<<< HEAD
 import Footer from "../layouts/Footer";
+=======
+import Footer from "../layout/Footer";
+>>>>>>> structure
 
 const ContactUs = () => {
   return (
@@ -19,14 +23,22 @@ const ContactUs = () => {
         <aside className="bg-gradient-to-b from-white to-gray-50 rounded-2xl p-6 md:p-8 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="text-lg font-semibold mb-3">Get in touch</h3>
-            <p className="text-sm text-muted-foreground mb-4">Prefer email? Use shshianand2600@gmail.com. Want faster support? Reach out on our socials below.</p>
+            <p className="text-sm text-muted-foreground mb-4">
+              Prefer email? Use shshianand2600@gmail.com. Want faster support?
+              Reach out on our socials below.
+            </p>
 
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 mt-1 text-indigo-600" />
                 <div>
                   <p className="font-medium">Email</p>
-                  <a href="mailto:shshianand2600@gmail.com" className="text-sm text-indigo-600 hover:underline">shshianand2600@gmail.com</a>
+                  <a
+                    href="mailto:shshianand2600@gmail.com"
+                    className="text-sm text-indigo-600 hover:underline"
+                  >
+                    shshianand2600@gmail.com
+                  </a>
                 </div>
               </li>
 
@@ -34,7 +46,12 @@ const ContactUs = () => {
                 <Phone className="w-5 h-5 mt-1 text-indigo-600" />
                 <div>
                   <p className="font-medium">Phone</p>
-                  <a href="tel:+919931165218" className="text-sm text-gray-700 hover:underline">+91 9931165218</a>
+                  <a
+                    href="tel:+919931165218"
+                    className="text-sm text-gray-700 hover:underline"
+                  >
+                    +91 9931165218
+                  </a>
                 </div>
               </li>
 
@@ -42,7 +59,9 @@ const ContactUs = () => {
                 <MapPin className="w-5 h-5 mt-1 text-indigo-600" />
                 <div>
                   <p className="font-medium">Office</p>
-                  <p className="text-sm text-gray-700">Patna, India • Remote-friendly</p>
+                  <p className="text-sm text-gray-700">
+                    Patna, India • Remote-friendly
+                  </p>
                 </div>
               </li>
             </ul>
@@ -60,16 +79,26 @@ const ContactUs = () => {
             </div>
 
             <div className="mt-4 flex items-center gap-3 text-sm text-gray-600">
-              <a href="#" className="underline">Twitter</a>
+              <a href="#" className="underline">
+                Twitter
+              </a>
               <span>•</span>
-              <a href="#" className="underline">Instagram</a>
+              <a href="#" className="underline">
+                Instagram
+              </a>
               <span>•</span>
-              <a href="#" className="underline">LinkedIn</a>
+              <a href="#" className="underline">
+                LinkedIn
+              </a>
             </div>
           </div>
         </aside>
       </motion.div>
-      <Footer className={"min-h-fit w-full text-gray-500 bg-[#ffffff] border-t-1 border-gray-400 mt-4"}/>
+      <Footer
+        className={
+          "min-h-fit w-full text-gray-500 bg-[#ffffff] border-t-1 border-gray-400 mt-4"
+        }
+      />
     </div>
   );
 };

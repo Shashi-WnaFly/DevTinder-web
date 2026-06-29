@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import Footer from "../layouts/Footer";
+=======
+import Footer from "../layout/Footer";
+>>>>>>> structure
 
 const Privacy = () => {
   return (
