@@ -1,11 +1,5 @@
-<<<<<<<< HEAD:src/components/connections/components/UserView.jsx
 import { Link } from "react-router-dom";
-import Send from "../../../assets/Send";
-========
-import { Link } from "react-router-dom"
 import Send from "../../assets/Send";
-const UserView = ({user}) => {
->>>>>>>> structure:src/components/common/UserView.jsx
 
 const UserView = ({ user }) => {
   const { _id, firstName, lastName, age, about, gender, photoUrl } = user;

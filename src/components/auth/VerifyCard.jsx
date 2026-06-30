@@ -1,10 +1,6 @@
 import axios from "axios";
 import React, { useRef } from "react";
-<<<<<<<< HEAD:src/components/auth/components/VerifyCard.jsx
-import { BASE_URL } from "../../../utils/constants";
-========
 import { BASE_URL } from "../../utils/constants";
->>>>>>>> structure:src/components/auth/VerifyCard.jsx
 
 const VerifyCard = () => {
   const inputRefs = useRef([]);
@@ -36,7 +32,7 @@ const VerifyCard = () => {
       const res = await axios.post(
         BASE_URL + "/user/send/otp",
         {},
-        { withCredentials: true }
+        { withCredentials: true },
       );
       console.log(res.message);
     } catch (err) {
@@ -51,7 +47,7 @@ const VerifyCard = () => {
       const res = await axios.post(
         BASE_URL + "/user/verify/otp",
         { otp },
-        { withCredentials: true }
+        { withCredentials: true },
       );
       console.log(res.message);
     } catch (err) {
@@ -68,7 +64,10 @@ const VerifyCard = () => {
         Enter the verification code sent to your email
       </p>
       <form>
-        <div className=" flex justify-between mb-8 " onPaste={(e) => handlePaste(e)}>
+        <div
+          className=" flex justify-between mb-8 "
+          onPaste={(e) => handlePaste(e)}
+        >
           {[0, 0, 0, 0, 0, 0].map((_, index) => (
             <input
               key={index}

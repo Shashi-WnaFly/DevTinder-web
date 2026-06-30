@@ -1,13 +1,7 @@
 import { useSelector } from "react-redux";
-<<<<<<< HEAD
 import PremiumCard from "./PremiumCard";
 import Agreement from "../common/Agreement";
-import Footer from "../layouts/Footer";
-=======
-import Agreement from "../common/Agreement";
-import PremiumCard from "./PremiumCard";
 import Footer from "../layout/Footer";
->>>>>>> structure
 import Ai from "../../assets/Ai";
 import Flash from "../../assets/Flash";
 import Cloud from "../../assets/Cloud";

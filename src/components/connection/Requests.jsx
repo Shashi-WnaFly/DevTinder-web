@@ -1,13 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-<<<<<<<< HEAD:src/components/connections/pages/Requests.jsx
-========
+import { useDispatch, useSelector } from "react-redux"
 import { BASE_URL } from "../../utils/constants";
 import { addRequests } from "../../utils/requestSlice";
->>>>>>>> structure:src/components/connection/Requests.jsx
 import { useEffect } from "react";
-import { addRequests } from "../../../utils/requestSlice";
-import { profileService } from "../../../services/profileService";
-import Request from "../components/Request";
+import { profileService } from "../../services/profileService";
+import Request from "./Request";
 
 const Requests = () => {
   const dispatch = useDispatch();

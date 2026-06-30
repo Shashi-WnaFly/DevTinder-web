@@ -1,17 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-<<<<<<<< HEAD:src/components/chat/Chat.jsx
-import Send from "../../assets/Send";
-import { useParams } from "react-router-dom";
-import { createSocketConnection } from "../../utils/socket";
-import { useSelector } from "react-redux";
-import axios from "axios";
-========
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Send from "../../assets/Send";
 import { createSocketConnection } from "../../utils/socket";
->>>>>>>> structure:src/components/profile/Chat.jsx
 import { BASE_URL } from "../../utils/constants";
 
 const Chat = () => {

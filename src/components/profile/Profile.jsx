@@ -1,14 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-<<<<<<<< HEAD:src/components/profile/pages/Profile.jsx
-import { addUser } from "../../../utils/userSlice";
-import { profileService } from "../../../services/profileService";
-import UserCard from "../components/UserCard";
-========
-import axios from "axios";
+import { profileService } from "../../services/profileService";
+import UserCard from "./UserCard";
 import { BASE_URL } from "../../utils/constants";
 import { addUser } from "../../utils/userSlice";
->>>>>>>> structure:src/components/profile/Profile.jsx
 
 const Profile = () => {
   const dispatch = useDispatch();

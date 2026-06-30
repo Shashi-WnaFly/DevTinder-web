@@ -1,22 +1,13 @@
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { isEmail, isNumeric, isStrongPassword } from "validator";
 import { Eye, EyeOffIcon } from "lucide-react";
-<<<<<<<< HEAD:src/components/auth/pages/ForgotPass.jsx
-import { addEmailId, removeEmailId } from "../../../utils/passwordResetEmailSlice";
-import useToast from "../../../hooks/useToast";
-import NotificationBar from "../../common/NotificationBar";
-import { authService } from "../../../services/authService";
-import mail_icon from "../../../assets/mail_icon.svg";
-========
 import useToast from "../../hooks/useToast";
 import { BASE_URL } from "../../utils/constants";
 import NotificationBar from "../common/NotificationBar";
 import { addEmailId, removeEmailId } from "../../utils/passwordResetEmailSlice";
 import mail_icon from "../../assets/mail_icon.svg";
->>>>>>>> structure:src/components/auth/ForgotPass.jsx
 
 const ForgotPass = () => {
   const emailId = useSelector((store) => store.passwordResetEmail);

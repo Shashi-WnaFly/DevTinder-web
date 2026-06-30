@@ -1,14 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
-import { addFeed } from "../../utils/feedSlice";
 import { feedService } from "../../services/feedService";
-import UserCard from "../profile/components/UserCard";
-=======
 import { BASE_URL } from "../../utils/constants";
 import { addFeed } from "../../utils/feedSlice";
 import UserCard from "../profile/UserCard";
->>>>>>> structure
 
 const Feed = () => {
   const dispatch = useDispatch();

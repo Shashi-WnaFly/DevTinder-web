@@ -6,10 +6,6 @@ import { BASE_URL } from "../../utils/constants";
 import { removeUser } from "../../utils/userSlice";
 import { removeFeed } from "../../utils/feedSlice";
 import { removeRequestAll } from "../../utils/requestSlice";
-<<<<<<<< HEAD:src/components/layouts/Header.jsx
-import { Verified } from "lucide-react";
-========
->>>>>>>> structure:src/components/layout/Header.jsx
 
 const Header = () => {
   const user = useSelector((store) => store.user);

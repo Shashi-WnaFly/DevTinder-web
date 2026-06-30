@@ -1,16 +1,8 @@
-<<<<<<<< HEAD:src/components/profile/components/UserCard.jsx
-import { BASE_URL } from "../../../utils/constants";
-import { useDispatch } from "react-redux";
-import { removeCard } from "../../../utils/feedSlice";
-import Verified from "../../../assets/Verified";
-import { profileService } from "../../../services/profileService";
-========
-import axios from "axios";
+import { profileService } from "../../services/profileService";
 import { BASE_URL } from "../../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeCard } from "../../utils/feedSlice";
 import Verified from "../../assets/Verified";
->>>>>>>> structure:src/components/profile/UserCard.jsx
 
 const UserCard = ({ user }) => {
   const dispatch = useDispatch();

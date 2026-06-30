@@ -1,15 +1,8 @@
-<<<<<<<< HEAD:src/components/connections/components/Request.jsx
-import { useDispatch } from "react-redux";
-import { removeRequest } from "../../../utils/requestSlice";
-import UserView from "./UserView";
-import { profileService } from "../../../services/profileService";
-========
-import axios from "axios";
+import { profileService } from "../../services/profileService";
 import { BASE_URL } from "../../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeRequest } from "../../utils/requestSlice";
 import UserView from "../common/UserView";
->>>>>>>> structure:src/components/connection/Request.jsx
 
 const Request = ({ req }) => {
   const dispatch = useDispatch();

@@ -1,9 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
-=======
-import { CheckCircle, CircleAlert, Ban, OctagonX } from "lucide-react";
-import { removeNotification } from "../../utils/notification";
->>>>>>> structure
 import { memo } from "react";
 import { CheckCircle, CircleAlert, Ban, OctagonX } from "lucide-react";
 import { removeNotification } from "../../utils/notification";

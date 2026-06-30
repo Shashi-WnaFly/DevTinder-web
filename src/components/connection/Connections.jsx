@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addConnections } from "../../utils/connectionSlice";
 import UserView from "../common/UserView";
->>>>>>>> structure:src/components/connection/Connections.jsx
 import { Link } from "react-router-dom";
 
 const Connections = () => {

@@ -1,21 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-<<<<<<<< HEAD:src/components/auth/pages/Login.jsx
-import { useNavigate } from "react-router-dom";
-import { isStrongPassword, isEmail, isAlpha } from "validator";
-import { addUser } from "../../../utils/userSlice";
-import useToast from "../../../hooks/useToast";
-import NotificationBar from "../../common/NotificationBar";
-import { authService } from "../../../services/authService";
-========
 import { addUser } from "../../utils/userSlice";
 import { BASE_URL } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { isStrongPassword, isEmail, isAlpha } from "validator";
-import { addNotification, removeNotification } from "../../utils/notification";
 import NotificationBar from "../common/NotificationBar";
 import useToast from "../../hooks/useToast";
->>>>>>>> structure:src/components/auth/Login.jsx
+import {authService} from "../../services/authService"
 
 const Login = () => {
   const [emailId, setEmailId] = useState("demo@gmail.com");

@@ -1,8 +1,4 @@
 import { Link } from "react-router-dom";
-<<<<<<<< HEAD:src/components/layouts/Footer.jsx
-import Flag from "../../assets/Flag";
-========
->>>>>>>> structure:src/components/layout/Footer.jsx
 import { useSelector } from "react-redux";
 import Flag from "../../assets/Flag";
 
