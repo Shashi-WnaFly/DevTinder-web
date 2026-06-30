@@ -1,11 +1,4 @@
-<<<<<<<< HEAD:src/components/connections/pages/Connections.jsx
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { addConnections } from "../../../utils/connectionSlice";
-import { profileService } from "../../../services/profileService";
-import UserView from "../components/UserView";
-========
-import axios from "axios";
+import api from "../../configs/api";
 import { BASE_URL } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -20,8 +13,8 @@ const Connections = () => {
 
   const fetchConnections = async () => {
     try {
-      const connections = await profileService.getUserConnections();
-      dispatch(addConnections(connections.data));
+      const connections = await api.get(`/user/connections`);
+      dispatch(addConnections(connections.data.data));
     } catch (error) {
       console.log("" + error);
     }
