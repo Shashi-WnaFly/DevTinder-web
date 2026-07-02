@@ -1,54 +1,36 @@
-import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import api from "../configs/api";
 
 export const profileService = {
   updateProfile: async (profileData) => {
-    const response = await axios.post(
-      BASE_URL + "/profile/edit",
-      profileData,
-      { withCredentials: true }
-    );
+    const response = await api.post("/profile/edit", profileData);
     return response.data;
   },
 
   getUserConnections: async () => {
-    const response = await axios.get(`${BASE_URL}/user/connections`, {
+    const response = await api.get(`${BASE_URL}/user/connections`, {
       withCredentials: true,
     });
     return response.data;
   },
 
   getReceivedRequests: async () => {
-    const response = await axios.get(BASE_URL + "/user/requests/received", {
-      withCredentials: true,
-    });
+    const response = await api.get("/user/requests/received");
     return response.data;
   },
 
   sendConnectionRequest: async (status, userId) => {
-    const response = await axios.post(
-      BASE_URL + `/request/send/${status}/${userId}`,
-      {},
-      { withCredentials: true }
-    );
+    const response = await api.post(`/request/send/${status}/${userId}`);
     return response.data;
   },
 
   acceptRequest: async (requestId) => {
-    const response = await axios.post(
-      BASE_URL + `/request/review/interested/${requestId}`,
-      {},
-      { withCredentials: true }
-    );
+    const response = await api.post(`/request/review/interested/${requestId}`);
     return response.data;
   },
 
   rejectRequest: async (requestId) => {
-    const response = await axios.post(
-      BASE_URL + `/request/review/ignored/${requestId}`,
-      {},
-      { withCredentials: true }
-    );
+    const response = await api.post(`/request/review/ignored/${requestId}`);
     return response.data;
   },
 };

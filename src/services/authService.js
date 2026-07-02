@@ -1,48 +1,44 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import api from "../configs/api";
 
 export const authService = {
   login: async (emailId, password) => {
-    const response = await axios.post(
+    const response = await api.post(
       BASE_URL + "/login",
       { emailId, password },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },
 
   signup: async (firstName, lastName, emailId, password) => {
-    const response = await axios.post(
-      BASE_URL + "/signup",
-      { firstName, lastName, emailId, password },
-      { withCredentials: true }
-    );
-    return response.data;
-  },
-
-  logout: async () => {
-    const response = await axios.post(
-      BASE_URL + "/logout",
-      {},
-      { withCredentials: true }
-    );
-    return response.data;
-  },
-
-  getProfile: async () => {
-    const response = await axios.get(BASE_URL + "/profile/view", {
-      withCredentials: true,
+    const response = await api.post("/signup", {
+      firstName,
+      lastName,
+      emailId,
+      password,
     });
     return response.data;
   },
 
+  logout: async () => {
+    const response = await api.post("/logout");
+    return response.data;
+  },
+
+  getProfile: async () => {
+    const response = await api.get("/profile/view");
+    return response.data;
+  },
+
   sendOTP: async (emailId) => {
-    const response = await axios.post(BASE_URL + "/send/otp", { emailId });
+    const response = await api.post("/send/otp", { emailId });
     return response.data;
   },
 
   verifyOTP: async (otp, emailId) => {
-    const response = await axios.post(BASE_URL + "/verify/otp", {
+    const response = await api.post("/verify/otp", {
       otp,
       emailId,
     });
@@ -50,7 +46,7 @@ export const authService = {
   },
 
   resetPassword: async (emailId, newPass, confirmPass) => {
-    const response = await axios.post(BASE_URL + "/reset/password", {
+    const response = await api.post("/reset/password", {
       emailId,
       newPass,
       confirmPass,
