@@ -5,6 +5,7 @@ import axios from "axios";
 import Send from "../../assets/Send";
 import { createSocketConnection } from "../../utils/socket";
 import { BASE_URL } from "../../utils/constants";
+import api from "../../configs/api";
 
 const Chat = () => {
   const [message, setMessage] = useState([]);
@@ -21,16 +22,14 @@ const Chat = () => {
   };
 
   const getChats = async () => {
-    const chats = await axios.get(`${BASE_URL}/chat/${targetUserId}`, {
-      withCredentials: true,
-    });
+    const chats = await api.get(`/chat/${targetUserId}`);
 
     if (!chats.data) {
       console.error("something went wrong!!!");
       return;
     }
 
-    setMessage((message) => [...message, ...chats.data.data]);
+    setMessage((message) => [...chats.data.data, ...message]);
   };
 
   useEffect(() => {
@@ -39,7 +38,7 @@ const Chat = () => {
 
   useEffect(() => {
     msgEndRef.current?.scrollIntoView();
-  }, [message]);
+  }, []);
 
   useEffect(() => {
     const socket = createSocketConnection();
@@ -59,7 +58,8 @@ const Chat = () => {
           <h2 className="p-4 text-xl font-semibold">Chat</h2>
         </div>
         <div className="w-full mx-auto self-stretch overflow-x-hidden">
-          <div className="scroll-smooth flex flex-col gap-2 px-4 py-2">
+          <div on className="scroll-smooth flex flex-col gap-2 px-4 py-2">
+            <div onFocus={() => getChats()}></div>
             {message?.map(({ senderId, text }, index) => {
               return senderId.toString() === loggedUserId.toString() ? (
                 <div
