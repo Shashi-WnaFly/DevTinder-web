@@ -24,13 +24,8 @@ export const profileService = {
     return response.data;
   },
 
-  acceptRequest: async (requestId) => {
-    const response = await api.post(`/request/review/interested/${requestId}`);
-    return response.data;
-  },
-
-  rejectRequest: async (requestId) => {
-    const response = await api.post(`/request/review/ignored/${requestId}`);
+  reviewRequest: async (status, requestId) => {
+    const response = await api.post(`/request/review/${status}/${requestId}`);
     return response.data;
   },
 };

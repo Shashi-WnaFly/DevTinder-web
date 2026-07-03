@@ -9,11 +9,7 @@ const Request = ({ req }) => {
 
   const handleReview = async (status, requestId) => {
     try {
-      if (status === "rejected") {
-        await profileService.rejectRequest(requestId);
-      } else {
-        await profileService.acceptRequest(requestId);
-      }
+      await profileService.reviewRequest(status, requestId);
       dispatch(removeRequest(requestId));
     } catch (error) {
       console.log("" + error);
