@@ -1,44 +1,96 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import Send from "../../assets/Send";
 import { createSocketConnection } from "../../utils/socket";
 import { BASE_URL } from "../../utils/constants";
 import api from "../../configs/api";
+const LIMIT = 20;
 
 const Chat = () => {
   const [message, setMessage] = useState([]);
   const [newMsg, setNewMsg] = useState("");
+
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
+  const chatRef = useRef<HTMLDivElement>(null);
+  const msgEndRef = useRef<HTMLDivElement>(null);
+  
   const { targetUserId } = useParams();
   const user = useSelector((store) => store.user);
   const loggedUserId = user?._id;
-  const msgEndRef = useRef(null);
 
   const handleSend = () => {
     const socket = createSocketConnection();
+    if(!newMsg)
+      return;
     socket.emit("sendMessage", { loggedUserId, targetUserId, text: newMsg });
     setNewMsg("");
   };
 
-  const getChats = async () => {
-    const chats = await api.get(`/chat/${targetUserId}`);
-
-    if (!chats.data) {
-      console.error("something went wrong!!!");
+  const getChats = async (pageNo: number) => {
+    if(loading || !hasMore) 
       return;
-    }
+    console.log("getChats called");
 
-    setMessage((message) => [...chats.data.data, ...message]);
+    setLoading(true);
+    const container = chatRef.current;
+    const prevHeight = container?.scrollheight || 0;
+    try {
+      const res = await api.get(`/chat/${targetUserId}?page=${pageNo}`);
+      
+      const chats = res.data.data;
+
+      if(chats.length < LIMIT)
+        setHasMore(false);
+
+      setMessage((prev) => [...chats, ...prev]);
+
+      requestAnimationFrame(() => {
+        if(!container)
+          return;
+        const newHeight = container.scrollHeight;
+
+        container.scrollTop += newHeight - prevHeight;
+      })
+      
+      if (!chats.data) {
+        console.error("something went wrong!!!");
+        return;
+      }
+      
+      setMessage((message) => [...chats.data.data, ...message]);
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    getChats();
+    getChats(page);
   }, []);
 
   useEffect(() => {
-    msgEndRef.current?.scrollIntoView();
+    msgEndRef.current?.scrollIntoView({
+      behavior: "smooth"
+    });
   }, []);
+
+  const handleScroll = () => {
+    const container = chatRef.current;
+
+    if(!container || loading || !hasMore)
+      return;
+
+    if(container.scrollTop <= 20){
+      const nextPage = page + 1;
+      setPage(nextPage);
+      getChats(nextPage);
+    }
+  }
 
   useEffect(() => {
     const socket = createSocketConnection();
@@ -58,8 +110,8 @@ const Chat = () => {
           <h2 className="p-4 text-xl font-semibold">Chat</h2>
         </div>
         <div className="w-full mx-auto self-stretch overflow-x-hidden">
-          <div on className="scroll-smooth flex flex-col gap-2 px-4 py-2">
-            <div onFocus={() => getChats()}></div>
+          <div ref={chatRef} onScroll={handleScroll} className="scroll-smooth flex flex-col gap-2 px-4 py-2">
+            {loading && <p>loading...</p>}
             {message?.map(({ senderId, text }, index) => {
               return senderId.toString() === loggedUserId.toString() ? (
                 <div
