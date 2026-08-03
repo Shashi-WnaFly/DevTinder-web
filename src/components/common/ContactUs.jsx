@@ -1,5 +1,4 @@
 import { Mail, Phone, MapPin } from "lucide-react";
-import { motion } from "framer-motion";
 import ContactUsForm from "./ContactUsForm";
 import Footer from "../layout/Footer";
 

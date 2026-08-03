@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
 import validator from "validator";
 import { BASE_URL } from "../../utils/constants";
+import api from "../../configs/api";
 
 const ContactUsForm = () => {
   const [form, setForm] = useState({
@@ -44,16 +44,12 @@ const ContactUsForm = () => {
     setStatus({ loading: true, success: null, error: null });
 
     try {
-      const res = await axios.post(
-        BASE_URL + "/user/send/email",
-        {
-          name: form.name.trim(),
-          fromAddress: form.email.trim(),
-          subject: form.subject.trim(),
-          message: form.message.trim(),
-        },
-        { withCredentials: true }
-      );
+      const res = await api.post("/user/send/email", {
+        name: form.name.trim(),
+        fromAddress: form.email.trim(),
+        subject: form.subject.trim(),
+        message: form.message.trim(),
+      });
 
       if (res.status != 201) {
         setForm({ name: "", email: "", subject: "", phone: "", message: "" });

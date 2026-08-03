@@ -13,7 +13,7 @@ const useToast = (duration = 3000) => {
       }, duration);
       dispatch(addNotification({ id, type, message, timeout: to }));
     },
-    [duration],
+    [duration, dispatch],
   );
   return { showToast };
 };
