@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import ContactUsForm from "./ContactUsForm";
 import Footer from "../layout/Footer";
+import { motion } from "framer-motion";
 
 const ContactUs = () => {
   return (
