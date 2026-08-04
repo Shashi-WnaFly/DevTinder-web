@@ -9,7 +9,7 @@ import Feed from "./components/feed/Feed";
 import Profile from "./components/profile/Profile";
 import Requests from "./components/connection/Requests";
 import Connections from "./components/connection/Connections";
-import Premium from "./components/Premium/Premium";
+import Premium from "./components/premium/Premium";
 import ContactUs from "./components/common/ContactUs";
 import Chat from "./components/profile/Chat";
 import Verify from "./components/auth/Verify";
