@@ -1,148 +1,154 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Send from "../../assets/Send";
-import { createSocketConnection } from "../../utils/socket";
-import { BASE_URL } from "../../utils/constants";
+import { createSocketConnection } from "../../configs/socket";
 import api from "../../configs/api";
-const LIMIT = 20;
+import { addChats, chatPush } from "../../utils/chatSlice";
 
 const Chat = () => {
-  const [message, setMessage] = useState([]);
-  const [newMsg, setNewMsg] = useState("");
-
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-
-  const chatRef = useRef<HTMLDivElement>(null);
-  const msgEndRef = useRef<HTMLDivElement>(null);
-  
-  const { targetUserId } = useParams();
+  const {
+    items: msgList = [],
+    page,
+    hasMore,
+  } = useSelector((store) => store.chat);
   const user = useSelector((store) => store.user);
+
+  const [newMsg, setNewMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const chatRef = useRef(null);
+  const msgEndRef = useRef(null);
+  const socketRef = useRef(null);
+
+  const { targetUserId } = useParams();
+  const dispatch = useDispatch();
   const loggedUserId = user?._id;
 
-  const handleSend = () => {
-    const socket = createSocketConnection();
-    if(!newMsg)
-      return;
-    socket.emit("sendMessage", { loggedUserId, targetUserId, text: newMsg });
-    setNewMsg("");
-  };
+  const getChats = useCallback(async () => {
+    if (loading || !hasMore || !targetUserId) return;
 
-  const getChats = async (pageNo: number) => {
-    if(loading || !hasMore) 
-      return;
-    console.log("getChats called");
+    const container = chatRef.current;
+    const previousHeight = container?.scrollHeight ?? 0;
 
     setLoading(true);
-    const container = chatRef.current;
-    const prevHeight = container?.scrollheight || 0;
+
     try {
-      const res = await api.get(`/chat/${targetUserId}?page=${pageNo}`);
-      
-      const chats = res.data.data;
+      const { data } = await api.get(
+        `/chat/${targetUserId}?page=${page}&limit=15`,
+      );
 
-      if(chats.length < LIMIT)
-        setHasMore(false);
-
-      setMessage((prev) => [...chats, ...prev]);
+      dispatch(
+        addChats({
+          data: data.data,
+          hasMore: data.hasMore,
+        }),
+      );
 
       requestAnimationFrame(() => {
-        if(!container)
-          return;
-        const newHeight = container.scrollHeight;
+        if (!container) return;
 
-        container.scrollTop += newHeight - prevHeight;
-      })
-      
-      if (!chats.data) {
-        console.error("something went wrong!!!");
-        return;
-      }
-      
-      setMessage((message) => [...chats.data.data, ...message]);
+        const newHeight = container.scrollHeight;
+        container.scrollTop += newHeight - previousHeight;
+      });
     } catch (error) {
-      console.log(error)
-    }finally{
+      console.error("Could not load chats:", error);
+    } finally {
       setLoading(false);
     }
-  };
+  }, [dispatch, hasMore, loading, page, targetUserId]);
 
   useEffect(() => {
-    getChats(page);
+    if (msgList.length === 0) {
+      getChats();
+    }
   }, []);
 
   useEffect(() => {
-    msgEndRef.current?.scrollIntoView({
-      behavior: "smooth"
+    const socket = createSocketConnection();
+    socketRef.current = socket;
+    console.log("joinChat");
+    socket.emit("joinChat", { targetUserId });
+
+    const onMessageReceived = ({ senderId, text, createdAt }) => {
+      dispatch(chatPush({ senderId, text, createdAt }));
+    };
+
+    socket.on("messageReceived", onMessageReceived);
+
+    return () => {
+      socket.off("messageReceived", onMessageReceived);
+      socket.disconnect();
+      socketRef.current = null;
+    };
+  }, [dispatch, loggedUserId, targetUserId]);
+
+  useEffect(() => {
+    msgEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [msgList.length]);
+
+  const handleSend = () => {
+    const text = newMsg.trim();
+
+    if (!text || !socketRef.current || !targetUserId) return;
+
+    socketRef.current.emit("sendMessage", {
+      targetUserId,
+      text,
     });
-  }, []);
+
+    setNewMsg("");
+  };
 
   const handleScroll = () => {
     const container = chatRef.current;
 
-    if(!container || loading || !hasMore)
-      return;
-
-    if(container.scrollTop <= 20){
-      const nextPage = page + 1;
-      setPage(nextPage);
-      getChats(nextPage);
+    if (container?.scrollTop <= 20) {
+      getChats();
     }
-  }
-
-  useEffect(() => {
-    const socket = createSocketConnection();
-    socket.emit("joinChat", { loggedUserId, targetUserId });
-    socket.on("messageReceived", ({ senderId, text }) => {
-      setMessage((message) => [...message, { senderId, text }]);
-    });
-    return () => {
-      socket.disconnect();
-    };
-  }, [loggedUserId, targetUserId]);
+  };
 
   return (
-    <div className="absolute w-full h-screen top-0 left-0 -z-10">
-      <div className="w-full flex h-screen flex-col lg:w-6/12 mx-auto pt-16">
-        <div className="border-1 border-gray-400">
+    <div className="absolute inset-0 -z-10">
+      <div className="mx-auto flex h-screen w-full flex-col pt-16 lg:w-6/12">
+        <div className="border border-gray-400">
           <h2 className="p-4 text-xl font-semibold">Chat</h2>
         </div>
-        <div className="w-full mx-auto self-stretch overflow-x-hidden">
-          <div ref={chatRef} onScroll={handleScroll} className="scroll-smooth flex flex-col gap-2 px-4 py-2">
-            {loading && <p>loading...</p>}
-            {message?.map(({ senderId, text }, index) => {
-              return senderId.toString() === loggedUserId.toString() ? (
-                <div
-                  key={index}
-                  className="place-self-end bg-green-700 px-2 py-1 rounded-md max-w-10/12"
-                >
-                  {text}
-                </div>
-              ) : (
-                <div
-                  key={index}
-                  className=" place-self-start bg-base-300 px-2 py-1 rounded-md max-w-10/12"
-                >
-                  {text}
-                </div>
-              );
-            })}
-            <div ref={msgEndRef}></div>
-          </div>
+
+        <div
+          ref={chatRef}
+          onScroll={handleScroll}
+          className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-4 py-2"
+        >
+          {loading && <p>Loading…</p>}
+
+          {msgList.map(({ _id, senderId, text }) => (
+            <div
+              key={_id ?? `${senderId}-${text}`}
+              className={
+                String(senderId) === String(loggedUserId)
+                  ? "place-self-end rounded-md bg-green-700 px-2 py-1"
+                  : "place-self-start rounded-md bg-base-300 px-2 py-1"
+              }
+            >
+              {text}
+            </div>
+          ))}
+
+          <div ref={msgEndRef} />
         </div>
-        <div className=" w-full place-items-start flex items-center justify-center gap-2 p-2">
+
+        <div className="flex items-center gap-2 p-2">
           <input
             value={newMsg}
             onChange={(e) => setNewMsg(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
             placeholder="Message"
-            type="text"
-            className="w-11/12 py-3 px-4 rounded-full border-2 border-amber-50"
+            className="w-full rounded-full border-2 border-amber-50 px-4 py-3"
           />
           <button
             onClick={handleSend}
-            className="w-12 bg-green-400 rounded-full p-1"
+            className="w-12 rounded-full bg-green-400 p-1 active:bg-green-600"
           >
             <Send />
           </button>
