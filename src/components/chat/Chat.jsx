@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Send from "../../assets/Send";
@@ -24,6 +24,7 @@ const Chat = () => {
   const { targetUserId } = useParams();
   const dispatch = useDispatch();
   const loggedUserId = user?._id;
+  let prevDate = "";
 
   const getChats = useCallback(async () => {
     if (loading || !hasMore || !targetUserId) return;
@@ -108,6 +109,14 @@ const Chat = () => {
     }
   };
 
+  const getfullDate = (date) => {
+    return new Date(date).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
     <div className="absolute inset-0 -z-10">
       <div className="mx-auto flex h-screen w-full flex-col pt-16 lg:w-6/12">
@@ -122,18 +131,57 @@ const Chat = () => {
         >
           {loading && <p>Loading…</p>}
 
-          {msgList.map(({ _id, senderId, text }) => (
-            <div
-              key={_id ?? `${senderId}-${text}`}
-              className={
-                String(senderId) === String(loggedUserId)
-                  ? "place-self-end rounded-md bg-green-700 px-2 py-1"
-                  : "place-self-start rounded-md bg-base-300 px-2 py-1"
-              }
-            >
-              {text}
-            </div>
-          ))}
+          {msgList.map(({ _id, senderId, text, createdAt }) => {
+            const st = getfullDate(createdAt);
+            const fl = prevDate == st;
+            prevDate = st;
+            return fl ? (
+              <div
+                key={_id ?? `${senderId}-${text}`}
+                className={
+                  String(senderId) === String(loggedUserId)
+                    ? "place-self-end rounded-md bg-green-700 px-2 py-1"
+                    : "place-self-start rounded-md bg-base-300 px-2 py-1"
+                }
+              >
+                <div className="flex gap-2">
+                  <div>{text}</div>
+                  <div className="text-xs opacity-80 place-self-end">
+                    {new Date(createdAt).toLocaleTimeString("en-IN", {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: false,
+                    })}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div key={_id ?? `${senderId}-${text}`} className="w-full">
+                <div className="text-xs opacity-70 w-fit mx-auto rounded-md py-1 px-2 bg-gray-800 ">
+                  {st}
+                </div>
+
+                <div
+                  className={
+                    String(senderId) === String(loggedUserId)
+                      ? "place-self-end rounded-md bg-green-700 px-2 py-1"
+                      : "place-self-start rounded-md bg-base-300 px-2 py-1"
+                  }
+                >
+                  <div className="flex gap-2">
+                    <div>{text}</div>
+                    <div className="text-xs opacity-80 place-self-end">
+                      {new Date(createdAt).toLocaleTimeString("en-IN", {
+                        hour: "numeric",
+                        minute: "numeric",
+                        hour12: false,
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
 
           <div ref={msgEndRef} />
         </div>
