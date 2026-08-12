@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
-  page: 1,
+  nextCursor: null,
   hasMore: true,
 };
 
@@ -13,7 +13,7 @@ const chatSlice = createSlice({
     addChats: (state, action) => {
       state.items = [...action.payload.data, ...state.items];
       state.hasMore = action.payload.hasMore;
-      state.page += 1;
+      state.nextCursor = action.payload.nextCursor;
     },
     chatPush: (state, action) => {
       state.items.push(action.payload);

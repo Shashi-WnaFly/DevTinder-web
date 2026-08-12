@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Send from "../../assets/Send";
@@ -9,7 +9,7 @@ import { addChats, chatPush } from "../../utils/chatSlice";
 const Chat = () => {
   const {
     items: msgList = [],
-    page,
+    nextCursor,
     hasMore,
   } = useSelector((store) => store.chat);
   const user = useSelector((store) => store.user);
@@ -36,13 +36,14 @@ const Chat = () => {
 
     try {
       const { data } = await api.get(
-        `/chat/${targetUserId}?page=${page}&limit=15`,
+        `/chat/${targetUserId}?before=${nextCursor}`,
       );
 
       dispatch(
         addChats({
           data: data.data,
           hasMore: data.hasMore,
+          nextCursor: data.nextCursor,
         }),
       );
 
@@ -57,7 +58,7 @@ const Chat = () => {
     } finally {
       setLoading(false);
     }
-  }, [dispatch, hasMore, loading, page, targetUserId]);
+  }, [dispatch, hasMore, loading, nextCursor, targetUserId]);
 
   useEffect(() => {
     if (msgList.length === 0) {
@@ -84,9 +85,9 @@ const Chat = () => {
     };
   }, [dispatch, loggedUserId, targetUserId]);
 
-  useEffect(() => {
-    msgEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [msgList.length]);
+  // useEffect(() => {
+  //   msgEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [msgList.length]);
 
   const handleSend = () => {
     const text = newMsg.trim();
