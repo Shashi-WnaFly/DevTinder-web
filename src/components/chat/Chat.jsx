@@ -35,10 +35,10 @@ const Chat = () => {
     setLoading(true);
 
     try {
-      const { data } = await api.get(
-        `/chat/${targetUserId}?before=${nextCursor}`,
-      );
-
+      const { data } = await api.get(`/chat/${targetUserId}`, {
+        params: nextCursor ? { before: nextCursor } : {},
+      });
+      console.log("called chat api");
       dispatch(
         addChats({
           data: data.data,
@@ -104,8 +104,8 @@ const Chat = () => {
 
   const handleScroll = () => {
     const container = chatRef.current;
-
     if (container?.scrollTop <= 20) {
+      console.log(container?.scrollTop);
       getChats();
     }
   };
