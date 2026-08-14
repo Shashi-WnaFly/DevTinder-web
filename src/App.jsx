@@ -11,7 +11,7 @@ import Requests from "./components/connection/Requests";
 import Connections from "./components/connection/Connections";
 import Premium from "./components/premium/Premium";
 import ContactUs from "./components/common/ContactUs";
-import Chat from "./components/chat/Chat";
+import ChatPage from "./components/chat/ChatPage";
 import Verify from "./components/auth/Verify";
 import ForgotPass from "./components/auth/ForgotPass";
 
@@ -31,7 +31,7 @@ function App() {
               <Route path="/connections" element={<Connections />} />
               <Route path="/premium" element={<Premium />} />
               <Route path="/contact_us" element={<ContactUs />} />
-              <Route path="/chat/:targetUserId" element={<Chat />} />
+              <Route path="/chat/:targetUserId" element={<ChatPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

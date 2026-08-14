@@ -1,6 +1,8 @@
 import { getFourDigitTime } from "../../utils/common";
 
-const Message = ({ _id, senderId, text, createdAt, loggedUserId }) => {
+const Message = (props) => {
+  
+  const { _id, senderId, text, createdAt, loggedUserId } = props.props;
   return (
     <div
       key={_id ?? `${senderId}-${text}`}

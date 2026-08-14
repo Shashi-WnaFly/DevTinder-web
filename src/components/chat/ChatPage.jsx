@@ -5,8 +5,11 @@ import Send from "../../assets/Send";
 import { createSocketConnection } from "../../configs/socket";
 import api from "../../configs/api";
 import { addChats, chatPush } from "../../utils/chatSlice";
+import Message from "./Message";
+import MsgWithDate from "./MsgWithDate";
+import { getFullDate } from "../../utils/common";
 
-const Chat = () => {
+const ChatPage = () => {
   const {
     items: msgList = [],
     nextCursor,
@@ -18,7 +21,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
 
   const chatRef = useRef(null);
-  const msgEndRef = useRef(null);
+  // const msgEndRef = useRef(null);
   const socketRef = useRef(null);
 
   const { targetUserId } = useParams();
@@ -38,7 +41,7 @@ const Chat = () => {
       const { data } = await api.get(`/chat/${targetUserId}`, {
         params: nextCursor ? { before: nextCursor } : {},
       });
-      console.log("called chat api");
+
       dispatch(
         addChats({
           data: data.data,
@@ -69,7 +72,7 @@ const Chat = () => {
   useEffect(() => {
     const socket = createSocketConnection();
     socketRef.current = socket;
-    console.log("joinChat");
+
     socket.emit("joinChat", { targetUserId });
 
     const onMessageReceived = ({ senderId, text, createdAt }) => {
@@ -105,17 +108,8 @@ const Chat = () => {
   const handleScroll = () => {
     const container = chatRef.current;
     if (container?.scrollTop <= 20) {
-      console.log(container?.scrollTop);
       getChats();
     }
-  };
-
-  const getfullDate = (date) => {
-    return new Date(date).toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    });
   };
 
   return (
@@ -133,58 +127,21 @@ const Chat = () => {
           {loading && <p>Loading…</p>}
 
           {msgList.map(({ _id, senderId, text, createdAt }) => {
-            const st = getfullDate(createdAt);
+            const st = getFullDate(createdAt);
             const fl = prevDate == st;
             prevDate = st;
             return fl ? (
-              <div
-                key={_id ?? `${senderId}-${text}`}
-                className={
-                  String(senderId) === String(loggedUserId)
-                    ? "place-self-end rounded-md bg-green-700 px-2 py-1"
-                    : "place-self-start rounded-md bg-base-300 px-2 py-1"
-                }
-              >
-                <div className="flex gap-2">
-                  <div>{text}</div>
-                  <div className="text-xs opacity-80 place-self-end">
-                    {new Date(createdAt).toLocaleTimeString("en-IN", {
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: false,
-                    })}
-                  </div>
-                </div>
-              </div>
+              <Message
+                props={{ _id, senderId, text, createdAt, loggedUserId }}
+              />
             ) : (
-              <div key={_id ?? `${senderId}-${text}`} className="w-full">
-                <div className="text-xs opacity-70 w-fit mx-auto rounded-md py-1 px-2 bg-gray-800 ">
-                  {st}
-                </div>
-
-                <div
-                  className={
-                    String(senderId) === String(loggedUserId)
-                      ? "place-self-end rounded-md bg-green-700 px-2 py-1"
-                      : "place-self-start rounded-md bg-base-300 px-2 py-1"
-                  }
-                >
-                  <div className="flex gap-2">
-                    <div>{text}</div>
-                    <div className="text-xs opacity-80 place-self-end">
-                      {new Date(createdAt).toLocaleTimeString("en-IN", {
-                        hour: "numeric",
-                        minute: "numeric",
-                        hour12: false,
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <MsgWithDate
+                props={{  _id, senderId, text, createdAt, loggedUserId, st }}
+              />
             );
           })}
 
-          <div ref={msgEndRef} />
+          {/* <div ref={msgEndRef} /> */}
         </div>
 
         <div className="flex items-center gap-2 p-2">
@@ -207,4 +164,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatPage;
