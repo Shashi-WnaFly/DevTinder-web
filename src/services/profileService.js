@@ -1,4 +1,3 @@
-import { BASE_URL } from "../utils/constants";
 import api from "../configs/api";
 
 export const profileService = {
@@ -8,7 +7,7 @@ export const profileService = {
   },
 
   getUserConnections: async () => {
-    const response = await api.get(`${BASE_URL}/user/connections`, {
+    const response = await api.get(`/user/connections`, {
       withCredentials: true,
     });
     return response.data;

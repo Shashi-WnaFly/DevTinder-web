@@ -1,4 +1,3 @@
-import { BASE_URL } from "../utils/constants";
 import api from "../configs/api";
 
 export const feedService = {

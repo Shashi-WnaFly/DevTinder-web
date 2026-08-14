@@ -35,12 +35,15 @@ const UserCard = ({ user }) => {
         <img src={photoUrl} alt="photo" className="rounded-xl object-cover " />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{firstName + " " + lastName + " "}</h2>
-        {isPremium && (
-          <span>
-            <Verified className={"fill-blue-600"} />
-          </span>
-        )}
+        <h2 className="card-title">
+          {isPremium && (
+            <span className="w-4">
+              <Verified className={"fill-blue-600"} />
+            </span>
+          )}
+          {firstName + " " + lastName + " "}
+        </h2>
+
         <p>{gender && age && gender + " " + age}</p>
         <p>{about || ""}</p>
         <p>{skills || ""}</p>

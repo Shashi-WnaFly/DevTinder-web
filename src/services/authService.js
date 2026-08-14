@@ -1,13 +1,8 @@
-import { BASE_URL } from "../utils/constants";
 import api from "../configs/api";
 
 export const authService = {
   login: async (emailId, password) => {
-    const response = await api.post(
-      BASE_URL + "/login",
-      { emailId, password },
-      { withCredentials: true },
-    );
+    const response = await api.post("/login", { emailId, password });
     return response.data;
   },
 

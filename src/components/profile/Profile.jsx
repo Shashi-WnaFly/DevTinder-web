@@ -14,7 +14,7 @@ const Profile = () => {
   const [about, setAbout] = useState(user?.about || "");
   const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
   const [skills, setSkills] = useState(user?.skills);
-  const [gender, setGender] = useState(user?.gender || "");
+  const [gender, setGender] = useState(user?.gender || "male");
   const [showToast, setShowToast] = useState(false);
 
   const handleSave = async () => {
@@ -67,15 +67,13 @@ const Profile = () => {
                 value={lastName}
               />
             </fieldset>
-            <fieldset className="fieldset">
+            <fieldset className="fieldset ">
               <legend className="fieldset-legend">What is your gender?</legend>
               <select
-                defaultValue="Server location"
-                className="select select-neutral  w-full"
+                className="select select-neutral w-full"
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
               >
-                <option disabled={true}>Pick Gender</option>
                 <option>male</option>
                 <option>female</option>
                 <option>other</option>
