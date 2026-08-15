@@ -21,8 +21,9 @@ const ChatPage = () => {
   const [loading, setLoading] = useState(false);
 
   const chatRef = useRef(null);
-  // const msgEndRef = useRef(null);
+  const msgEndRef = useRef(null);
   const socketRef = useRef(null);
+  const inputRef = useRef(null);
 
   const { targetUserId } = useParams();
   const dispatch = useDispatch();
@@ -101,8 +102,12 @@ const ChatPage = () => {
       targetUserId,
       text,
     });
-
+    msgEndRef.current?.scrollIntoView({ behavior: "smooth" });
     setNewMsg("");
+
+    requestAnimationFrame(() => {
+      inputRef.current?.focus();
+    });
   };
 
   const handleScroll = () => {
@@ -136,24 +141,32 @@ const ChatPage = () => {
               />
             ) : (
               <MsgWithDate
-                props={{  _id, senderId, text, createdAt, loggedUserId, st }}
+                props={{ _id, senderId, text, createdAt, loggedUserId, st }}
               />
             );
           })}
 
-          {/* <div ref={msgEndRef} /> */}
+          <div ref={msgEndRef} />
         </div>
 
         <div className="flex items-center gap-2 p-2">
           <input
+            ref={inputRef}
             value={newMsg}
             onChange={(e) => setNewMsg(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
             placeholder="Message"
             className="w-full rounded-full border-2 border-amber-50 px-4 py-3"
           />
           <button
             onClick={handleSend}
+            type="button"
+            onMouseDown={(e) => e.preventDefault()}
             className="w-12 rounded-full bg-green-400 p-1 active:bg-green-600"
           >
             <Send />
