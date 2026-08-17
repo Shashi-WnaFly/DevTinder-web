@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Send from "../../assets/Send";
@@ -19,11 +25,13 @@ const ChatPage = () => {
 
   const [newMsg, setNewMsg] = useState("");
   const [loading, setLoading] = useState(false);
+  const [scrollBottom, setScrollBottom] = useState(false);
 
   const chatRef = useRef(null);
   const msgEndRef = useRef(null);
   const socketRef = useRef(null);
   const inputRef = useRef(null);
+  const shouldAutoScrollRef = useRef(false);
 
   const { targetUserId } = useParams();
   const dispatch = useDispatch();
@@ -64,35 +72,6 @@ const ChatPage = () => {
     }
   }, [dispatch, hasMore, loading, nextCursor, targetUserId]);
 
-  useEffect(() => {
-    if (msgList.length === 0) {
-      getChats();
-    }
-  }, []);
-
-  useEffect(() => {
-    const socket = createSocketConnection();
-    socketRef.current = socket;
-
-    socket.emit("joinChat", { targetUserId });
-
-    const onMessageReceived = ({ senderId, text, createdAt }) => {
-      dispatch(chatPush({ senderId, text, createdAt }));
-    };
-
-    socket.on("messageReceived", onMessageReceived);
-
-    return () => {
-      socket.off("messageReceived", onMessageReceived);
-      socket.disconnect();
-      socketRef.current = null;
-    };
-  }, [dispatch, loggedUserId, targetUserId]);
-
-  // useEffect(() => {
-  //   msgEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  // }, [msgList.length]);
-
   const handleSend = () => {
     const text = newMsg.trim();
 
@@ -102,7 +81,7 @@ const ChatPage = () => {
       targetUserId,
       text,
     });
-    msgEndRef.current?.scrollIntoView({ behavior: "smooth" });
+
     setNewMsg("");
 
     requestAnimationFrame(() => {
@@ -115,11 +94,63 @@ const ChatPage = () => {
     if (container?.scrollTop <= 20) {
       getChats();
     }
+
+    if (isNearBottom(container)) {
+      setScrollBottom(false);
+    }
   };
+
+  const isNearBottom = (container) => {
+    if (!container) return true;
+
+    const disFromBottom =
+      container.scrollHeight - container.scrollTop - container.clientHeight;
+    return disFromBottom <= 20;
+  };
+
+  const scrollToBottom = () => {
+    msgEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
+
+  useEffect(() => {
+    if (msgList.length === 0) {
+      getChats();
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!shouldAutoScrollRef.current) return;
+    scrollToBottom();
+    shouldAutoScrollRef.current = false;
+  }, [msgList]);
+
+  useEffect(() => {
+    const socket = createSocketConnection();
+    socketRef.current = socket;
+
+    socket.emit("joinChat", { targetUserId });
+
+    const onMessageReceived = ({ senderId, text, createdAt }) => {
+      const userIsAtBottom = isNearBottom(chatRef.current);
+
+      shouldAutoScrollRef.current = userIsAtBottom;
+      if (!userIsAtBottom) setScrollBottom(true);
+
+      dispatch(chatPush({ senderId, text, createdAt }));
+    };
+
+    socket.on("messageReceived", onMessageReceived);
+
+    return () => {
+      socket.off("messageReceived", onMessageReceived);
+      socket.disconnect();
+      socketRef.current = null;
+    };
+  }, [dispatch, loggedUserId, targetUserId]);
 
   return (
     <div className="absolute inset-0 -z-10">
-      <div className="mx-auto flex h-screen w-full flex-col pt-16 lg:w-6/12">
+      <div className=" relative mx-auto flex h-screen w-full flex-col pt-16 lg:w-6/12">
         <div className="border border-gray-400">
           <h2 className="p-4 text-xl font-semibold">Chat</h2>
         </div>
@@ -127,7 +158,7 @@ const ChatPage = () => {
         <div
           ref={chatRef}
           onScroll={handleScroll}
-          className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-4 py-2"
+          className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-4 my-1"
         >
           {loading && <p>Loading…</p>}
 
@@ -148,6 +179,20 @@ const ChatPage = () => {
 
           <div ref={msgEndRef} />
         </div>
+        {!isNearBottom(chatRef.current) && (
+          <button
+            type="button"
+            onClick={scrollToBottom}
+            className={
+              "absolute top-20 left-1/2 -translate-x-1/2 rounded-full px-4 py-2 w-fit text-sm font-medium text-white shadow" +
+              scrollBottom
+                ? "bg-green-500"
+                : "bg-gray-200"
+            }
+          >
+            New messages ↓
+          </button>
+        )}
 
         <div className="flex items-center gap-2 p-2">
           <input
