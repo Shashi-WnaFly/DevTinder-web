@@ -14,6 +14,7 @@ import { addChats, chatPush } from "../../utils/chatSlice";
 import Message from "./Message";
 import MsgWithDate from "./MsgWithDate";
 import { getFullDate } from "../../utils/common";
+import { ChevronsDown } from "lucide-react";
 
 const ChatPage = () => {
   const {
@@ -25,7 +26,8 @@ const ChatPage = () => {
 
   const [newMsg, setNewMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const [scrollBottom, setScrollBottom] = useState(false);
+  const [showScrollDown, setShowScrollDown] = useState(false);
+  const [newMsgArrive, setNewMsgArrive] = useState(false);
 
   const chatRef = useRef(null);
   const msgEndRef = useRef(null);
@@ -93,10 +95,14 @@ const ChatPage = () => {
     const container = chatRef.current;
     if (container?.scrollTop <= 20) {
       getChats();
+      return;
     }
-
-    if (isNearBottom(container)) {
-      setScrollBottom(false);
+    const nb = isNearBottom(container);
+    if (nb) {
+      setNewMsgArrive(false);
+      if (showScrollDown) setShowScrollDown(false);
+    } else {
+      setShowScrollDown(true);
     }
   };
 
@@ -134,7 +140,7 @@ const ChatPage = () => {
       const userIsAtBottom = isNearBottom(chatRef.current);
 
       shouldAutoScrollRef.current = userIsAtBottom;
-      if (!userIsAtBottom) setScrollBottom(true);
+      if (!userIsAtBottom) setNewMsgArrive(true);
 
       dispatch(chatPush({ senderId, text, createdAt }));
     };
@@ -150,7 +156,7 @@ const ChatPage = () => {
 
   return (
     <div className="absolute inset-0 -z-10">
-      <div className=" relative mx-auto flex h-screen w-full flex-col pt-16 lg:w-6/12">
+      <div className="relative mx-auto flex h-screen w-full flex-col pt-16 lg:w-6/12">
         <div className="border border-gray-400">
           <h2 className="p-4 text-xl font-semibold">Chat</h2>
         </div>
@@ -179,18 +185,16 @@ const ChatPage = () => {
 
           <div ref={msgEndRef} />
         </div>
-        {!isNearBottom(chatRef.current) && (
+        {showScrollDown && (
           <button
             type="button"
             onClick={scrollToBottom}
-            className={
-              "absolute top-20 left-1/2 -translate-x-1/2 rounded-full px-4 py-2 w-fit text-sm font-medium text-white shadow" +
-              scrollBottom
-                ? "bg-green-500"
-                : "bg-gray-200"
-            }
+            className={`absolute right-10 bottom-25 h-10 w-10 rounded-full cursor-pointer ${newMsgArrive ? "bg-green-500 bg-radial-[circle, #14ffe9,#ffeb3b,#ff00f3,#ff00c4,#14ffe9] [background-size:400%] animate-myHue" : ""}`}
           >
-            New messages ↓
+            <div className="bg-black absolute z-10 top-1/2 left-1/2 [transform:translate(-50%,-50%)] inline-flex justify-center content-center p-2 rounded-full text-gray-300">
+              <ChevronsDown size={18} />
+            </div>
+            <span className=" blur-xs rounded-full absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] h-full w-full [background:inherit]"></span>
           </button>
         )}
 
