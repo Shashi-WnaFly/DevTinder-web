@@ -174,11 +174,13 @@ const ChatPage = () => {
             prevDate = st;
             return fl ? (
               <Message
-                props={{ _id, senderId, text, createdAt, loggedUserId }}
+                key={_id}
+                props={{ senderId, text, createdAt, loggedUserId }}
               />
             ) : (
               <MsgWithDate
-                props={{ _id, senderId, text, createdAt, loggedUserId, st }}
+                key={_id}
+                props={{ senderId, text, createdAt, loggedUserId, st }}
               />
             );
           })}
@@ -191,7 +193,9 @@ const ChatPage = () => {
             onClick={scrollToBottom}
             className={`absolute right-10 bottom-25 h-10 w-10 rounded-full cursor-pointer ${newMsgArrive ? "bg-green-500 bg-radial-[circle, #14ffe9,#ffeb3b,#ff00f3,#ff00c4,#14ffe9] [background-size:400%] animate-myHue" : ""}`}
           >
-            <div className="bg-black absolute z-10 top-1/2 left-1/2 [transform:translate(-50%,-50%)] inline-flex justify-center content-center p-2 rounded-full text-gray-300">
+            <div
+              className={`absolute z-10 top-1/2 left-1/2 [transform:translate(-50%,-50%)] inline-flex justify-center content-center p-2 rounded-full text-gray-300 ${newMsgArrive ? "bg-black" : "bg-gray-600"}`}
+            >
               <ChevronsDown size={18} />
             </div>
             <span className=" blur-xs rounded-full absolute top-1/2 left-1/2 [transform:translate(-50%,-50%)] h-full w-full [background:inherit]"></span>

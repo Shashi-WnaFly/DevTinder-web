@@ -1,11 +1,9 @@
 import { getFourDigitTime } from "../../utils/common";
 
 const Message = (props) => {
-  
-  const { _id, senderId, text, createdAt, loggedUserId } = props.props;
+  const { senderId, text, createdAt, loggedUserId } = props.props;
   return (
     <div
-      key={_id ?? `${senderId}-${text}`}
       className={
         String(senderId) === String(loggedUserId)
           ? "place-self-end rounded-md bg-green-700 px-2 py-1"
