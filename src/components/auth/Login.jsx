@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { isStrongPassword, isEmail, isAlpha } from "validator";
 import NotificationBar from "../common/NotificationBar";
 import useToast from "../../hooks/useToast";
-import {authService} from "../../services/authService"
+import { authService } from "../../services/authService";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("demo@gmail.com");
@@ -65,7 +65,12 @@ const Login = () => {
           return;
         }
 
-        const res = await authService.signup(firstName, lastName, emailId, password);
+        const res = await authService.signup(
+          firstName,
+          lastName,
+          emailId,
+          password,
+        );
         dispatch(addUser(res.data));
         navigate("/profile");
       }
