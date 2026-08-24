@@ -25,10 +25,12 @@ const ChatPage = () => {
   const user = useSelector((store) => store.user);
 
   const [newMsg, setNewMsg] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState("");
   const [showScrollDown, setShowScrollDown] = useState(false);
   const [newMsgArrive, setNewMsgArrive] = useState(false);
 
+  const historyLoadingRef = useRef(false);
+  const pendingScrollRef = useRef(null);
   const chatRef = useRef(null);
   const msgEndRef = useRef(null);
   const socketRef = useRef(null);
@@ -40,17 +42,45 @@ const ChatPage = () => {
   const loggedUserId = user?._id;
   let prevDate = "";
 
-  const getChats = useCallback(async () => {
-    if (loading || !hasMore || !targetUserId) return;
+  const loadInitialChats = useCallback(async () => {
+    if (!targetUserId) return;
+
+    try {
+      const { data } = await api.get(`/chat/${targetUserId}`);
+
+      // Tell the layout effect this is the first load.
+      pendingScrollRef.current = { type: "bottom" };
+
+      dispatch(
+        addChats({
+          data: data.data,
+          hasMore: data.hasMore,
+          nextCursor: data.nextCursor,
+        }),
+      );
+    } catch (error) {
+      console.error("Could not load chats:", error);
+    }
+  }, [dispatch, targetUserId]);
+
+  const loadOlderChats = useCallback(async () => {
+    if (historyLoadingRef.current || !hasMore || !nextCursor) return;
 
     const container = chatRef.current;
-    const previousHeight = container?.scrollHeight ?? 0;
+    if (!container) return;
 
-    setLoading(true);
+    historyLoadingRef.current = true;
+
+    // Save position BEFORE older messages are prepended.
+    pendingScrollRef.current = {
+      type: "restore",
+      top: container.scrollTop,
+      height: container.scrollHeight,
+    };
 
     try {
       const { data } = await api.get(`/chat/${targetUserId}`, {
-        params: nextCursor ? { before: nextCursor } : {},
+        params: { before: nextCursor },
       });
 
       dispatch(
@@ -60,19 +90,13 @@ const ChatPage = () => {
           nextCursor: data.nextCursor,
         }),
       );
-
-      requestAnimationFrame(() => {
-        if (!container) return;
-
-        const newHeight = container.scrollHeight;
-        container.scrollTop += newHeight - previousHeight;
-      });
     } catch (error) {
+      pendingScrollRef.current = null;
       console.error("Could not load chats:", error);
     } finally {
-      setLoading(false);
+      historyLoadingRef.current = false;
     }
-  }, [dispatch, hasMore, loading, nextCursor, targetUserId]);
+  }, [dispatch, hasMore, nextCursor, targetUserId]);
 
   const handleSend = () => {
     const text = newMsg.trim();
@@ -93,17 +117,16 @@ const ChatPage = () => {
 
   const handleScroll = () => {
     const container = chatRef.current;
-    if (container?.scrollTop <= 20) {
-      getChats();
-      return;
+    if (!container) return;
+
+    if (container.scrollTop <= 20) {
+      loadOlderChats();
     }
-    const nb = isNearBottom(container);
-    if (nb) {
-      setNewMsgArrive(false);
-      if (showScrollDown) setShowScrollDown(false);
-    } else {
-      setShowScrollDown(true);
-    }
+
+    const atBottom = isNearBottom(container);
+    setShowScrollDown(!atBottom);
+
+    if (atBottom) setNewMsgArrive(false);
   };
 
   const isNearBottom = (container) => {
@@ -120,12 +143,33 @@ const ChatPage = () => {
 
   useEffect(() => {
     if (msgList.length === 0) {
-      getChats();
+      loadInitialChats();
     }
-  }, []);
+  }, [msgList.length, loadInitialChats]);
+
+  useLayoutEffect(() => {
+    const container = chatRef.current;
+    const pending = pendingScrollRef.current;
+
+    if (!container || !pending) return;
+
+    if (pending.type === "bottom") {
+      container.scrollTop = container.scrollHeight;
+    }
+
+    if (pending.type === "restore") {
+      const heightAddedAbove = container.scrollHeight - pending.height;
+
+      // The same old message remains at the same screen location.
+      container.scrollTop = pending.top + heightAddedAbove;
+    }
+
+    pendingScrollRef.current = null;
+  }, [msgList]);
 
   useLayoutEffect(() => {
     if (!shouldAutoScrollRef.current) return;
+    console.log("useLayoutEffect..");
     scrollToBottom();
     shouldAutoScrollRef.current = false;
   }, [msgList]);
@@ -136,13 +180,13 @@ const ChatPage = () => {
 
     socket.emit("joinChat", { targetUserId });
 
-    const onMessageReceived = ({ senderId, text, createdAt }) => {
-      const userIsAtBottom = isNearBottom(chatRef.current);
+    const onMessageReceived = ({ _id, senderId, text, createdAt }) => {
+      const shouldScroll = isNearBottom(chatRef.current);
 
-      shouldAutoScrollRef.current = userIsAtBottom;
-      if (!userIsAtBottom) setNewMsgArrive(true);
+      shouldAutoScrollRef.current = shouldScroll;
+      if (!shouldScroll) setNewMsgArrive(true);
 
-      dispatch(chatPush({ senderId, text, createdAt }));
+      dispatch(chatPush({ _id, senderId, text, createdAt }));
     };
 
     socket.on("messageReceived", onMessageReceived);
@@ -166,7 +210,7 @@ const ChatPage = () => {
           onScroll={handleScroll}
           className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto px-4 my-1"
         >
-          {loading && <p>Loading…</p>}
+          {historyLoadingRef.current && <p>Loading…</p>}
 
           {msgList.map(({ _id, senderId, text, createdAt }) => {
             const st = getFullDate(createdAt);
